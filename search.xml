@@ -1,0 +1,221 @@
+<?xml version="1.0" encoding="utf-8"?>
+<search> 
+  
+  
+    
+    <entry>
+      <title>随身wifi折腾记录</title>
+      <link href="/2022/08/14/UFI410%E9%9A%8F%E8%BA%ABwifi%E6%8A%98%E8%85%BE%E8%AE%B0%E5%BD%95/"/>
+      <url>/2022/08/14/UFI410%E9%9A%8F%E8%BA%ABwifi%E6%8A%98%E8%85%BE%E8%AE%B0%E5%BD%95/</url>
+      
+        <content type="html"><![CDATA[]]></content>
+      
+      
+      <categories>
+          
+          <category> Linux </category>
+          
+          <category> 安卓 </category>
+          
+          <category> 随身wifi </category>
+          
+          <category> 刷机 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> Linux </tag>
+            
+            <tag> 安卓 </tag>
+            
+            <tag> 随身wifi </tag>
+            
+            <tag> 刷机 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>滕达AC9硬改16M避坑指南</title>
+      <link href="/2022/05/04/%E6%BB%95%E8%BE%BEAC9%E7%A1%AC%E6%94%B916M%E9%81%BF%E5%9D%91%E6%8C%87%E5%8D%97/"/>
+      <url>/2022/05/04/%E6%BB%95%E8%BE%BEAC9%E7%A1%AC%E6%94%B916M%E9%81%BF%E5%9D%91%E6%8C%87%E5%8D%97/</url>
+      
+        <content type="html"><![CDATA[<ul><li>不知道上次更新博文是什么时候了orz，可能只是我太懒了吧，几次内容都想好了结果最后还是没有开始写</li></ul><h1 id="起因"><a href="#起因" class="headerlink" title="起因"></a>起因</h1><blockquote><p>我哥在家里换了带宽后拿了台AC9，本着折腾的念头决定自己改16M Flash，途中踩了不少的坑。</p></blockquote><h1 id="准备"><a href="#准备" class="headerlink" title="准备"></a>准备</h1><p>自己有个858d的风枪和936的烙铁，但还是菜：&lt;</p><h3 id="用的上的工具"><a href="#用的上的工具" class="headerlink" title="用的上的工具"></a>用的上的工具</h3><ul><li>CH341A编程器 *1</li><li>SOP8宽体烧录座 *1(因为懒XD)</li><li>25Q128闪存 *2(多买个备用)</li><li>烙铁 *1</li><li>热风枪 *1(技术好或许用不上？)</li><li>助焊膏 *1(我觉得是必须的，因为原来的锡化不开&#x3D; &#x3D;)</li><li>焊锡 *1(贴回去，我用的是锡膏，还是懒：&gt;)</li></ul><h1 id="开始"><a href="#开始" class="headerlink" title="开始"></a>开始</h1><h2 id="第一个坑——TTL100-3秒之谜"><a href="#第一个坑——TTL100-3秒之谜" class="headerlink" title="第一个坑——TTL100 3秒之谜"></a>第一个坑——TTL100 3秒之谜</h2><p><img src="https://cdn.jsdelivr.net/gh/Sanksu/IMG/2022/TTL100.png"></p><p>在各大论坛上逛了许久，发现TTL&#x3D;100只有三秒就是其中一个批次会出现的问题，腾达在这一批次上修改了cfe，所以我们首先要改cfe</p><ul><li><p>首先，打开telnet，国内的固件没有这一开关，但是我们可以直接通过访问<strong>192.168.0.1&#x2F;goform&#x2F;telnet</strong>开启</p></li><li><p>路由器插上u盘，用<a href="https://www.chiark.greenend.org.uk/~sgtatham/putty/latest.html">putty</a>登陆，选择telnet，输入192.168.0.1</p></li></ul><blockquote><p>用户名：root ，密码：Fireitup</p></blockquote><pre><code class="language-css">mountcat /dev/mtd0>/tmp/mnt/sda1/ac9_flash.bin # 目录不一定准确，请以实际为准cat /dev/mtd1>/tmp/mnt/sda1/ac9_cfe.bin # 目录不一定准确，请以实际为准</code></pre><p>用<a href="https://cowtransfer.com/s/2d12d5b0bfd744">cfe助手工具</a>，打开备份的cfe文件ac9_cfe.bin，对照<a href="https://cowtransfer.com/s/4bdd72e5685a4c">老版本cfe</a>，更改导出的路由器信息</p><blockquote><p>以下是需要修改的信息</p></blockquote><ul><li>macaddr</li><li>et0macaddr</li><li>sb&#x2F;1&#x2F;macaddr</li><li>wps_device_pin</li></ul><p>修改完后点击写出固件，保存为bin文件</p><p>然后将电脑的IP地址改为192.168.1.2，打开cmd ping 192.168.1.1</p><p>打开<a href="https://bitbucket.org/phjounin/tftpd64/downloads/">tftp64</a> 点log viewer ，选择网卡应该是192.168.1.2，选择改好的cfe.bin的保存路径</p><p>路由器断电，先捅RESET再通电，ttl&#x3D;100出现后，log viewer会出现传送成功的记录，至此cfe就改好了，可以正常刷固件了，但是我的最终目标是硬改16M</p><h2 id="第二个坑——不能算坑的坑"><a href="#第二个坑——不能算坑的坑" class="headerlink" title="第二个坑——不能算坑的坑"></a>第二个坑——不能算坑的坑</h2><blockquote><p>啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊，外壳是真的难拆，金属翘片把我手划伤了TnT</p></blockquote><p>拆原机闪存是件很困难的是，我涂了一堆助焊膏，风枪300度都没吹下来orz，后面加了点锡膏才下来的:(</p><p>然后把闪存放到烧录座上</p><p><img src="https://cdn.jsdelivr.net/gh/Sanksu/IMG/2022/SOP8.jpg" alt="拆下来的闪存这样放"></p><blockquote><p>注意CH341A编程器底下的丝印，我最开始就插错了导致无法写入orz</p></blockquote><p><img src="https://cdn.jsdelivr.net/gh/Sanksu/IMG/2022/CH341A%E2%80%94%E2%80%9425.jpg" alt="注意"></p><p>打开<a href="https://github.com/nofeletru/UsbAsp-flash/releases">AsProgrammer</a></p><p>选择Flash型号</p><p><img src="https://cdn.jsdelivr.net/gh/Sanksu/IMG/2022/W25Q128BV.png"></p><p>读取，然后保存</p><p>换上16M的Flash到烧录座上，将刚刚保存的bin写入到16M Flash上</p><p>写完后把16M的闪存贴回路由器上</p><p>开机，一切正常，进入了腾达的界面</p><p>将电脑ipv4改为如下   </p><pre><code class="language-css">192.168.1.xx255.255.255.0</code></pre><p>浏览器输入 192.168.0.1</p><p>路由器断电，先捅RESET再通电，大约20秒，在松手，然后就进了cfe的页面（不容易:&lt;）</p><p>进了cfe先点Restore default NVRAM values</p><p>再选择16M的固件上传，等待，最后大功告成</p><p><img src="https://cdn.jsdelivr.net/gh/Sanksu/IMG/2022/AC9.png" alt="附图"></p>]]></content>
+      
+      
+      <categories>
+          
+          <category> 路由器 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> 路由器 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>动名词常见搭配</title>
+      <link href="/2021/11/20/%E5%8A%A8%E5%90%8D%E8%AF%8D%E5%B8%B8%E8%A7%81%E6%90%AD%E9%85%8D/"/>
+      <url>/2021/11/20/%E5%8A%A8%E5%90%8D%E8%AF%8D%E5%B8%B8%E8%A7%81%E6%90%AD%E9%85%8D/</url>
+      
+        <content type="html"><![CDATA[<h1 id="顺口溜"><a href="#顺口溜" class="headerlink" title="顺口溜"></a>顺口溜</h1><p>喜欢考虑不可免， <strong>feel like,like,enjoy,be fond of&#x2F;consider&#x2F;avoid,escape,miss</strong></p><p>停止放弃太冒险,  <strong>stop&#x2F;give up&#x2F;risk</strong></p><p>承认理解很值得， <strong>admit,permit,allow&#x2F;understand&#x2F;be worth,deserve</strong></p><p>反对想象莫推延,  <strong>object to,be opposed to&#x2F;imagine,fancy&#x2F;postpone,delay,put off</strong></p><p>要求完成是期望， <strong>require,need&#x2F;finish&#x2F;look forward to</strong></p><p>建议继续勤操练,  <strong>advise,suggest,recommend&#x2F;go on,continue,keep on,keep&#x2F;practise</strong></p><p>不禁理解感激快， <strong>can’t help&#x2F;excuse,forgive&#x2F;appreciate</strong></p><p>介词之后太常见.  <strong>insist on,pay attention to,stick to,lead to,be addicted to,be busy in,be occupied in,what about等</strong></p>]]></content>
+      
+      
+      <categories>
+          
+          <category> 英语 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> 英语 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>Github个人主页</title>
+      <link href="/2020/11/14/%E4%B8%AA%E6%80%A7%E5%8C%96Github%E4%B8%AA%E4%BA%BA%E4%B8%BB%E9%A1%B5/"/>
+      <url>/2020/11/14/%E4%B8%AA%E6%80%A7%E5%8C%96Github%E4%B8%AA%E4%BA%BA%E4%B8%BB%E9%A1%B5/</url>
+      
+        <content type="html"><![CDATA[<h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>刚发现Github可以通过创建和用户名相同的仓库，在个人主页上显示这个仓库的<strong>README.md</strong></p><p>这是新建Repo的描述</p><blockquote><p>You found a secret! pinguo-zhouwei&#x2F;pinguo-zhouwei is a ✨special ✨ repository that you can use to add a README.md to your GitHub profile. Make sure it’s public and initialize it with a README to get started.</p></blockquote><hr><h1 id="于是"><a href="#于是" class="headerlink" title="于是"></a>于是</h1><p>没事干的我在<a href="https://www.zhihu.com/question/23498424?sort=created">知乎</a>上找有趣的项目,看到这位<a href="https://github.com/tw93">大佬</a>的主页，经过无脑乱塞，于是就有了<a href="https://github.com/Sanksu/Sanksu">Sanksu&#x2F;Sanksu</a></p><hr><h1 id="build-readme-py"><a href="#build-readme-py" class="headerlink" title="build_readme.py"></a>build_readme.py</h1><p>用Github Actions跑Python脚本<br>运行build_readme.py，执行</p><ul><li>检索所有存储库中每个release的最新版本</li><li>通过博客的feed.xml获取最近5篇博文</li><li>通过豆瓣的feed: rss 2.0 获取我的收藏</li><li>获取显示在gist上的WakaTime每周语言使用统计</li><li>获取显示在gist上的steam游戏时长统计(后来加的)</li></ul><p>在build_readme.py加了几行</p><figure class="highlight ruby"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs ruby"><span class="hljs-keyword">def</span> <span class="hljs-title function_">fetch_play_time</span>():<br>    <span class="hljs-keyword">return</span> httpx.get(<br>        <span class="hljs-string">&quot;https://gist.githubusercontent.com/Sanksu/f47f02e2f4f067be39427ed9d76bc9cd/raw/&quot;</span><br>    )<br></code></pre></td></tr></table></figure><figure class="highlight ceylon"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs ceylon">play<span class="hljs-number">_</span>time<span class="hljs-number">_</span>text = <span class="hljs-string">&quot;\n``<span class="hljs-subst">`text\n<span class="hljs-string">&quot;+fetch_play_time().text+&quot;</span>\n</span>```\n&quot;</span><br><br>rewritten = replace<span class="hljs-number">_</span>chunk(rewritten, <span class="hljs-string">&quot;play_time&quot;</span>, play<span class="hljs-number">_</span>time<span class="hljs-number">_</span>text)<br></code></pre></td></tr></table></figure><p>在README.md加了这</p><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><code class="hljs xml">#### 🎮 <span class="hljs-tag">&lt;<span class="hljs-name">a</span> <span class="hljs-attr">href</span>=<span class="hljs-string">&quot;https://gist.github.com/Sanksu/f47f02e2f4f067be39427ed9d76bc9cd&quot;</span> <span class="hljs-attr">target</span>=<span class="hljs-string">&quot;_blank&quot;</span>&gt;</span>Steam playtime leaderboard<span class="hljs-tag">&lt;/<span class="hljs-name">a</span>&gt;</span><br><br><span class="hljs-comment">&lt;!-- play_time starts --&gt;</span><br><br>```text<br>🔫 Counter-Strike: Global Offensive 🕘 378 hrs 41 mins<br>🍳 PLAYERUNKNOWN&#x27;S BATTLEGROUNDS    🕘 235 hrs 57 mins<br>🔫 Tom Clancy&#x27;s Rainbow Six Siege   🕘 125 hrs 2 mins<br>🎮 Sea of Thieves                   🕘 41 hrs 27 mins<br>🎮 Counter-Strike                   🕘 17 hrs 48 mins<br>``` (删掉我)<br><br><span class="hljs-comment">&lt;!-- play_time ends --&gt;</span><br></code></pre></td></tr></table></figure><p>就像这样<img src="https://cdn.jsdelivr.net/gh/sanksu/Blog-Old@master/image/github/github_2020-11-14_20-20-26.png"></p>]]></content>
+      
+      
+      <categories>
+          
+          <category> Github </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> Github </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>在2020年捡一台iPhone4</title>
+      <link href="/2020/10/17/%E5%9C%A82020%E5%B9%B4%E6%8D%A1%E4%B8%80%E5%8F%B0iPhone4/"/>
+      <url>/2020/10/17/%E5%9C%A82020%E5%B9%B4%E6%8D%A1%E4%B8%80%E5%8F%B0iPhone4/</url>
+      
+        <content type="html"><![CDATA[<h1 id="捡垃圾"><a href="#捡垃圾" class="headerlink" title="捡垃圾"></a>捡垃圾</h1><p>下面这是我从同学手里捡来的写号机 <br/></p><p><img src="https://raw.githubusercontent.com/Sanksu/IMG/main/2022/iPhone4_1.jpg" alt="战痕累累的iPhone4_背面与侧面"><br><img src="https://raw.githubusercontent.com/Sanksu/IMG/main/2022/iPhone4_3.jpg" alt="战痕累累的iPhone4_背面与侧面_2"><br><img src="https://raw.githubusercontent.com/Sanksu/IMG/main/2022/iPhone4_4.jpg" alt="战痕累累的iPhone4_正面"></p><h2 id="经典的锁屏界面"><a href="#经典的锁屏界面" class="headerlink" title="经典的锁屏界面"></a>经典的锁屏界面</h2><p>本来拿来想降到IOS6的，结果发现是iPhone3,3 orz<br/></p><p><img src="https://cdn.jsdelivr.net/gh/sanksu/Blog-Old@master/image/_posts/IOS6-unlock.jpg" alt="网上找的"></p><h1 id="如今"><a href="#如今" class="headerlink" title="如今"></a>如今</h1><p>IOS7已经没有多少能用的应用了 <br/><br>旧版本的bilibili能打开，但不能登录账号，由于屏幕小，虽然是流畅分辨率，清晰的却还可以 <br/><br>没有什么游戏可以玩。但是我还是找到了的安装包无尽之剑，即使现在被下架了，( ͡° ͜ʖ ͡°) <br/></p><p><img src="https://cdn.jsdelivr.net/gh/sanksu/Blog-Old@master/image/_posts/Infinity-Blade.jpg" alt="贴吧找的"></p>]]></content>
+      
+      
+      <categories>
+          
+          <category> 数码 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> 数码 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>安装WSL并安装图形界面</title>
+      <link href="/2020/07/28/%E5%AE%89%E8%A3%85WSL%E5%B9%B6%E5%AE%89%E8%A3%85%E5%9B%BE%E5%BD%A2%E7%95%8C%E9%9D%A2/"/>
+      <url>/2020/07/28/%E5%AE%89%E8%A3%85WSL%E5%B9%B6%E5%AE%89%E8%A3%85%E5%9B%BE%E5%BD%A2%E7%95%8C%E9%9D%A2/</url>
+      
+        <content type="html"><![CDATA[<h1 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h1><p><a href="https://zhuanlan.zhihu.com/p/146146238">https://zhuanlan.zhihu.com/p/146146238</a></p><h2 id="开始"><a href="#开始" class="headerlink" title="开始"></a>开始</h2><p>打开控制面板——程序——启用或关闭Windows功能——适用于Linux的Windows子系统</p><h2 id="安装Linux"><a href="#安装Linux" class="headerlink" title="安装Linux"></a>安装Linux</h2><p>在微软商店中搜索Linux，即可安装<br>这里选的是Ubuntu</p><h2 id="更换源"><a href="#更换源" class="headerlink" title="更换源"></a>更换源</h2><pre><code class="language-css">sudo sed -i s@/archive.ubuntu.com/@/mirrors.aliyun.com/@g /etc/apt/sources.listsudo apt-get update && sudo apt-get upgrade -y</code></pre><h2 id="安装xfce4"><a href="#安装xfce4" class="headerlink" title="安装xfce4"></a>安装xfce4</h2><pre><code class="language-css">sudo apt-get install xfce4 -y</code></pre><h2 id="添加环境变量"><a href="#添加环境变量" class="headerlink" title="添加环境变量"></a>添加环境变量</h2><pre><code class="language-css">export DISPLAY=localhost:0 source /etc/profile</code></pre><h2 id="打开XLaunch"><a href="#打开XLaunch" class="headerlink" title="打开XLaunch"></a>打开XLaunch</h2><p>一路Next</p><h2 id="访问图形界面"><a href="#访问图形界面" class="headerlink" title="访问图形界面"></a>访问图形界面</h2><pre><code class="language-css">startxfce4</code></pre>]]></content>
+      
+      
+      <categories>
+          
+          <category> Linux </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> Linux </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>Minecraft开服</title>
+      <link href="/2020/05/16/Minecraft%E5%BC%80%E6%9C%8D/"/>
+      <url>/2020/05/16/Minecraft%E5%BC%80%E6%9C%8D/</url>
+      
+        <content type="html"><![CDATA[<h1 id="常考"><a href="#常考" class="headerlink" title="常考"></a>常考</h1><p><a href="https://jingyan.baidu.com/article/ed2a5d1f6c76ac09f6be1781.html">https://jingyan.baidu.com/article/ed2a5d1f6c76ac09f6be1781.html</a><br/><br><a href="https://minecraft-zh.gamepedia.com/Server.properties">https://minecraft-zh.gamepedia.com/Server.properties</a></p><h1 id="Window"><a href="#Window" class="headerlink" title="Window"></a><strong>Window</strong></h1><h2 id="服务端"><a href="#服务端" class="headerlink" title="服务端"></a>服务端</h2><p>打开官方启动器-&gt;配置-&gt;新建-&gt;选择版本-&gt;服务器<br/><br>接着会打开浏览器下载<br>得到一个server.jar文件</p><h3 id="注"><a href="#注" class="headerlink" title="注:"></a>注:</h3><p>Mod服以及插件服需要第三方服务端</p><h2 id="启动"><a href="#启动" class="headerlink" title="启动"></a>启动</h2><p>新建.txt文件，输入</p><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs cpp">@echo OFF<br>java -Xmx2G -Xms256M -jar &lt;文件名&gt;.jar<br>pause<br></code></pre></td></tr></table></figure><p>改后缀为.bat<br>双击启动</p><h3 id="注-1"><a href="#注-1" class="headerlink" title="注:"></a>注:</h3><p>“-Xmx2G”为分配给服务器的最大内存，可以设置为“-Xmx1G”或“Xmx1024M” <br/><br>内存单位一定要大写<br/><br>“-Xms256M” 为分配给服务器的最小内存<br/><br>.bat文件要和服务端文件放在同一目录下</p><h2 id="配置"><a href="#配置" class="headerlink" title="配置"></a>配置</h2><p>第一次启动会提示你同意eula协议<br/><br>打开目录下的eula.txt<br/><br>将最后一行“eula&#x3D;false”改成“eula&#x3D;true”<br/><br>保存，重启服务器</p><h3 id="注-2"><a href="#注-2" class="headerlink" title="注:"></a>注:</h3><p>可通过修改server.properties文件来配置Minecraft服务器<br/><br><a href="https://minecraft-zh.gamepedia.com/Server.properties">参数的解释</a></p><h2 id="畅玩"><a href="#畅玩" class="headerlink" title="畅玩"></a>畅玩</h2><p>将默认25565端口映射外网</p><h1 id="Linux"><a href="#Linux" class="headerlink" title="Linux"></a><strong>Linux</strong></h1><h2 id="服务端-1"><a href="#服务端-1" class="headerlink" title="服务端"></a>服务端</h2><p>同windows</p><h2 id="启动-1"><a href="#启动-1" class="headerlink" title="启动"></a>启动</h2><p>这里用脚本启动<br/></p><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs cpp">#!/bin/sh<br><br>java -Xms256M -Xmx2G -jar &lt;路径&gt;<br>nogui<br></code></pre></td></tr></table></figure><h2 id="配置-1"><a href="#配置-1" class="headerlink" title="配置"></a>配置</h2><p>同windows</p>]]></content>
+      
+      
+      <categories>
+          
+          <category> 游戏 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> 游戏 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>一些简单的命令</title>
+      <link href="/2020/04/24/linux%E5%AD%A6%E4%B9%A0/"/>
+      <url>/2020/04/24/linux%E5%AD%A6%E4%B9%A0/</url>
+      
+        <content type="html"><![CDATA[<h1 id="日期与时间"><a href="#日期与时间" class="headerlink" title="日期与时间"></a>日期与时间</h1><pre><code class="language-css">date</code></pre><h1 id="日历"><a href="#日历" class="headerlink" title="日历"></a>日历</h1><pre><code class="language-css">cal</code></pre><h2 id="格式"><a href="#格式" class="headerlink" title="格式"></a>格式</h2><pre><code class="language-css">cal [month] [year]</code></pre><h1 id="计算器"><a href="#计算器" class="headerlink" title="计算器"></a>计算器</h1><pre><code class="language-css">bc</code></pre><h1 id="apt包管理"><a href="#apt包管理" class="headerlink" title="apt包管理"></a>apt包管理</h1><h2 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h2><pre><code class="language-css">apt-get install [包名] (-y)</code></pre><h2 id="移除"><a href="#移除" class="headerlink" title="移除"></a>移除</h2><pre><code class="language-css">apt-get remove [包名] (-y)</code></pre><h2 id="更新源"><a href="#更新源" class="headerlink" title="更新源"></a>更新源</h2><pre><code class="language-css">apt-get update</code></pre><h2 id="更新包"><a href="#更新包" class="headerlink" title="更新包"></a>更新包</h2><pre><code class="language-css">apt-get upgrade</code></pre><h1 id="定位"><a href="#定位" class="headerlink" title="定位"></a>定位</h1><pre><code class="language-css">cd [路径]</code></pre><h1 id="列出文件"><a href="#列出文件" class="headerlink" title="列出文件"></a>列出文件</h1><pre><code class="language-css">ls</code></pre><h1 id="查看当前路径"><a href="#查看当前路径" class="headerlink" title="查看当前路径"></a>查看当前路径</h1><pre><code class="language-css">pwd</code></pre><h1 id="删除"><a href="#删除" class="headerlink" title="删除"></a>删除</h1><pre><code class="language-css">rm</code></pre><h2 id="参数"><a href="#参数" class="headerlink" title="参数"></a>参数</h2><ul><li>-i &gt; 逐一询问确认</li><li>-rf &gt; 删除目录中所有文件，并且不用确认</li></ul><h1 id="创建"><a href="#创建" class="headerlink" title="创建"></a>创建</h1><pre><code class="language-css">mkdir [创建的文件名]</code></pre><h1 id="复制"><a href="#复制" class="headerlink" title="复制"></a>复制</h1><pre><code class="language-css">cp [复制的文件路径] [粘贴的文件路径]</code></pre><h1 id="权限"><a href="#权限" class="headerlink" title="权限"></a>权限</h1><pre><code class="language-css">chmod 777 [文件名] -c（或：chmod u=rwx,g=rwx,o=rwx t.log -c) # 授予文件777的权限</code></pre>]]></content>
+      
+      
+      <categories>
+          
+          <category> Linux </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> Linux </tag>
+            
+            <tag> 笔记 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+  
+  
+</search>
