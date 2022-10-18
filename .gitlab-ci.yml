@@ -1,0 +1,15 @@
+image: node:16.18.0  # 應該要對應開發環境所使用的 Node.js 版本
+pages:
+  cache:
+    paths:
+    - node_modules/
+  script:
+  - npm i -D @vuepress/plugin-search@next
+  - npm install
+  - npm run docs:build
+  - ls public/
+  artifacts:
+    paths:
+    - public
+  only:
+  - main
