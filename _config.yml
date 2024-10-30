@@ -49,6 +49,8 @@ links:
   - title: 
   - url: 
 
+site.extCount: true
+
 
 # jekyll插件
 plugins:
