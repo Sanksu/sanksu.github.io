@@ -13,6 +13,6 @@ title: 关于我
 
 ## 联系我
 
-- Email&nbsp;: [QQ mail](870889277@qq.com)
+- Email&nbsp;: <sanksu@qq.com>
 
 - GitHub&nbsp;: [Sanksu](https://github.com/sanksu)
