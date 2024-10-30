@@ -1,0 +1,56 @@
+encoding: utf-8
+
+# SEO相关信息
+title: Sanksu Blog
+description: Sanksu的个人博客
+keywords: Sanksu,Blog,Java,Html,JavaScript
+author: Sanksu
+footerText: 'Copyright © 2020 - 2024'
+
+permalink: /posts/:year/:month/:day/:title.html
+kramdown:
+  auto_ids: true
+  input: GFM
+  syntax_highlighter: rouge
+exclude: ['CNAME', 'README.md', 'LICENSE', '_site', 'dist', 'Gemfile', 'Gemfile.lock', 'blog.sh']
+
+# 域名配置
+# baseurl配置,如果网站部署在根目录下的其他目录中，请设置为 /目录名
+domainUrl: 'https://sanksu.cn/'
+baseurl: ''
+
+# Waline
+waline: https://waline.sanksu.cn/
+
+# waline提供的浏览统计
+pageview: true
+
+# 菜单
+# 必填字段 title: '文本' url: '链接'
+# 可选字段 target: '_blank' 新页面打开 
+menu:
+  - title: 首页
+    url: /
+  - title: 归类
+    url: /categories
+  - title: 搜索
+    url: /search
+  - title: 友链
+    url: /links
+  - title: 关于
+    url: /about
+
+# 点击页面文字冒出特效
+extClickEffect: false
+
+# 友情链接
+# title: '文本' url: '链接' 
+links:
+  - title: 
+  - url: 
+
+
+# jekyll插件
+plugins:
+  - jekyll-sitemap
+  - jekyll-feed
