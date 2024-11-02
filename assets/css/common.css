@@ -230,5 +230,5 @@ input:-webkit-autofill {
 
 ::-webkit-scrollbar-thumb {
   background-color: #735925;
-  background-image: -webkit-linear-gradient(45deg, #77c85a 25%, #03a9f4 25%, #9755c1 50%, #ff9800 50%, #ffeb3b 75%, #ff5722 75%, #ce7d61);
+  background-image: -webkit-linear-gradient(45deg, #FF8899 20%, #FFDD88 40%, #77BBDD 50%, #7777AA 75%, #77DD77);
 }
