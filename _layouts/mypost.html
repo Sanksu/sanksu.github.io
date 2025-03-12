@@ -2,39 +2,39 @@
 <html lang="zh-CN">
 {% include head.html -%}
 <body>
-{% include header.html -%}
-<div class="page page-post">
-  <h1 class="title" id="{{ page.title }}">{{ page.title }}</h1>
-  {% if page.date %}
-  <div class="subtitle">
-    <span>{{site.author}} 于 {{ page.date | date: "%Y-%m-%d" }} 发布</span>
-    {% if site.pageview %}
+  {% include header.html -%}
+  <div class="page page-post">
+    <h1 class="title" id="{{ page.title }}">{{ page.title }}</h1>
+    {% if page.date %}
+    <div class="subtitle">
+      <span>{{site.author}} 于 {{ page.date | date: "%Y-%m-%d" }} 发布</span>
+      {% if site.pageview %}
       <span>阅读量:</span>
       <span class="waline-pageview-count" data-path="{{sit1.url}}{{page.url}}" />
-    {% endif %}  
+      {% endif %}
+    </div>
+    {% endif %}
+    <div class="post">
+      {{ content }}
+    </div>
+    <div id="waline"></div>
+    <script type="module">
+      import { init } from 'https://unpkg.com/@waline/client@v3/dist/waline.js';
+      init({
+        el: '#waline',
+        serverURL: '{{ site.waline }}',
+        pageview: true,
+        dark: 'html[class="dark"]',
+        search: 'false',
+        emoji: [
+          '//cdn.jsdelivr.net/gh/Sanksu/Waline_Bang_Dream_emoji@1.4.0/src/BangDream/',
+          '//cdn.jsdelivr.net/gh/Sanksu/Waline_Bang_Dream_emoji@1.4.0/src/Mygo/',
+          '//cdn.jsdelivr.net/gh/Sanksu/Waline_Bang_Dream_emoji@1.4.0/src/Popipa/',
+        ],
+      });
+    </script>
   </div>
-  {% endif %}
-  <div class="post">
-    {{ content }}
-  </div>
-  <div id="waline"></div>
-  <script type="module">
-    import { init } from 'https://unpkg.com/@waline/client@v3/dist/waline.js';
-
-    init({
-      el: '#waline',
-      serverURL: '{{ site.waline }}',
-      pageview: true,
-      dark: 'html[class="dark"]',
-      search: 'false',
-      emoji:[
-        '//cdn.jsdelivr.net/gh/Sanksu/Waline_Bang_Dream_emoji@1.2.0/src/BangDream/',
-        '//cdn.jsdelivr.net/gh/sanksu/Waline_Bang_Dream_emoji@1.2.0/src/Mygo/',
-      ],
-    });
-  </script>
-</div>
-{% include footer.html -%}
-{% include script.html -%}
+  {% include footer.html -%}
+  {% include script.html -%}
 </body>
 </html>

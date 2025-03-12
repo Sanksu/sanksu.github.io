@@ -3,7 +3,7 @@ html.dark {
   background: #0d1117;
 }
 html.dark ::selection {
-  background-color: #327bd4;
+  background-color: #BB9955;
   color: #ffffff;
 }
 html.dark ::-webkit-scrollbar-thumb {
@@ -17,7 +17,11 @@ html.dark .header .logo {
   opacity: 0.8;
 }
 html.dark .footer a {
-  color: #58a6ff;
+  color: #8b949e;
+  transition: color 1s;
+}
+html.dark .footer a:hover {
+  color: #BB9955;
 }
 html.dark .list-category div a {
   border-bottom: 1px solid #8b949e;
@@ -42,8 +46,8 @@ html.dark .page-post code {
   color: #c9d1d9;
 }
 html.dark .page-post a {
-  color: #58a6ff;
-  border-bottom: 1px solid #58a6ff;
+  color: #BB9955;
+  border-bottom: 1px solid #BB9955;
 }
 html.dark .page-post strong {
   color: #ffffff;
