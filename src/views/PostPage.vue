@@ -6,7 +6,8 @@
       <span v-if="postview">阅读量: <span class="waline-pageview-count" :data-path="postPath" /></span>
     </div>
     <div class="post scroll-animate post-content" v-html="renderedContent"></div>
-    <div id="waline" ref="walineRef" class="scroll-animate"></div>
+    <div id="waline" ref="walineRef"></div>
+    <WalineComments serverURL="https://waline.sanksu.cn/" />
   </div>
   <div v-else class="page page-post">
     <h1 class="title">文章未找到</h1>
@@ -20,6 +21,7 @@ import { getPostBySlug } from '@/data/posts'
 import { useScrollAnimation } from '@/composables/useScrollAnimation'
 import { useTheme } from '@/composables/useTheme'
 import { marked } from 'marked'
+import WalineComments from '@/components/WalineComments.vue'
 
 const route = useRoute()
 const post = ref(null)
@@ -54,7 +56,7 @@ function initImagePreview() {
 
   function toCenter() {
     if (!origin) return
-    const w = Math.min(origin.naturalWidth, document.documentElement.clientWidth * 0.9)
+    let w = Math.min(origin.naturalWidth, document.documentElement.clientWidth * 0.9)
     let h = (w * origin.naturalHeight) / origin.naturalWidth
     if (window.innerHeight * 0.95 < h) {
       h = Math.min(origin.naturalHeight, window.innerHeight * 0.95)
@@ -176,7 +178,7 @@ window.addEventListener('resize', () => {
     // Re-center
     const originEl = document.querySelector('.img-move-item')
     if (originEl && origin) {
-      const w = Math.min(origin.naturalWidth, document.documentElement.clientWidth * 0.9)
+      let w = Math.min(origin.naturalWidth, document.documentElement.clientWidth * 0.9)
       let h = (w * origin.naturalHeight) / origin.naturalWidth
       if (window.innerHeight * 0.95 < h) {
         h = Math.min(origin.naturalHeight, window.innerHeight * 0.95)

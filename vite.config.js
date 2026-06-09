@@ -4,14 +4,20 @@ import { resolve } from 'path'
 
 export default defineConfig({
   plugins: [vue()],
-  base:'./',
+  base: './',
   resolve: {
     alias: {
       '@': resolve(__dirname, 'src')
     }
   },
   build: {
-    outDir: 'dist',
-    assetsDir: 'assets'
+    rollupOptions: {
+      output: {
+        manualChunks: undefined,
+      },
+      outDir: 'dist',
+      assetsDir: 'assets'
+    }
   }
-})
+}
+)

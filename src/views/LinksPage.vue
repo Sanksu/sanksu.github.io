@@ -13,11 +13,15 @@
         </li>
       </ul>
     </div>
+    <div class="scroll-animate">
+      <WalineComments serverURL="https://waline.sanksu.cn/" />
+    </div>
   </div>
 </template>
 
 <script setup>
 import { useScrollAnimation } from '@/composables/useScrollAnimation'
+import WalineComments from '@/components/WalineComments.vue'
 
 const links = []
 

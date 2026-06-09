@@ -173,3 +173,17 @@
 .post-content p {
   margin: 20px 0;
 }
+
+/* Waline wl-rss style override */
+.wl-rss {
+  font-size: 0.75rem;
+  font-family: var(--font-hud);
+  letter-spacing: 0.5px;
+  color: var(--ark-text-dim);
+  border-bottom: 1px solid var(--ark-border);
+  transition: all var(--transition-fast);
+}
+.wl-rss:hover {
+  color: var(--ark-highlight);
+  border-bottom-color: var(--ark-highlight);
+}

@@ -5,6 +5,7 @@ import SearchPage from '@/views/SearchPage.vue'
 import LinksPage from '@/views/LinksPage.vue'
 import AboutPage from '@/views/AboutPage.vue'
 import PostPage from '@/views/PostPage.vue'
+import NotFoundPage from '@/views/NotFoundPage.vue'
 
 const routes = [
   { path: '/', name: 'Home', component: HomePage },
@@ -13,6 +14,7 @@ const routes = [
   { path: '/about', name: 'About', component: AboutPage },
   { path: '/links', name: 'Links', component: LinksPage },
   { path: '/posts/:year/:month/:day/:slug', name: 'Post', component: PostPage },
+  { path: '/:pathMatch(.*)*', name: 'NotFound', component: NotFoundPage },
 ]
 
 const router = createRouter({

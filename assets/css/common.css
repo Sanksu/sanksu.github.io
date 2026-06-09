@@ -97,7 +97,11 @@ pre, code {
   font-family: 'Consolas', 'JetBrains Mono', 'Fira Code', monospace;
 }
 
-::selection {
+html:not(.dark) ::selection {
+  background: #1a1a1a;
+  color: #f1f1f1;
+}
+html.dark ::selection {
   background: rgba(230, 230, 230, 0.2);
   color: #ffffff;
 }
@@ -238,14 +242,16 @@ body::after {
 .header .menu {
   margin-right: 6px;
   text-align: right;
-  user-select: none;
+  -webkit-user-select: none;
+  user-select: none; 
 }
 .header .menu a {
   display: inline-block;
   font-size: 0.8rem;
   letter-spacing: 1px;
-  margin: 4px 10px;
+  margin: 4px 10px; 
   white-space: nowrap;
+  -webkit-user-select: none;
   user-select: auto;
   text-transform: uppercase;
   color: var(--ark-text-dim);
