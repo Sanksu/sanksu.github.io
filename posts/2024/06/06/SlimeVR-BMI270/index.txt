@@ -1,0 +1,90 @@
+1:"$Sreact.fragment"
+2:I[9766,[],""]
+3:I[8924,[],""]
+4:I[2619,["619","static/chunks/619-ba102abea3e3d0e4.js","345","static/chunks/app/not-found-1fe703c201e28052.js"],""]
+6:I[4431,[],"OutletBoundary"]
+8:I[5278,[],"AsyncMetadataOutlet"]
+a:I[4431,[],"ViewportBoundary"]
+c:I[4431,[],"MetadataBoundary"]
+d:"$Sreact.suspense"
+f:I[7150,[],""]
+:HL["/_next/static/css/2990ef94edd81121.css","style"]
+:HL["/_next/static/css/d5192f58b079a3e3.css","style"]
+0:{"P":null,"b":"LDZSU4hQNgMbn6r1rZoEW","p":"","c":["","posts","2024","06","06","SlimeVR-BMI270",""],"i":false,"f":[[["",{"children":["posts",{"children":[["year","2024","d"],{"children":[["month","06","d"],{"children":[["day","06","d"],{"children":[["slug","SlimeVR-BMI270","d"],{"children":["__PAGE__",{}]}]}]}]}]}]},"$undefined","$undefined",true],["",["$","$1","c",{"children":[[["$","link","0",{"rel":"stylesheet","href":"/_next/static/css/2990ef94edd81121.css","precedence":"next","crossOrigin":"$undefined","nonce":"$undefined"}]],["$","html",null,{"lang":"zh-CN","suppressHydrationWarning":true,"children":[["$","head",null,{"children":[["$","meta",null,{"httpEquiv":"content-language","content":"zh-CN"}],["$","meta",null,{"httpEquiv":"X-UA-Compatible","content":"IE=edge,chrome=1"}],["$","link",null,{"rel":"preconnect","href":"https://fonts.googleapis.com"}],["$","link",null,{"rel":"preconnect","href":"https://fonts.gstatic.com","crossOrigin":""}],["$","link",null,{"href":"https://fonts.googleapis.com/css2?family=Dosis:wght@300;400;500&display=swap","rel":"stylesheet"}],["$","script",null,{"dangerouslySetInnerHTML":{"__html":"\n          (function(){\n            var d=document.documentElement;\n            var f=localStorage.darkMode;\n            if(f==='true')d.className='dark';\n            else if(f==='false')d.className='';\n            else if(window.matchMedia('(prefers-color-scheme:dark)').matches)d.className='dark';\n          })();\n        "}}]]}],["$","body",null,{"children":["$","$L2",null,{"parallelRouterKey":"children","error":"$undefined","errorStyles":"$undefined","errorScripts":"$undefined","template":["$","$L3",null,{}],"templateStyles":"$undefined","templateScripts":"$undefined","notFound":[["$","div",null,{"className":"page page-404","children":[["$","h1",null,{"className":"title","children":"404"}],["$","p",null,{"children":"页面未找到，请检查地址是否正确"}],["$","$L4",null,{"href":"/","className":"back-home","children":"返回首页"}]]}],[]],"forbidden":"$undefined","unauthorized":"$undefined"}]}]]}]]}],{"children":["posts",["$","$1","c",{"children":[null,["$","$L2",null,{"parallelRouterKey":"children","error":"$undefined","errorStyles":"$undefined","errorScripts":"$undefined","template":["$","$L3",null,{}],"templateStyles":"$undefined","templateScripts":"$undefined","notFound":"$undefined","forbidden":"$undefined","unauthorized":"$undefined"}]]}],{"children":[["year","2024","d"],["$","$1","c",{"children":[null,["$","$L2",null,{"parallelRouterKey":"children","error":"$undefined","errorStyles":"$undefined","errorScripts":"$undefined","template":["$","$L3",null,{}],"templateStyles":"$undefined","templateScripts":"$undefined","notFound":"$undefined","forbidden":"$undefined","unauthorized":"$undefined"}]]}],{"children":[["month","06","d"],["$","$1","c",{"children":[null,["$","$L2",null,{"parallelRouterKey":"children","error":"$undefined","errorStyles":"$undefined","errorScripts":"$undefined","template":["$","$L3",null,{}],"templateStyles":"$undefined","templateScripts":"$undefined","notFound":"$undefined","forbidden":"$undefined","unauthorized":"$undefined"}]]}],{"children":[["day","06","d"],["$","$1","c",{"children":[null,["$","$L2",null,{"parallelRouterKey":"children","error":"$undefined","errorStyles":"$undefined","errorScripts":"$undefined","template":["$","$L3",null,{}],"templateStyles":"$undefined","templateScripts":"$undefined","notFound":"$undefined","forbidden":"$undefined","unauthorized":"$undefined"}]]}],{"children":[["slug","SlimeVR-BMI270","d"],["$","$1","c",{"children":[null,["$","$L2",null,{"parallelRouterKey":"children","error":"$undefined","errorStyles":"$undefined","errorScripts":"$undefined","template":["$","$L3",null,{}],"templateStyles":"$undefined","templateScripts":"$undefined","notFound":"$undefined","forbidden":"$undefined","unauthorized":"$undefined"}]]}],{"children":["__PAGE__",["$","$1","c",{"children":["$L5",[["$","link","0",{"rel":"stylesheet","href":"/_next/static/css/d5192f58b079a3e3.css","precedence":"next","crossOrigin":"$undefined","nonce":"$undefined"}]],["$","$L6",null,{"children":["$L7",["$","$L8",null,{"promise":"$@9"}]]}]]}],{},null,false]},null,false]},null,false]},null,false]},null,false]},null,false]},null,false],["$","$1","h",{"children":[null,[["$","$La",null,{"children":"$Lb"}],null],["$","$Lc",null,{"children":["$","div",null,{"hidden":true,"children":["$","$d",null,{"fallback":null,"children":"$Le"}]}]}]]}],false]],"m":"$undefined","G":["$f",[]],"s":false,"S":true}
+10:I[755,["207","static/chunks/c09c598c-10a0d0ecc2100775.js","619","static/chunks/619-ba102abea3e3d0e4.js","543","static/chunks/543-5334bdc0999a2f48.js","828","static/chunks/app/posts/%5Byear%5D/%5Bmonth%5D/%5Bday%5D/%5Bslug%5D/page-1cb0b8791a2f6d50.js"],"default"]
+11:I[196,["207","static/chunks/c09c598c-10a0d0ecc2100775.js","619","static/chunks/619-ba102abea3e3d0e4.js","543","static/chunks/543-5334bdc0999a2f48.js","828","static/chunks/app/posts/%5Byear%5D/%5Bmonth%5D/%5Bday%5D/%5Bslug%5D/page-1cb0b8791a2f6d50.js"],"default"]
+13:I[7371,["207","static/chunks/c09c598c-10a0d0ecc2100775.js","619","static/chunks/619-ba102abea3e3d0e4.js","543","static/chunks/543-5334bdc0999a2f48.js","828","static/chunks/app/posts/%5Byear%5D/%5Bmonth%5D/%5Bday%5D/%5Bslug%5D/page-1cb0b8791a2f6d50.js"],"default"]
+12:Tad4,
+## **SlimeVR_BMI270**
+
+- [立创开源平台](https://oshwhub.com/sanksu/slimevr_bmi270)
+![SlimeVR_Server.png](https://image.lceda.cn/oshwhub/f2e35224d06b4dde9bd27ad48a2b8369.png)
+
+### **1. 什么是SlimeVR？**
+SlimeVR是一组开放的硬件传感器和开源软件，有助于在虚拟现实中实现全身跟踪（FBT）。
+- [官方文档](https://docs.slimevr.dev/)
+- [l0ud/SlimeVR-Tracker-ESP-BMI270分支](https://github.com/l0ud/SlimeVR-Tracker-ESP-BMI270)
+
+### **2. 介绍**
+本项目由 ESP-12F + IP5306-CK + BMI270 组成，CH340K实现自动下载，采用LDO降压，提供3.3V供电
+
+**官网对BMI270的介绍如下**：BMI270 是一款相对较新的实验性 IMU，用于 DIY SlimeVR。 它的性能似乎明显优于 BMI160，同时价格实惠。
+外壳使用Fusion360设计![外壳](https://cdn.jsdelivr.net/gh/Sanksu/SlimeVR_BMI270@main/IMG/Assembly.gif)
+
+### **3. 固件**
+SlimeVR 固件的主分支尚不支持此BMI270，因此本项目使用[`l0ud/SlimeVR-Tracker-ESP-BMI270`](https://github.com/l0ud/SlimeVR-Tracker-ESP-BMI270)分支
+
+#### 3.1 **构建 SlimeVR 固件**
+- 安装[CH340驱动](https://cdn.sparkfun.com/assets/learn_tutorials/8/4/4/CH341SER.EXE)
+- VSCode安装PlatformIO IDE扩展
+
+- 克隆[`l0ud/SlimeVR-Tracker-ESP-BMI270`](https://github.com/l0ud/SlimeVR-Tracker-ESP-BMI270)分支并通过VSCode打开(在此期间VSCode会自动配置环境，请保持网络畅通)
+- 在 `platformio.ini` 设置`DWIFI_CREDS_SSID`和`DWIFI_CREDS_PASSWD`
+- 替换`src`/`defines.h`
+
+```
+#define IMU IMU_BMI270
+#define SECOND_IMU IMU
+#define BOARD BOARD_CUSTOM
+#define IMU_ROTATION DEG_90
+#define SECOND_IMU_ROTATION DEG_0
+
+#define PRIMARY_IMU_OPTIONAL true
+#define SECONDARY_IMU_OPTIONAL true
+
+#define MAX_IMU_COUNT 1
+
+#ifndef IMU_DESC_LIST
+#define IMU_DESC_LIST \
+    IMU_DESC_ENTRY(IMU,        PRIMARY_IMU_ADDRESS_ONE,   IMU_ROTATION,        PIN_IMU_SCL, PIN_IMU_SDA, PRIMARY_IMU_OPTIONAL,   PIN_IMU_INT)
+
+#endif
+
+#define BATTERY_MONITOR BAT_EXTERNAL
+#define BATTERY_SHIELD_RESISTANCE 180
+
+#define PIN_IMU_SDA D2
+#define PIN_IMU_SCL D1
+#define PIN_IMU_INT D0
+#define PIN_IMU_INT_2 D5
+#define PIN_BATTERY_LEVEL A0
+```
+
+#### 3.2 **上传固件**
+- 使用数据线连接
+- 点击`PlatformIO:Upload`,等待烧录完成
+
+### 4. **使用**
+- 打开SlimeVR服务端，按提示操作
+
+### 5. **其他**
+BMI270的i2c地址是0x68(当SDO脚接地)/0x69(当SDO脚拉高)，SlimeVR源码中`MPU9250`/`BMI160`/`MPU6500`/`ICM20948`/`ICM42688`默认作为主传感器的i2c地址为0x68，我在画第一版的时候是将SDO脚拉高了，所以把`src`/`sensors`/`sensoraddresses.h`文件中的0x68与0x69做了替换，修改过的版本无需注意
+
+###  6. **感谢**
+- 主要电路参考[SlimeVR_BNO085](https://oshwhub.com/myzhazha/slimevr)，感谢
+5:[["$","$L10",null,{}],["$","$L11",null,{"post":{"title":"SlimeVR_BMI270","date":"2024-06-06","categories":["硬件"],"slug":"SlimeVR-BMI270","content":"$12"},"postPath":"/posts/2024/06/06/SlimeVR-BMI270"}],["$","$L13",null,{}]]
+b:[["$","meta","0",{"charSet":"utf-8"}],["$","meta","1",{"name":"viewport","content":"width=device-width, initial-scale=1, maximum-scale=1"}]]
+7:null
+14:I[622,[],"IconMark"]
+9:{"metadata":[["$","title","0",{"children":"Sanksu Blog"}],["$","meta","1",{"name":"description","content":"Sanksu的个人博客"}],["$","meta","2",{"name":"author","content":"Sanksu"}],["$","meta","3",{"name":"keywords","content":"Sanksu,Blog,Java,Html,JavaScript"}],["$","meta","4",{"name":"theme-color","content":"#ffffff"}],["$","meta","5",{"name":"supported-color-schemes","content":"light dark"}],["$","meta","6",{"name":"renderer","content":"webkit"}],["$","meta","7",{"name":"applicable-device","content":"pc,mobile"}],["$","link","8",{"rel":"icon","href":"/assets/img/logo.ico"}],["$","link","9",{"rel":"apple-touch-icon","href":"/assets/img/logo_256x256.png"}],["$","$L14","10",{}]],"error":null,"digest":"$undefined"}
+e:"$9:metadata"
