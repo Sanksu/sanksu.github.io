@@ -32,7 +32,12 @@ function getMarkedInstance(): Marked {
           const href = typeof hrefOrToken === 'string' ? hrefOrToken : (hrefOrToken?.href || '')
           const alt = typeof hrefOrToken === 'string' ? (text || '') : (hrefOrToken?.text || '')
           if (!isSafeSrc(href)) return ''
-          return `<span class="img-container"><img src="${safeAttr(href)}" alt="${safeAttr(alt)}" loading="lazy" decoding="async" onload="this.style.opacity=1" style="opacity:0;transition:opacity .3s" /></span>`
+          const isGif = href.toLowerCase().endsWith('.gif')
+          // GIF 图跳过 lazy/async 加载以避免动画播放异常
+          const extraAttrs = isGif
+            ? ''
+            : ' loading="lazy" decoding="async"'
+          return `<span class="img-container${isGif ? ' img-container--gif' : ''}"><img src="${safeAttr(href)}" alt="${safeAttr(alt)}"${extraAttrs} onload="this.style.opacity=1" style="opacity:0;transition:opacity .3s" /></span>`
         },
         heading(text: string, level: number) {
           const id = slugify(text)

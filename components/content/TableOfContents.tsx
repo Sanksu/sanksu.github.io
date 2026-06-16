@@ -12,6 +12,16 @@ function slugify(text: string): string {
   return text.replace(/<[^>]*>/g, '').trim().replace(/\s+/g, '-').toLowerCase()
 }
 
+function stripMarkdownFormatting(text: string): string {
+  // 剥离 markdown 加粗、斜体、删除线标记，保留内部文本
+  return text
+    .replace(/\*\*(.+?)\*\*/g, '$1')
+    .replace(/__(.+?)__/g, '$1')
+    .replace(/\*(.+?)\*/g, '$1')
+    .replace(/_(.+?)_/g, '$1')
+    .replace(/~~(.+?)~~/g, '$1')
+}
+
 function extractHeadings(markdown: string): Heading[] {
   // 匹配 Markdown ATX 式标题 (# ~ ####)
   const atxRegex = /^(#{1,4})\s+(.+)$/gm
@@ -19,9 +29,10 @@ function extractHeadings(markdown: string): Heading[] {
   let match
   while ((match = atxRegex.exec(markdown)) !== null) {
     const level = match[1].length
-    const text = match[2].trim()
-    if (text) {
-      result.push({ level, id: slugify(text), text })
+    const rawText = match[2].trim()
+    if (rawText) {
+      const cleanText = stripMarkdownFormatting(rawText)
+      result.push({ level, id: slugify(cleanText), text: cleanText })
     }
   }
   return result
