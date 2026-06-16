@@ -9,7 +9,7 @@ export default function LoadingScreen() {
 
   useEffect(() => {
     let done = false
-    const MIN_TIME = 300
+    const MIN_TIME = 1000
 
     function hide() {
       if (done) return
@@ -39,8 +39,15 @@ export default function LoadingScreen() {
 
   return (
     <div className={`loading-screen ${visible ? '' : 'loading-screen--fade'}`}>
-      <div className="loading-screen__spinner">
-        <div className="loading-screen__cube" />
+      <div className="loading-screen__grid">
+        {Array.from({ length: 9 }, (_, i) => (
+          <div key={i} className="loading-screen__cube">
+            <div className="loading-screen__cube-inner">
+              <div className="loading-screen__cube-face loading-screen__cube-face--front" />
+              <div className="loading-screen__cube-face loading-screen__cube-face--back" />
+            </div>
+          </div>
+        ))}
       </div>
     </div>
   )
