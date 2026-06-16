@@ -1,3 +1,3 @@
 :HL["/_next/static/chunks/0m0zzp8ka_-sz.css","style"]
 :HL["/fonts/dosis.css","style"]
-0:{"tree":{"name":"","param":null,"prefetchHints":16,"slots":{"children":{"name":"search","param":null,"prefetchHints":0,"slots":{"children":{"name":"__PAGE__","param":null,"prefetchHints":0,"slots":null}}}}},"staleTime":300,"buildId":"nHbhRX16q5FKQZnZbLimO"}
+0:{"tree":{"name":"","param":null,"prefetchHints":16,"slots":{"children":{"name":"search","param":null,"prefetchHints":0,"slots":{"children":{"name":"__PAGE__","param":null,"prefetchHints":0,"slots":null}}}}},"staleTime":300,"buildId":"AxNfD_A2wWYD-IClU8qQZ"}
