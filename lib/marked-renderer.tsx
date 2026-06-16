@@ -1,7 +1,7 @@
 'use client'
 
 import { useState, useEffect } from 'react'
-import { Marked } from 'marked'
+import { Marked, type Tokens } from 'marked'
 import { markedHighlight } from 'marked-highlight'
 import hljs from 'highlight.js'
 import { escapeHtml } from './utils'
@@ -28,20 +28,18 @@ function getMarkedInstance(): Marked {
     markedInstance = new Marked({
       breaks: true,
       renderer: {
-        image(hrefOrToken: string | { href?: string; text?: string }, _title: string | null, text: string) {
-          const href = typeof hrefOrToken === 'string' ? hrefOrToken : (hrefOrToken?.href || '')
-          const alt = typeof hrefOrToken === 'string' ? (text || '') : (hrefOrToken?.text || '')
+        image(token: Tokens.Image) {
+          const { href, text } = token
           if (!isSafeSrc(href)) return ''
           const isGif = href.toLowerCase().endsWith('.gif')
-          // GIF 图跳过 lazy/async 加载以避免动画播放异常
           const extraAttrs = isGif
             ? ''
             : ' loading="lazy" decoding="async"'
-          return `<span class="img-container${isGif ? ' img-container--gif' : ''}"><img src="${safeAttr(href)}" alt="${safeAttr(alt)}"${extraAttrs} onload="this.style.opacity=1" style="opacity:0;transition:opacity .3s" /></span>`
+          return `<span class="img-container${isGif ? ' img-container--gif' : ''}"><img src="${safeAttr(href)}" alt="${safeAttr(text)}"${extraAttrs} onload="this.style.opacity=1" style="opacity:0;transition:opacity .3s" /></span>`
         },
-        heading(text: string, level: number) {
-          const id = slugify(text)
-          return `<h${level} id="${id}">${text}</h${level}>`
+        heading(token: Tokens.Heading) {
+          const id = slugify(token.text)
+          return `<h${token.depth} id="${id}">${token.text}</h${token.depth}>`
         },
       },
     })
