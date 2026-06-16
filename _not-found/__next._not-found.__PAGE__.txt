@@ -2,5 +2,5 @@
 2:I[22016,["/_next/static/chunks/3-1xpq_smrh2i.js","/_next/static/chunks/0jubty45h__ir.js"],""]
 3:I[97367,["/_next/static/chunks/3-1xpq_smrh2i.js","/_next/static/chunks/0jubty45h__ir.js"],"OutletBoundary"]
 4:"$Sreact.suspense"
-0:{"rsc":["$","$1","c",{"children":[["$","div",null,{"className":"page page-404","children":[["$","h1",null,{"className":"title","children":"404"}],["$","p",null,{"children":"页面未找到，请检查地址是否正确"}],["$","$L2",null,{"href":"/","className":"back-home","children":"返回首页"}]]}],null,["$","$L3",null,{"children":["$","$4",null,{"name":"Next.MetadataOutlet","children":"$@5"}]}]]}],"isPartial":false,"staleTime":300,"varyParams":null,"buildId":"F37VCFxoL4N7tVcIVBWQ8"}
+0:{"rsc":["$","$1","c",{"children":[["$","div",null,{"className":"page page-404","children":[["$","h1",null,{"className":"title","children":"404"}],["$","p",null,{"children":"页面未找到，请检查地址是否正确"}],["$","$L2",null,{"href":"/","className":"back-home","children":"返回首页"}]]}],null,["$","$L3",null,{"children":["$","$4",null,{"name":"Next.MetadataOutlet","children":"$@5"}]}]]}],"isPartial":false,"staleTime":300,"varyParams":null,"buildId":"6y51rB4xg_6mU61t5mnwp"}
 5:null
