@@ -1,11 +1,10 @@
 import fs from 'fs'
 import path from 'path'
-import matter from 'gray-matter'
-import { slugFromFilename, normalizeDate, stripMarkdown } from './utils'
+import { slugFromFilename, normalizeDate, stripMarkdown, parseFrontMatter } from './utils'
 
 /**
  * 文章数据结构
- * 由 `gray-matter` 解析 Markdown 文件的 front matter 和正文内容组装而成
+ * 由 `parseFrontMatter` 解析 Markdown 文件的 YAML front-matter 和正文内容组装而成
  */
 export interface Post {
   /** 文章标题 */
@@ -71,7 +70,7 @@ export function getAllPosts(): Post[] {
   const posts: Post[] = files.map(filename => {
     const filePath = path.join(postsDirectory, filename)
     const fileContents = fs.readFileSync(filePath, 'utf8')
-    const { data, content } = matter(fileContents)
+    const { data, content } = parseFrontMatter(fileContents)
     const dateStr = normalizeDate(data.date)
 
     return {

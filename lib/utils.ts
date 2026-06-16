@@ -1,7 +1,55 @@
 /**
  * 核心工具函数集
- * 包含：字符串处理、日期格式化、转义函数等通用工具
+ * 包含：字符串处理、日期格式化、转义函数、front-matter 解析等通用工具
  */
+
+import yaml from 'js-yaml'
+
+/** 解析 front-matter 的返回类型 */
+export interface FrontMatterResult<T = Record<string, unknown>> {
+  /** 解析后的 front-matter 数据 */
+  data: T
+  /** front-matter 之后的正文内容 */
+  content: string
+}
+
+/**
+ * 解析 YAML front-matter（替换 gray-matter）
+ * 从文件内容中提取 `---` 包裹的 YAML 元数据并返回数据和正文
+ * @param fileContents - 完整的 .md 文件内容
+ * @returns `{ data, content }` — data 为解析后的对象，content 为正文
+ *
+ * @example
+ * ```ts
+ * const { data, content } = parseFrontMatter('---\ntitle: Hello\n---\nBody text')
+ * // data = { title: 'Hello' }
+ * // content = 'Body text'
+ * ```
+ */
+export function parseFrontMatter<T = Record<string, unknown>>(fileContents: string): FrontMatterResult<T> {
+  // 以 "---\n" 或 "---\r\n" 开头才视为 front-matter
+  const startMatch = fileContents.match(/^---\r?\n/)
+  if (!startMatch) {
+    return { data: {} as T, content: fileContents }
+  }
+
+  const startOffset = startMatch[0].length
+  const endIndex = fileContents.indexOf('\n---', startOffset)
+  if (endIndex === -1) {
+    return { data: {} as T, content: fileContents.slice(startOffset) }
+  }
+
+  const yamlStr = fileContents.slice(startOffset, endIndex)
+  const content = fileContents.slice(endIndex + 4).replace(/^\r?\n/, '')
+
+  try {
+    const data = yaml.load(yamlStr) as T
+    return { data: data ?? {} as T, content }
+  } catch {
+    console.warn('Failed to parse YAML front-matter, falling back to empty data')
+    return { data: {} as T, content }
+  }
+}
 
 /**
  * 从文件名提取 slug（去掉日期前缀和 .md 后缀）
@@ -11,7 +59,7 @@ export function slugFromFilename(filename: string): string {
 }
 
 /**
- * 统一处理 gray-matter 解析出的日期值
+ * 统一处理 front-matter 解析出的日期值
  */
 export function normalizeDate(dateVal: unknown): string {
   if (dateVal instanceof Date) {
