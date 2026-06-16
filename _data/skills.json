@@ -1,0 +1,43 @@
+[
+  {
+    "id": "frontend",
+    "name": "FRONTEND",
+    "skills": [
+      { "id": "html-css", "name": "HTML / CSS", "level": 7, "description": "Responsive layouts, Flexbox, Grid, animations." },
+      { "id": "js-ts", "name": "JavaScript / TypeScript", "level": 6, "description": "ES6+, type safety, async programming." }
+    ]
+  },
+  {
+    "id": "backend",
+    "name": "BACKEND",
+    "skills": [
+      { "id": "python", "name": "Python", "level": 5, "description": "Scripting, automation, data processing." },
+      { "id": "mysql", "name": "MySQL", "level": 5, "description": "Relational database design, query optimization." }
+    ]
+  },
+  {
+    "id": "systems",
+    "name": "SYSTEMS",
+    "skills": [
+      { "id": "c-cpp", "name": "C / C++", "level": 5, "description": "Low-level programming, memory management." }
+    ]
+  },
+  {
+    "id": "hardware",
+    "name": "HARDWARE",
+    "skills": [
+      { "id": "kicad", "name": "KiCad", "level": 4, "description": "PCB design, schematic capture." },
+      { "id": "lceda", "name": "LCEDA", "level": 4, "description": "EasyEDA / LCEDA circuit design." },
+      { "id": "fusion360", "name": "Fusion 360", "level": 3, "description": "3D modeling, mechanical design." }
+    ]
+  },
+  {
+    "id": "tools",
+    "name": "TOOLS",
+    "skills": [
+      { "id": "git", "name": "Git", "level": 6, "description": "Version control, collaboration, branching." },
+      { "id": "linux", "name": "Linux", "level": 5, "description": "Shell scripting, server administration." },
+      { "id": "markdown", "name": "Markdown", "level": 8, "description": "Technical documentation, note-taking." }
+    ]
+  }
+]

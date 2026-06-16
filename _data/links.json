@@ -1,0 +1,13 @@
+[
+    {
+        "name": "Sanksu Blog",
+        "desc": "Sanksu的个人博客",
+        "url": "https://sanksu.cn/",
+        "avatar": "/assets/img/logo_256x256.png"
+    },
+    {
+        "name": "边缘社",
+        "desc": "CS2 HNS 社区服",
+        "url": "https://edgebug.cn/"
+    }
+]

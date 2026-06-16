@@ -1,0 +1,23 @@
+[
+    {
+        "name": "Sanksu Blog",
+        "desc": "基于 Next.js 的个人博客，支持 Markdown、代码高亮、RSS 订阅",
+        "url": "https://sanksu.cn/",
+        "tags": [
+            "Next.js",
+            "React",
+            "Markdown"
+        ]
+    },
+    {
+        "name": "SlimeVR BMI270",
+        "desc": "DIY 全身追踪器硬件方案，开源 PCB 设计与固件配置",
+        "url": "https://oshwhub.com/sanksu/slimevr_bmi270",
+        "tags": [
+            "硬件",
+            "ESP8266",
+            "BMI270",
+            "开源"
+        ]
+    }
+]

@@ -1,0 +1,116 @@
+// Highlight.js 代码高亮 CSS 变量（深色模式默认值）
+:root {
+  --ark-dark: #0d0d0d;
+  --ark-dark-blue: #1a1a1a;
+  --ark-gray: #333333;
+  --ark-medium-gray: #777777;
+  --ark-light-gray: #e0e0e0;
+  --ark-white: #f1f1f1;
+  --ark-primary: rgba(200, 200, 200, 0.8);
+  --ark-accent: rgba(220, 220, 220, 1);
+  --ark-highlight: #b2f2bb;
+  --ark-border: rgba(255, 255, 255, 0.12);
+  --ark-text: rgba(230, 230, 230, 0.9);
+  --ark-text-dim: rgba(180, 180, 180, 0.6);
+
+  // 代码高亮变量：深色模式（默认）
+  --hljs-base: #e6e6e6;
+  --hljs-comment: #6a9955;
+  --hljs-keyword: #c586c0;
+  --hljs-string: #ce9178;
+  --hljs-number: #b5cea8;
+  --hljs-title: #dcdcaa;
+  --hljs-tag: #569cd6;
+  --hljs-deletion: #f48771;
+
+  --font-hud: "Dosis", "Cascadia Code", Consolas, "Microsoft YaHei", "PingFang SC", sans-serif;
+  --font-body: "Noto Serif SC", "Noto Sans SC", "Microsoft YaHei", serif;
+  --transition-fast: 0.3s cubic-bezier(0.6, 0.05, 0.01, 0.9);
+  --transition-medium: 0.5s cubic-bezier(0.6, 0.05, 0.01, 0.9);
+  --content-max-width: 1000px;
+  --pad-body-x: 14px;
+  --pad-section-y: 20px;
+}
+
+html:not(.dark) {
+  --ark-dark: #ffffff;
+  --ark-dark-blue: #f5f5f5;
+  --ark-gray: #e0e0e0;
+  --ark-medium-gray: #888888;
+  --ark-light-gray: #444444;
+  --ark-white: #1a1a1a;
+  --ark-primary: rgba(60, 60, 60, 0.8);
+  --ark-accent: rgba(40, 40, 40, 1);
+  --ark-highlight: #2b8a3e;
+  --ark-border: rgba(0, 0, 0, 0.12);
+  --ark-text: rgba(30, 30, 30, 0.9);
+  --ark-text-dim: rgba(80, 80, 80, 0.6);
+
+  // 代码高亮变量：浅色模式
+  --hljs-base: #24292e;
+  --hljs-comment: #6a737d;
+  --hljs-keyword: #d73a49;
+  --hljs-string: #032f62;
+  --hljs-number: #005cc5;
+  --hljs-title: #6f42c1;
+  --hljs-tag: #22863a;
+  --hljs-deletion: #cf222e;
+}
+
+// 主题切换过渡优化：分层策略 —— 骨架层过渡，内容层瞬切
+html.theme-transitioning {
+  // ========== 第一层：骨架层（保留过渡，用户感知流畅） ==========
+  // 只对页面框架元素应用过渡动画
+  &,
+  body,
+  .header,
+  .footer,
+  .floating-actions,
+  .page-layout,
+  .loading-screen,
+  .reading-progress,
+  .toc {
+    transition:
+      background-color 0.35s cubic-bezier(0.4, 0, 0.2, 1),
+      color 0.3s cubic-bezier(0.4, 0, 0.2, 1),
+      border-color 0.3s cubic-bezier(0.4, 0, 0.2, 1),
+      opacity 0.25s cubic-bezier(0.4, 0, 0.2, 1) !important;
+  }
+
+  // ========== 第二层：文章内容区（CSS 变量瞬切，零过渡） ==========
+  // 文章内容通过 CSS 变量切换颜色，不添加 transition
+  // 原因：长文章 DOM 元素过多（100+），逐元素过渡会导致严重卡顿
+  // 瞬间切换反而更干净、更快速
+  //
+  // 不对以下元素添加 transition：
+  // - .post-content 及其所有子元素（p, h1-h6, a, ul, ol, li, blockquote, table...）
+  // - pre, code, .hljs-* （代码块）
+  // - .img-container, img （图片）
+  //
+  // 这些元素的颜色由 CSS 变量控制（--ark-text, --ark-border, --hljs-* 等）
+  // 切换主题时变量值瞬间改变，所有元素同步更新
+
+  // ========== 第三层：交互控件（轻量过渡） ==========
+  button,
+  input,
+  textarea,
+  select,
+  .float-btn,
+  .code-copy-btn {
+    transition:
+      background-color 0.25s cubic-bezier(0.4, 0, 0.2, 1),
+      color 0.25s cubic-bezier(0.4, 0, 0.2, 1),
+      border-color 0.25s cubic-bezier(0.4, 0, 0.2, 1) !important;
+  }
+}
+
+// 性能关键区域：使用 contain 隔离重绘范围
+.post-content {
+  contain: content;
+  will-change: auto; // 浏览器自动优化
+}
+
+// 技能树组件：限制布局和样式计算范围
+.tree {
+  contain: layout style paint;
+}

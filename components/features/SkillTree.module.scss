@@ -1,0 +1,241 @@
+.tree {
+  font-family: var(--font-hud);
+  margin: 16px 0;
+  // 性能优化：隔离布局、样式和绘制计算
+  contain: layout style paint;
+  // 启用 GPU 加速
+  transform: translateZ(0);
+}
+
+.toggle {
+  display: flex; align-items: center; gap: 8px;
+  width: 100%; padding: 10px 14px;
+  border: 1px solid var(--ark-border); border-radius: 6px;
+  background: rgba(255,255,255,0.02); color: var(--ark-text);
+  cursor: pointer; font-family: var(--font-hud); font-size: 0.9rem;
+  transition: border-color 0.2s, background 0.2s;
+
+  &:hover { border-color: var(--ark-highlight); background: rgba(178,242,187,0.04); }
+}
+
+html:not(.dark) .toggle { background: rgba(0,0,0,0.02); }
+
+.toggleIcon { font-size: 0.8rem; transition: transform 0.25s; }
+.toggleCount { margin-left: auto; font-size: 0.75rem; color: var(--ark-text-dim); }
+
+.body {
+  display: flex; gap: 20px; margin-top: 12px;
+  overflow: hidden;
+  // 性能优化：限制重绘范围
+  contain: content;
+}
+
+.bodyEnter {
+  animation: expandBody 0.25s ease-out both;
+}
+
+.bodyExit {
+  animation: collapseBody 0.2s ease-in both;
+}
+
+@keyframes expandBody {
+  from { opacity: 0; max-height: 0; }
+  to   { opacity: 1; max-height: 1200px; }
+}
+
+@keyframes collapseBody {
+  from { opacity: 1; max-height: 1200px; }
+  to   { opacity: 0; max-height: 0; }
+}
+.left { flex: 1; min-width: 0; }
+.right { width: 240px; flex-shrink: 0; }
+
+.trunk {
+  position: relative; padding-left: 18px;
+  border-left: 2px solid var(--ark-border);
+
+  // 遮盖层：展开时从上往下揭开，露出树枝连线
+  &::before {
+    content: '';
+    position: absolute;
+    left: -2px; top: 0;
+    width: 2px; height: 100%;
+    background: var(--ark-dark);
+    animation: uncoverBorder 0.5s ease both;
+    animation-delay: 0.1s;
+    pointer-events: none;
+    z-index: 1;
+  }
+}
+
+html:not(.dark) .trunk::before {
+  background: var(--ark-dark);
+}
+
+@keyframes uncoverBorder {
+  from { transform: scaleY(1); }
+  to   { transform: scaleY(0); }
+}
+
+.branch {
+  position: relative; padding-left: 20px; margin-bottom: 4px;
+  animation: drawBranch 0.35s ease both;
+  animation-delay: calc(var(--delay) * 60ms);
+  // 性能优化：隔离分支的布局和样式计算
+  contain: layout style;
+
+  &::before {
+    content: ''; position: absolute; left: -19px; top: 10px;
+    width: 0; height: 1px; background: var(--ark-border);
+    animation: drawLine 0.25s ease both;
+    animation-delay: calc(var(--delay) * 60ms + 80ms);
+  }
+  &:last-child { margin-bottom: 0; }
+}
+
+@keyframes drawBranch {
+  from { opacity: 0; clip-path: inset(0 0 100% 0); }
+  to   { opacity: 1; clip-path: inset(0 0 0% 0); }
+}
+
+@keyframes drawLine {
+  from { width: 0; }
+  to   { width: 18px; }
+}
+
+.branchHeader {
+  display: flex; align-items: center; gap: 6px; padding: 4px 0;
+  animation: slideRight 0.35s ease both;
+  animation-delay: calc(var(--delay) * 60ms + 150ms);
+}
+
+.branchName {
+  font-size: 0.72rem; letter-spacing: 2px; color: var(--ark-highlight);
+  font-weight: 600; white-space: nowrap;
+}
+
+.branchLine {
+  color: var(--ark-border); font-size: 0.7rem; letter-spacing: -1px;
+  overflow: hidden; white-space: nowrap; flex: 1; min-width: 0;
+}
+
+.branchCount { font-size: 0.68rem; color: var(--ark-text-dim); }
+
+.leaf {
+  position: relative; padding: 5px 0 5px 16px;
+  cursor: pointer; transition: background 0.15s; border-radius: 4px; margin: 1px 0;
+  // 性能优化：隔离叶子节点的样式计算
+  contain: style;
+
+  &::before {
+    content: ''; position: absolute; left: 0; top: 50%;
+    width: 0; height: 1px; background: var(--ark-border);
+    animation: drawLeafLine 0.2s ease both;
+    animation-delay: calc(var(--delay) * 50ms + 250ms);
+  }
+
+  &::after {
+    content: ''; position: absolute; left: -4px; top: 0; bottom: 0;
+    width: 1px; background: var(--ark-border);
+  }
+
+  &:hover, &.hovered { background: rgba(178,242,187,0.06); }
+}
+
+html:not(.dark) .leaf:hover,
+html:not(.dark) .leaf.hovered { background: rgba(43,138,62,0.06); }
+
+.leafRow {
+  display: flex; align-items: center; gap: 10px;
+  animation: slideRight 0.35s ease both;
+  animation-delay: calc(var(--delay) * 50ms + 200ms);
+}
+
+.leafName {
+  font-size: 0.82rem; color: var(--ark-text); min-width: 140px;
+  white-space: nowrap; transition: color 0.15s;
+
+  .hovered & { color: var(--ark-highlight); }
+}
+
+.leafBar { display: flex; gap: 2px; flex: 1; min-width: 0; }
+
+.barSeg {
+  display: block; width: 100%; max-width: 14px; height: 6px;
+  border-radius: 1px; transition: background 0.2s;
+}
+
+.barSegFilled { background: var(--ark-highlight); opacity: 0.7; }
+.barSegEmpty { background: var(--ark-border); opacity: 0.3; }
+.hovered .barSegFilled { opacity: 1; }
+
+.leafLevel {
+  font-size: 0.72rem; color: var(--ark-text-dim);
+  min-width: 18px; text-align: right; font-variant-numeric: tabular-nums;
+}
+
+.leafDesc {
+  display: none; margin-top: 4px; padding-left: 4px;
+  font-size: 0.78rem; color: var(--ark-text-dim); line-height: 1.5; min-height: 1.5em;
+}
+
+.infoPanel {
+  padding: 16px; border: 1px solid var(--ark-border); border-radius: 8px;
+  background: rgba(255,255,255,0.02);
+  animation: slideRight 0.35s ease both;
+  animation-delay: 0.15s;
+}
+
+html:not(.dark) .infoPanel { background: rgba(0,0,0,0.02); }
+
+.infoHeader {
+  display: flex; justify-content: space-between; align-items: baseline;
+  margin-bottom: 10px; padding-bottom: 8px; border-bottom: 1px solid var(--ark-border);
+}
+
+.infoTitle { font-size: 0.95rem; font-weight: 500; color: var(--ark-accent); }
+
+.infoLevel {
+  font-size: 0.78rem; color: var(--ark-highlight);
+  font-weight: 600; letter-spacing: 1px;
+}
+
+.infoBody { font-size: 0.84rem; color: var(--ark-text-dim); line-height: 1.6; min-height: 2.4em; }
+
+.infoEmpty {
+  display: flex; align-items: center; justify-content: center; height: 80px;
+  border: 1px dashed var(--ark-border); border-radius: 8px;
+  font-size: 0.75rem; letter-spacing: 2px; color: var(--ark-text-dim); opacity: 0.5;
+  animation: slideRight 0.35s ease both;
+  animation-delay: 0.15s;
+}
+
+.cursor { color: var(--ark-highlight); animation: blink 0.8s step-end infinite; margin-left: 1px; }
+
+@keyframes drawLeafLine {
+  from { width: 0; }
+  to   { width: 10px; }
+}
+
+@keyframes slideRight {
+  from { opacity: 0; transform: translateX(16px); }
+  to   { opacity: 1; transform: translateX(0); }
+}
+
+@keyframes blink {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0; }
+}
+
+.expanded {
+  .toggleIcon { transform: rotate(90deg); }
+}
+
+@media (max-width: 768px) {
+  .body { flex-direction: column; }
+  .right { width: 100%; }
+  .infoEmpty { height: 48px; }
+  .leafDesc { display: block; }
+  .leafName { min-width: auto; font-size: 0.78rem; }
+  .barSeg { max-width: 10px; height: 5px; }
+}

@@ -1,0 +1,52 @@
+{
+  "site": {
+    "title": "Sanksu Blog",
+    "description": "Sanksu的个人博客",
+    "url": "https://sanksu.cn",
+    "authors": [{ "name": "Sanksu" }],
+    "keywords": ["Sanksu", "Blog", "Java", "Html", "JavaScript"],
+    "icons": {
+      "icon": "/assets/img/logo.ico",
+      "apple": "/assets/img/logo_256x256.png"
+    },
+    "openGraph": {
+      "siteName": "Sanksu Blog",
+      "locale": "zh_CN"
+    },
+    "twitter": {
+      "card": "summary_large_image"
+    },
+    "other": {
+      "theme-color": "#ffffff",
+      "supported-color-schemes": "light dark",
+      "renderer": "webkit",
+      "applicable-device": "pc,mobile"
+    }
+  },
+  "pages": {
+    "home": {
+      "title": "首页 - Sanksu Blog",
+      "description": "Sanksu的个人博客，分享技术、硬件与生活"
+    },
+    "about": {
+      "title": "关于 - Sanksu Blog",
+      "description": "了解 Sanksu 的经历、项目与技能"
+    },
+    "categories": {
+      "title": "分类 - Sanksu Blog",
+      "description": "按分类浏览 Sanksu Blog 的所有文章"
+    },
+    "tags": {
+      "title": "标签 - Sanksu Blog",
+      "description": "按标签浏览 Sanksu Blog 的所有文章"
+    },
+    "search": {
+      "title": "搜索 - Sanksu Blog",
+      "description": "搜索 Sanksu Blog 中的文章"
+    },
+    "links": {
+      "title": "友链 - Sanksu Blog",
+      "description": "Sanksu 的朋友们和友情链接"
+    }
+  }
+}

@@ -1,0 +1,13 @@
+[
+    {
+        "year": "2024",
+        "title": "开始搭建个人博客",
+        "desc": "基于 Next.js + Markdown 构建个人博客站点"
+    },
+    {
+        "year": "2024",
+        "title": "SlimeVR BMI270 硬件项目",
+        "desc": "设计并开源 SlimeVR 追踪器硬件方案，使用 ESP-12F + BMI270 IMU",
+        "link": "https://oshwhub.com/sanksu/slimevr_bmi270"
+    }
+]
