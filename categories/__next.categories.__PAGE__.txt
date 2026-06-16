@@ -79,5 +79,5 @@ BMI270的i2c地址是0x68(当SDO脚接地)/0x69(当SDO脚拉高)，SlimeVR源码
 ### 6. **感谢**
 
 - 主要电路参考[SlimeVR_BNO085](https://oshwhub.com/myzhazha/slimevr)，感谢
-0:{"rsc":["$","$1","c",{"children":[["$","$L2",null,{"categories":{"硬件":[{"title":"SlimeVR_BMI270","date":"2024-06-06","categories":["硬件"],"tags":["硬件"],"pinned":false,"slug":"SlimeVR-BMI270","content":"$3"}]}}],[["$","script","script-0",{"src":"/_next/static/chunks/3sm50z22zjwo9.js","async":true}]],["$","$L4",null,{"children":["$","$5",null,{"name":"Next.MetadataOutlet","children":"$@6"}]}]]}],"isPartial":false,"staleTime":300,"varyParams":null,"buildId":"-TaW3MHnbFzK8z1WQw6jS"}
+0:{"rsc":["$","$1","c",{"children":[["$","$L2",null,{"categories":{"硬件":[{"title":"SlimeVR_BMI270","date":"2024-06-06","categories":["硬件"],"tags":["硬件"],"pinned":false,"slug":"SlimeVR-BMI270","content":"$3"}]}}],[["$","script","script-0",{"src":"/_next/static/chunks/3sm50z22zjwo9.js","async":true}]],["$","$L4",null,{"children":["$","$5",null,{"name":"Next.MetadataOutlet","children":"$@6"}]}]]}],"isPartial":false,"staleTime":300,"varyParams":null,"buildId":"Uy07Vmxu2pBSn46PdRJLz"}
 6:null
