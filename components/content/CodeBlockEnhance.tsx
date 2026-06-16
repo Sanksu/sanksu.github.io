@@ -2,9 +2,18 @@
 
 import { useEffect, useRef, useCallback } from 'react'
 
+/**
+ * 代码块增强组件
+ * 为所有 `.post-content` 中的 `<pre><code>` 添加：
+ * - 语言标签（左上角）
+ * - 复制按钮（右上角）
+ * - 外层 `.code-block-wrapper` 包装器
+ * 通过 MutationObserver 监听动态内容变化
+ */
 export default function CodeBlockEnhance() {
   const handlersRef = useRef(new Map<HTMLButtonElement, () => void>())
 
+  /** 复制代码并显示反馈 */
   const handleCopy = useCallback(async (code: string, btn: HTMLButtonElement) => {
     try {
       await navigator.clipboard.writeText(code)
@@ -16,6 +25,7 @@ export default function CodeBlockEnhance() {
     }
   }, [])
 
+  /** 为单个代码块添加包装器和工具栏 */
   const enhanceBlock = useCallback((block: HTMLElement) => {
     if (block.dataset.enhanced) return
     block.dataset.enhanced = 'true'

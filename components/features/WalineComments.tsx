@@ -10,6 +10,10 @@ interface Props {
   emoji?: string[]
 }
 
+/**
+ * Waline 评论组件
+ * 在客户端挂载后初始化 Waline 实例，卸载时销毁
+ */
 export default function WalineComments({ serverURL, path, emoji }: Props) {
   const containerRef = useRef<HTMLDivElement>(null)
 
@@ -25,7 +29,7 @@ export default function WalineComments({ serverURL, path, emoji }: Props) {
       search: false,
     }
 
-    // Waline 的 emoji 类型定义与实际使用不完全匹配，使用类型断言绕过
+
     if (emoji && emoji.length > 0) {
       (options as unknown as Record<string, unknown>).emoji = emoji
     }

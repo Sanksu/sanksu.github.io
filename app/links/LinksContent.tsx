@@ -4,6 +4,10 @@ import WalineComments from '@/components/features/WalineComments'
 import { useScrollAnimation } from '@/hooks/useScrollAnimation'
 import type { Link } from '@/lib/links'
 
+/**
+ * 友链页面内容组件
+ * 展示友链列表和本站友链信息，底部嵌入 Waline 评论区
+ */
 export default function LinksContent({ links }: { links: Link[] }) {
   const ref = useScrollAnimation()
 

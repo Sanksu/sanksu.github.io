@@ -18,9 +18,16 @@ interface SkillCategory {
 }
 
 interface Props {
+  /** 技能分类与具体技能数据 */
   skillCategories: SkillCategory[]
 }
 
+/**
+ * 技能树组件
+ * 以树状结构展示技能分类和熟练度，支持展开/收起、悬停/点击查看详情
+ * - 左侧：可折叠的技能分支树，每片叶子显示名称、10 格进度条和等级
+ * - 右侧：当前选中技能的详细信息面板，带打字机动画
+ */
 export default function SkillTree({ skillCategories }: Props) {
   const [expanded, setExpanded] = useState(false)
   const [closing, setClosing] = useState(false)
@@ -30,6 +37,8 @@ export default function SkillTree({ skillCategories }: Props) {
   const closeTimer = useRef<ReturnType<typeof setTimeout> | null>(null)
 
   const allSkills = useMemo(() => skillCategories.flatMap(c => c.skills), [skillCategories])
+
+  /** 当前活动技能：优先悬停，其次点击 */
   const activeId = hoveredId ?? tappedId
   const activeSkill = useMemo(
     () => allSkills.find(sk => sk.id === activeId) ?? null,
@@ -52,10 +61,12 @@ export default function SkillTree({ skillCategories }: Props) {
     return indices
   }, [skillCategories])
 
+  /** 处理叶子点击（移动端适配） */
   const handleLeafTap = useCallback((skillId: string) => {
     setTappedId(prev => (prev === skillId ? null : skillId))
   }, [])
 
+  /** 展开/收起技能树 */
   const toggle = () => {
     if (closeTimer.current) clearTimeout(closeTimer.current)
     if (expanded) {
@@ -85,7 +96,7 @@ export default function SkillTree({ skillCategories }: Props) {
         <div className={`${styles.body} ${expanded ? styles.bodyEnter : ''} ${closing ? styles.bodyExit : ''}`}>
           <div className={styles.left}>
             <div className={styles.trunk}>
-              {skillCategories.map((cat, ci) => {
+              {skillCategories.map((cat) => {
                 const branchIdx = delayIndices.get(`branch-${cat.id}`) ?? 0
                 return (
                   <div key={cat.id} className={styles.branch} style={{ ['--delay' as string]: branchIdx }}>
@@ -95,7 +106,7 @@ export default function SkillTree({ skillCategories }: Props) {
                       <span className={styles.branchCount}>[{cat.skills.length}]</span>
                     </div>
                     <div>
-                      {cat.skills.map((skill, si) => {
+                      {cat.skills.map((skill) => {
                         const isActive = activeId === skill.id
                         const leafIdx = delayIndices.get(`leaf-${skill.id}`) ?? 0
                         return (

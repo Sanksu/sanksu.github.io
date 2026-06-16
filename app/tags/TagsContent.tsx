@@ -5,6 +5,10 @@ import { useScrollAnimation } from '@/hooks/useScrollAnimation'
 import { formatDate, postUrl } from '@/lib/format'
 import type { Post } from '@/lib/posts'
 
+/**
+ * 标签页面内容组件
+ * 顶部显示标签云，下方按标签分组展示文章
+ */
 export default function TagsContent({ tags }: { tags: Record<string, Post[]> }) {
   const ref = useScrollAnimation()
 

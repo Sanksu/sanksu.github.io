@@ -1,7 +1,6 @@
 'use client'
 
-import { useEffect, useState, useMemo, useCallback } from 'react'
-import dynamic from 'next/dynamic'
+import { useEffect, useMemo, useCallback } from 'react'
 import WalineComments from '@/components/features/WalineComments'
 import ImagePreview from '@/components/ui/ImagePreview'
 import TableOfContents from '@/components/content/TableOfContents'
@@ -12,30 +11,16 @@ import { useScrollAnimation } from '@/hooks/useScrollAnimation'
 import { getReadingTime } from '@/lib/format'
 import type { Post } from '@/lib/posts'
 
-// 动态加载大型依赖，减少首屏体积
-const MarkedRenderer = dynamic(
-  () => import('@/lib/marked-renderer').then(mod => mod.default),
-  {
-    ssr: false,
-    loading: () => (
-      <div className="post post-content">
-        <div style={{ padding: '40px', textAlign: 'center', color: 'var(--ark-text-dim)' }}>
-          正在渲染内容...
-        </div>
-      </div>
-    )
-  }
-)
-
 interface Props {
   post: Post | null
+  postHtml: string | null
   postPath: string
   prevPost: Post | null
   nextPost: Post | null
   walineConfig: { serverURL: string; emoji: string[] }
 }
 
-export default function PostContent({ post, postPath, prevPost, nextPost, walineConfig }: Props) {
+export default function PostContent({ post, postHtml, postPath, prevPost, nextPost, walineConfig }: Props) {
   const ref = useScrollAnimation()
 
   const readingTime = useMemo(() => {
@@ -127,7 +112,11 @@ export default function PostContent({ post, postPath, prevPost, nextPost, waline
             <span> | 阅读时长: {readingTime} 分钟</span>
             <span> | 阅读量: <span className="waline-pageview-count" data-path={postPath} /></span>
           </div>
-          <MarkedRenderer content={post.content} />
+          <div
+            className="post scroll-animate post-content"
+            dangerouslySetInnerHTML={{ __html: postHtml! }}
+            suppressHydrationWarning
+          />
           <CodeBlockEnhance />
           <PostNavigation prevPost={prevPost} nextPost={nextPost} />
           <WalineComments serverURL={walineConfig.serverURL} path={postPath} emoji={walineConfig.emoji} />

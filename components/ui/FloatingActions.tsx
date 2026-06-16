@@ -3,11 +3,18 @@
 import { useTheme } from '@/hooks/useTheme'
 import { useState, useEffect, useRef, useCallback } from 'react'
 
+/**
+ * 浮动操作按钮组件
+ * 固定在页面右下角，包含：
+ * - 回到顶部按钮（滚动超过 300px 时显示）
+ * - 亮/暗主题切换按钮
+ */
 export default function FloatingActions() {
   const { isDark, toggleTheme } = useTheme()
   const [showTop, setShowTop] = useState(false)
   const rafRef = useRef<number | null>(null)
 
+  /** 滚动监听：超过 300px 显示回到顶部按钮（rAF 节流） */
   const handleScroll = useCallback(() => {
     if (rafRef.current) return
     rafRef.current = requestAnimationFrame(() => {
@@ -26,7 +33,7 @@ export default function FloatingActions() {
 
   const scrollToTop = () => window.scrollTo({ top: 0, behavior: 'smooth' })
 
-  // SSR hydration safety
+  // SSR hydration safety — 主题状态未确定时不渲染
   if (isDark === null) return null
 
   return (
@@ -54,6 +61,7 @@ export default function FloatingActions() {
   )
 }
 
+/** 太阳图标（浅色模式按钮） */
 function SunIcon() {
   return (
     <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
@@ -70,6 +78,7 @@ function SunIcon() {
   )
 }
 
+/** 月亮图标（深色模式按钮） */
 function MoonIcon() {
   return (
     <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">

@@ -21,6 +21,8 @@ export default function RootLayout({ children }: { children: ReactNode }) {
       <head>
         <meta httpEquiv="content-language" content="zh-CN" />
         <meta httpEquiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+        <link rel="preload" href="/fonts/dosis-latin.woff2" as="font" type="font/woff2" crossOrigin="anonymous" />
+        <link rel="preload" href="/fonts/dosis-latin-ext.woff2" as="font" type="font/woff2" crossOrigin="anonymous" />
         <link rel="stylesheet" href="/fonts/dosis.css" />
         <link rel="alternate" type="application/rss+xml" title="Sanksu Blog RSS" href="/rss.xml" />
         <script dangerouslySetInnerHTML={{ __html: `

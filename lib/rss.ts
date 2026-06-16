@@ -4,10 +4,19 @@ import { getAllPosts } from './posts'
 import { escapeXml, stripMarkdown } from './utils'
 import { SITE_URL } from './data'
 
+/**
+ * 将 YYYY-MM-DD 转为 RFC-822 格式（RSS 规范要求）
+ * @param dateStr - YYYY-MM-DD 格式日期
+ * @returns RFC 822 时间字符串（如 `Thu, 06 Jun 2024 00:00:00 GMT`）
+ */
 function formatRfc822(dateStr: string): string {
   return new Date(dateStr).toUTCString()
 }
 
+/**
+ * 生成 RSS 2.0 XML 文件
+ * 在 `next build` 前通过 `tsx` 执行，输出到 `public/rss.xml`
+ */
 export function generateRss(): void {
   const posts = getAllPosts()
   const items = posts.map(post => {

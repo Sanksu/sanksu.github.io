@@ -2,12 +2,19 @@
 
 import { useEffect, useState, useRef, useCallback } from 'react'
 
+/**
+ * 顶部阅读进度条组件
+ * 固定定位在视口顶部，实时反映页面滚动进度
+ * - 使用 rAF 节流 + passive 滚动监听优化性能
+ * - 延迟 400ms 显示，避免页面切换动画期间闪现
+ */
 export default function ReadingProgress() {
   const [progress, setProgress] = useState(0)
   const [visible, setVisible] = useState(false)
   const rafRef = useRef<number | null>(null)
   const ticking = useRef(false)
 
+  /** 计算并更新阅读进度百分比（rAF 节流） */
   const updateProgress = useCallback(() => {
     if (ticking.current) return
 
@@ -20,7 +27,6 @@ export default function ReadingProgress() {
         0
       )
 
-      // 确保进度在 0-100 范围内
       let newProgress = 0
       if (docHeight > 0) {
         newProgress = Math.min(Math.max((scrollTop / docHeight) * 100, 0), 100)

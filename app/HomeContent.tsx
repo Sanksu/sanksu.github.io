@@ -3,16 +3,21 @@
 import Link from 'next/link'
 import { useScrollAnimation } from '@/hooks/useScrollAnimation'
 import { formatDate, postUrl } from '@/lib/format'
-import type { PostsByYear, Post } from '@/lib/posts'
+import type { PostsByYear } from '@/lib/posts'
 
 interface Props {
+  /** 按年份分组的文章集合 */
   postsByYear: PostsByYear
 }
 
+/**
+ * 首页内容组件
+ * 按年份展示文章列表，置顶文章单列展示在最上方
+ */
 export default function HomeContent({ postsByYear }: Props) {
   const ref = useScrollAnimation()
 
-  // 使用 flatMap + filter 简化 pinned posts 提取
+  // 提取所有置顶文章
   const pinnedPosts = Object.values(postsByYear)
     .flatMap(yearPosts => yearPosts)
     .filter(post => post.pinned)

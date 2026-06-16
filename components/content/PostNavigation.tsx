@@ -3,10 +3,16 @@ import { postUrl } from '@/lib/format'
 import type { Post } from '@/lib/posts'
 
 interface Props {
+  /** 较旧的文章 */
   prevPost: Post | null
+  /** 较新的文章 */
   nextPost: Post | null
 }
 
+/**
+ * 文章篇导航按钮
+ * 在文章底部显示上一篇 / 下一篇链接
+ */
 export default function PostNavigation({ prevPost, nextPost }: Props) {
   if (!prevPost && !nextPost) return null
 

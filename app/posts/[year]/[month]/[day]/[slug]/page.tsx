@@ -2,6 +2,7 @@ import PostContent from './PostContent'
 import { getPostBySlug, getAllPostSlugs, getAdjacentPosts } from '@/lib/posts'
 import { postUrl } from '@/lib/format'
 import { getSiteUrl, getSiteName, getWalineConfig } from '@/lib/metadata'
+import { markdownToHtml } from '@/lib/markdown'
 import type { Metadata } from 'next'
 
 export async function generateStaticParams() {
@@ -40,10 +41,12 @@ export default async function PostPage({ params }: Props) {
   const { year, month, day, slug } = await params
   const post = getPostBySlug(slug)
   const adjacent = getAdjacentPosts(slug)
+  const postHtml = post ? markdownToHtml(post.content) : null
 
   return (
     <PostContent
       post={post}
+      postHtml={postHtml}
       postPath={`/posts/${year}/${month}/${day}/${slug}`}
       prevPost={adjacent.prev}
       nextPost={adjacent.next}

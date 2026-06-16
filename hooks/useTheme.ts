@@ -2,10 +2,19 @@
 
 import { useState, useEffect, useCallback, useRef } from 'react'
 
+/**
+ * 主题切换 Hook
+ * 管理亮/暗主题状态，支持 localStorage 持久化
+ * @returns `{ isDark, toggleTheme }` — 当前主题状态和切换函数
+ *
+ * 初始化逻辑：localStorage > 系统偏好 > 默认 false
+ * 切换时使用 `theme-transitioning` class 触发 CSS 过渡动画
+ */
 export function useTheme() {
   const [isDark, setIsDark] = useState<boolean | null>(null)
   const rafRef = useRef<number | null>(null)
 
+  // 客户端挂载后从 localStorage 或系统偏好读取初始主题
   useEffect(() => {
     const stored = localStorage.getItem('darkMode')
     if (stored === 'true') setIsDark(true)
@@ -13,8 +22,11 @@ export function useTheme() {
     else setIsDark(window.matchMedia('(prefers-color-scheme: dark)').matches)
   }, [])
 
+  /**
+   * 切换主题
+   * 使用 rAF 批量 DOM 写入 + force reflow 技巧避免布局抖动
+   */
   const toggleTheme = useCallback(() => {
-    // 使用 rAF 确保在浏览器空闲时执行，避免阻塞渲染
     if (rafRef.current) cancelAnimationFrame(rafRef.current)
 
     rafRef.current = requestAnimationFrame(() => {
@@ -22,16 +34,10 @@ export function useTheme() {
         const next = !prev
         const d = document.documentElement
 
-        // 先移除旧类名，再添加新类名，减少中间状态的重绘
         d.classList.remove('dark', 'theme-transitioning')
-
-        // 使用 force reflow 确保类名移除生效
-        void d.offsetHeight
-
-        // 添加新的类名
+        void d.offsetHeight // force reflow
         d.className = [next ? 'dark' : '', 'theme-transitioning'].filter(Boolean).join(' ')
 
-        // 保存偏好
         localStorage.setItem('darkMode', String(next))
 
         // 过渡结束后清理

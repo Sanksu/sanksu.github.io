@@ -2,6 +2,11 @@
 
 import { useEffect, useState } from 'react'
 
+/**
+ * 图片预览组件
+ * 点击文章正文中的图片时，以全屏遮罩形式预览原图
+ * 点击遮罩关闭
+ */
 export default function ImagePreview() {
   const [previewSrc, setPreviewSrc] = useState<string | null>(null)
 

@@ -3,6 +3,10 @@
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 
+/**
+ * 顶部导航栏组件
+ * 根据当前路径高亮激活的导航项
+ */
 export default function Header() {
   const pathname = usePathname()
 

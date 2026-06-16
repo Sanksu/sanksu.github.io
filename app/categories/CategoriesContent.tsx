@@ -5,6 +5,10 @@ import { useScrollAnimation } from '@/hooks/useScrollAnimation'
 import { formatDate, postUrl } from '@/lib/format'
 import type { Post } from '@/lib/posts'
 
+/**
+ * 分类页面内容组件
+ * 顶部显示所有分类标签，下方按分类分组展示文章
+ */
 export default function CategoriesContent({ categories }: { categories: Record<string, Post[]> }) {
   const ref = useScrollAnimation()
 
