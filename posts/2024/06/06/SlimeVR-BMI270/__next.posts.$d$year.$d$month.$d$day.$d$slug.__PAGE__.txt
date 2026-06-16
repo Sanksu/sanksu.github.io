@@ -1,7 +1,7 @@
 1:"$Sreact.fragment"
-2:I[18351,["/_next/static/chunks/3-1xpq_smrh2i.js","/_next/static/chunks/0jubty45h__ir.js","/_next/static/chunks/0i7eu1vxud754.js","/_next/static/chunks/2yzq2biti_jvi.js"],"default"]
-4:I[97367,["/_next/static/chunks/3-1xpq_smrh2i.js","/_next/static/chunks/0jubty45h__ir.js"],"OutletBoundary"]
-5:"$Sreact.suspense"
+2:I[18351,["/_next/static/chunks/3-1xpq_smrh2i.js","/_next/static/chunks/14mrh2-p_w84d.js","/_next/static/chunks/1qj2jk8ltyxjp.js","/_next/static/chunks/2yzq2biti_jvi.js"],"default"]
+9:I[97367,["/_next/static/chunks/3-1xpq_smrh2i.js","/_next/static/chunks/14mrh2-p_w84d.js"],"OutletBoundary"]
+a:"$Sreact.suspense"
 :HL["/_next/static/chunks/20oyokh00jbk-.css","style"]
 3:Tadd,
 ## **SlimeVR_BMI270**
@@ -80,5 +80,68 @@ BMI270的i2c地址是0x68(当SDO脚接地)/0x69(当SDO脚拉高)，SlimeVR源码
 ### 6. **感谢**
 
 - 主要电路参考[SlimeVR_BNO085](https://oshwhub.com/myzhazha/slimevr)，感谢
-0:{"rsc":["$","$1","c",{"children":[["$","$L2",null,{"post":{"title":"SlimeVR_BMI270","date":"2024-06-06","categories":["硬件"],"tags":["硬件"],"pinned":false,"slug":"SlimeVR-BMI270","content":"$3"},"postPath":"/posts/2024/06/06/SlimeVR-BMI270","prevPost":null,"nextPost":null,"walineConfig":{"serverURL":"https://waline.sanksu.cn/","emoji":["//cdn.jsdelivr.net/gh/Sanksu/Waline_Bang_Dream_emoji@1.9.0/src/BangDream/","//cdn.jsdelivr.net/gh/Sanksu/Waline_Bang_Dream_emoji@1.9.0/src/Popipa/","//cdn.jsdelivr.net/gh/Sanksu/Waline_Bang_Dream_emoji@1.9.0/src/Afterglow/","//cdn.jsdelivr.net/gh/Sanksu/Waline_Bang_Dream_emoji@1.9.0/src/RAS/","//cdn.jsdelivr.net/gh/Sanksu/Waline_Bang_Dream_emoji@1.9.0/src/PastelPalettes/","//cdn.jsdelivr.net/gh/Sanksu/Waline_Bang_Dream_emoji@1.9.0/src/Mygo/","//cdn.jsdelivr.net/gh/Sanksu/Waline_Bang_Dream_emoji@1.9.0/src/AveMujica/"]}}],[["$","link","0",{"rel":"stylesheet","href":"/_next/static/chunks/20oyokh00jbk-.css","precedence":"next"}],["$","script","script-0",{"src":"/_next/static/chunks/0i7eu1vxud754.js","async":true}],["$","script","script-1",{"src":"/_next/static/chunks/2yzq2biti_jvi.js","async":true}]],["$","$L4",null,{"children":["$","$5",null,{"name":"Next.MetadataOutlet","children":"$@6"}]}]]}],"isPartial":false,"staleTime":300,"varyParams":null,"buildId":"6y51rB4xg_6mU61t5mnwp"}
-6:null
+4:T1416,<h2 id="slimevrbmi270"><strong>SlimeVR_BMI270</strong></h2><ul>
+<li><a href="https://oshwhub.com/sanksu/slimevr_bmi270">立创开源平台</a><br><span class="img-container"><img src="https:&#x2F;&#x2F;image.lceda.cn&#x2F;oshwhub&#x2F;f2e35224d06b4dde9bd27ad48a2b8369.png" alt="SlimeVR_Server.png" loading="lazy" decoding="async" onload="this.style.opacity=1" style="opacity:0;transition:opacity .3s" /></span></li>
+</ul>
+<h3 id="1.-什么是slimevr？"><strong>1. 什么是SlimeVR？</strong></h3><p>SlimeVR是一组开放的硬件传感器和开源软件，有助于在虚拟现实中实现全身跟踪（FBT）。</p>
+<ul>
+<li><a href="https://docs.slimevr.dev/">官方文档</a></li>
+<li><a href="https://github.com/l0ud/SlimeVR-Tracker-ESP-BMI270">l0ud/SlimeVR-Tracker-ESP-BMI270分支</a></li>
+</ul>
+<h3 id="2.-介绍"><strong>2. 介绍</strong></h3><p>本项目由 ESP-12F + IP5306-CK + BMI270 组成，CH340K实现自动下载，采用LDO降压，提供3.3V供电</p>
+<p><strong>官网对BMI270的介绍如下</strong>：BMI270 是一款相对较新的实验性 IMU，用于 DIY SlimeVR。 它的性能似乎明显优于 BMI160，同时价格实惠。<br>外壳使用Fusion360设计<span class="img-container img-container--gif"><img src="https:&#x2F;&#x2F;cdn.jsdelivr.net&#x2F;gh&#x2F;Sanksu&#x2F;SlimeVR_BMI270@main&#x2F;IMG&#x2F;Assembly.gif" alt="外壳" onload="this.style.opacity=1" style="opacity:0;transition:opacity .3s" /></span></p>
+<h3 id="3.-固件"><strong>3. 固件</strong></h3><p>SlimeVR 固件的主分支尚不支持此BMI270，因此本项目使用<a href="https://github.com/l0ud/SlimeVR-Tracker-ESP-BMI270"><code>l0ud/SlimeVR-Tracker-ESP-BMI270</code></a>分支</p>
+<h4 id="3.1-构建-slimevr-固件">3.1 <strong>构建 SlimeVR 固件</strong></h4><ul>
+<li><p>安装<a href="https://cdn.sparkfun.com/assets/learn_tutorials/8/4/4/CH341SER.EXE">CH340驱动</a></p>
+</li>
+<li><p>VSCode安装PlatformIO IDE扩展</p>
+</li>
+<li><p>克隆<a href="https://github.com/l0ud/SlimeVR-Tracker-ESP-BMI270"><code>l0ud/SlimeVR-Tracker-ESP-BMI270</code></a>分支并通过VSCode打开(在此期间VSCode会自动配置环境，请保持网络畅通)</p>
+</li>
+<li><p>在 <code>platformio.ini</code> 设置<code>DWIFI_CREDS_SSID</code>和<code>DWIFI_CREDS_PASSWD</code></p>
+</li>
+<li><p>替换<code>src</code>/<code>defines.h</code></p>
+</li>
+</ul>
+<pre><code class="hljs language-c"><span class="hljs-meta">#<span class="hljs-keyword">define</span> IMU IMU_BMI270</span>
+<span class="hljs-meta">#<span class="hljs-keyword">define</span> SECOND_IMU IMU</span>
+<span class="hljs-meta">#<span class="hljs-keyword">define</span> BOARD BOARD_CUSTOM</span>
+<span class="hljs-meta">#<span class="hljs-keyword">define</span> IMU_ROTATION DEG_90</span>
+<span class="hljs-meta">#<span class="hljs-keyword">define</span> SECOND_IMU_ROTATION DEG_0</span>
+
+<span class="hljs-meta">#<span class="hljs-keyword">define</span> PRIMARY_IMU_OPTIONAL true</span>
+<span class="hljs-meta">#<span class="hljs-keyword">define</span> SECONDARY_IMU_OPTIONAL true</span>
+
+<span class="hljs-meta">#<span class="hljs-keyword">define</span> MAX_IMU_COUNT 1</span>
+
+<span class="hljs-meta">#<span class="hljs-keyword">ifndef</span> IMU_DESC_LIST</span>
+<span class="hljs-meta">#<span class="hljs-keyword">define</span> IMU_DESC_LIST \
+    IMU_DESC_ENTRY(IMU,        PRIMARY_IMU_ADDRESS_ONE,   IMU_ROTATION,        PIN_IMU_SCL, PIN_IMU_SDA, PRIMARY_IMU_OPTIONAL,   PIN_IMU_INT)</span>
+
+<span class="hljs-meta">#<span class="hljs-keyword">endif</span></span>
+
+<span class="hljs-meta">#<span class="hljs-keyword">define</span> BATTERY_MONITOR BAT_EXTERNAL</span>
+<span class="hljs-meta">#<span class="hljs-keyword">define</span> BATTERY_SHIELD_RESISTANCE 180</span>
+
+<span class="hljs-meta">#<span class="hljs-keyword">define</span> PIN_IMU_SDA D2</span>
+<span class="hljs-meta">#<span class="hljs-keyword">define</span> PIN_IMU_SCL D1</span>
+<span class="hljs-meta">#<span class="hljs-keyword">define</span> PIN_IMU_INT D0</span>
+<span class="hljs-meta">#<span class="hljs-keyword">define</span> PIN_IMU_INT_2 D5</span>
+<span class="hljs-meta">#<span class="hljs-keyword">define</span> PIN_BATTERY_LEVEL A0</span>
+</code></pre><h4 id="3.2-上传固件">3.2 <strong>上传固件</strong></h4><ul>
+<li>使用数据线连接</li>
+<li>点击<code>PlatformIO:Upload</code>,等待烧录完成</li>
+</ul>
+<h3 id="4.-使用">4. <strong>使用</strong></h3><ul>
+<li>打开SlimeVR服务端，按提示操作</li>
+</ul>
+<h3 id="5.-其他">5. <strong>其他</strong></h3><p>BMI270的i2c地址是0x68(当SDO脚接地)/0x69(当SDO脚拉高)，SlimeVR源码中<code>MPU9250</code>/<code>BMI160</code>/<code>MPU6500</code>/<code>ICM20948</code>/<code>ICM42688</code>默认作为主传感器的i2c地址为0x68，我在画第一版的时候是将SDO脚拉高了，所以把<code>src</code>/<code>sensors</code>/<code>sensoraddresses.h</code>文件中的0x68与0x69做了替换，修改过的版本无需注意</p>
+<h3 id="6.-感谢">6. <strong>感谢</strong></h3><ul>
+<li>主要电路参考<a href="https://oshwhub.com/myzhazha/slimevr">SlimeVR_BNO085</a>，感谢</li>
+</ul>
+0:{"rsc":["$","$1","c",{"children":[["$","$L2",null,{"post":{"title":"SlimeVR_BMI270","date":"2024-06-06","categories":["硬件"],"tags":["硬件"],"pinned":false,"slug":"SlimeVR-BMI270","content":"$3"},"postHtml":"$4","postPath":"/posts/2024/06/06/SlimeVR-BMI270","prevPost":null,"nextPost":null,"walineConfig":{"serverURL":"https://waline.sanksu.cn/","emoji":["//cdn.jsdelivr.net/gh/Sanksu/Waline_Bang_Dream_emoji@1.9.0/src/BangDream/","//cdn.jsdelivr.net/gh/Sanksu/Waline_Bang_Dream_emoji@1.9.0/src/Popipa/","//cdn.jsdelivr.net/gh/Sanksu/Waline_Bang_Dream_emoji@1.9.0/src/Afterglow/","//cdn.jsdelivr.net/gh/Sanksu/Waline_Bang_Dream_emoji@1.9.0/src/RAS/","//cdn.jsdelivr.net/gh/Sanksu/Waline_Bang_Dream_emoji@1.9.0/src/PastelPalettes/","//cdn.jsdelivr.net/gh/Sanksu/Waline_Bang_Dream_emoji@1.9.0/src/Mygo/","//cdn.jsdelivr.net/gh/Sanksu/Waline_Bang_Dream_emoji@1.9.0/src/AveMujica/"]}}],["$L5","$L6","$L7"],"$L8"]}],"isPartial":false,"staleTime":300,"varyParams":null,"buildId":"d88fshOqBP1_79FGWxZ25"}
+5:["$","link","0",{"rel":"stylesheet","href":"/_next/static/chunks/20oyokh00jbk-.css","precedence":"next"}]
+6:["$","script","script-0",{"src":"/_next/static/chunks/1qj2jk8ltyxjp.js","async":true}]
+7:["$","script","script-1",{"src":"/_next/static/chunks/2yzq2biti_jvi.js","async":true}]
+8:["$","$L9",null,{"children":["$","$a",null,{"name":"Next.MetadataOutlet","children":"$@b"}]}]
+b:null

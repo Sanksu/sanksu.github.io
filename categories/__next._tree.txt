@@ -1,3 +1,5 @@
-:HL["/_next/static/chunks/0c56b7b0so0b8.css","style"]
+:HL["/_next/static/chunks/16x1byntb4s0g.css","style"]
+:HL["/fonts/dosis-latin.woff2","font",{"crossOrigin":"anonymous","type":"font/woff2"}]
+:HL["/fonts/dosis-latin-ext.woff2","font",{"crossOrigin":"anonymous","type":"font/woff2"}]
 :HL["/fonts/dosis.css","style"]
-0:{"tree":{"name":"","param":null,"prefetchHints":16,"slots":{"children":{"name":"categories","param":null,"prefetchHints":0,"slots":{"children":{"name":"__PAGE__","param":null,"prefetchHints":0,"slots":null}}}}},"staleTime":300,"buildId":"6y51rB4xg_6mU61t5mnwp"}
+0:{"tree":{"name":"","param":null,"prefetchHints":16,"slots":{"children":{"name":"categories","param":null,"prefetchHints":0,"slots":{"children":{"name":"__PAGE__","param":null,"prefetchHints":0,"slots":null}}}}},"staleTime":300,"buildId":"d88fshOqBP1_79FGWxZ25"}
