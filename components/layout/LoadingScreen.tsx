@@ -2,37 +2,42 @@
 
 import { useState, useEffect, useRef } from 'react'
 
+/** 安全超时：无论如何 5 秒后强制隐藏，防止事件丢失导致卡住 */
+//const SAFETY_TIMEOUT = 10000
+
 export default function LoadingScreen() {
   const [visible, setVisible] = useState(true)
   const [hidden, setHidden] = useState(false)
-  const startRef = useRef(Date.now())
 
   useEffect(() => {
     let done = false
-    const MIN_TIME = 1000
+    const MIN_TIME = 500
 
     function hide() {
       if (done) return
       done = true
 
-      const elapsed = Date.now() - startRef.current
-      const remaining = Math.max(MIN_TIME - elapsed, 0)
-
       setTimeout(() => {
         setVisible(false)
+        // 等 fade-out 过渡完成后移除 DOM
         setTimeout(() => setHidden(true), 400)
-      }, remaining)
+      }, MIN_TIME)
     }
 
-    if (document.readyState === 'complete') {
+    // readyState 为 complete 或 interactive 都视为页面已就绪
+    if (document.readyState === 'complete' || document.readyState === 'interactive') {
       hide()
     } else {
       window.addEventListener('load', hide, { once: true })
     }
 
-    return () => {
-      window.removeEventListener('load', hide)
-    }
+    // 安全兜底：超时强制隐藏
+    //const safetyTimer = setTimeout(hide, SAFETY_TIMEOUT)
+
+//    return () => {
+//      window.removeEventListener('load', hide)
+//      clearTimeout(safetyTimer)
+//    }
   }, [])
 
   if (hidden) return null
