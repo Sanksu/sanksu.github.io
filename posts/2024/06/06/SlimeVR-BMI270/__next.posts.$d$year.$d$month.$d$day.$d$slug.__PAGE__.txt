@@ -1,5 +1,5 @@
 1:"$Sreact.fragment"
-2:I[18351,["/_next/static/chunks/1-bsw2qh6d9d3.js","/_next/static/chunks/14mrh2-p_w84d.js","/_next/static/chunks/3fpr0vtw_yy0n.js","/_next/static/chunks/2yzq2biti_jvi.js","/_next/static/chunks/32pw5oc2_la__.js"],"default"]
+2:I[18351,["/_next/static/chunks/1-bsw2qh6d9d3.js","/_next/static/chunks/14mrh2-p_w84d.js","/_next/static/chunks/3fpr0vtw_yy0n.js","/_next/static/chunks/2yzq2biti_jvi.js","/_next/static/chunks/2cf59cecdd6lr.js"],"default"]
 a:I[97367,["/_next/static/chunks/1-bsw2qh6d9d3.js","/_next/static/chunks/14mrh2-p_w84d.js"],"OutletBoundary"]
 b:"$Sreact.suspense"
 :HL["/_next/static/chunks/20oyokh00jbk-.css","style"]
@@ -139,10 +139,10 @@ BMI270的i2c地址是0x68(当SDO脚接地)/0x69(当SDO脚拉高)，SlimeVR源码
 <h3 id="6.-感谢">6. <strong>感谢</strong></h3><ul>
 <li>主要电路参考<a href="https://oshwhub.com/myzhazha/slimevr">SlimeVR_BNO085</a>，感谢</li>
 </ul>
-0:{"rsc":["$","$1","c",{"children":[["$","$L2",null,{"post":{"title":"SlimeVR_BMI270","date":"2024-06-06","categories":["硬件"],"tags":["硬件"],"pinned":false,"slug":"SlimeVR-BMI270","content":"$3"},"postHtml":"$4","postPath":"/posts/2024/06/06/SlimeVR-BMI270","prevPost":null,"nextPost":null,"walineConfig":{"serverURL":"https://waline.sanksu.cn/","emoji":["//cdn.jsdelivr.net/gh/Sanksu/Waline_Bang_Dream_emoji@1.9.0/src/BangDream/","//cdn.jsdelivr.net/gh/Sanksu/Waline_Bang_Dream_emoji@1.9.0/src/Popipa/","//cdn.jsdelivr.net/gh/Sanksu/Waline_Bang_Dream_emoji@1.9.0/src/Afterglow/","//cdn.jsdelivr.net/gh/Sanksu/Waline_Bang_Dream_emoji@1.9.0/src/RAS/","//cdn.jsdelivr.net/gh/Sanksu/Waline_Bang_Dream_emoji@1.9.0/src/PastelPalettes/","//cdn.jsdelivr.net/gh/Sanksu/Waline_Bang_Dream_emoji@1.9.0/src/Mygo/","//cdn.jsdelivr.net/gh/Sanksu/Waline_Bang_Dream_emoji@1.9.0/src/AveMujica/"]}}],["$L5","$L6","$L7","$L8"],"$L9"]}],"isPartial":false,"staleTime":300,"varyParams":null,"buildId":"Fua7X3zDY1YD5VvO1B0Rc"}
+0:{"rsc":["$","$1","c",{"children":[["$","$L2",null,{"post":{"title":"SlimeVR_BMI270","date":"2024-06-06","categories":["硬件"],"tags":["硬件"],"pinned":false,"slug":"SlimeVR-BMI270","content":"$3"},"postHtml":"$4","postPath":"/posts/2024/06/06/SlimeVR-BMI270","prevPost":null,"nextPost":null,"walineConfig":{"serverURL":"https://waline.sanksu.cn/","emoji":["//cdn.jsdelivr.net/gh/Sanksu/Waline_Bang_Dream_emoji@1.9.0/src/BangDream/","//cdn.jsdelivr.net/gh/Sanksu/Waline_Bang_Dream_emoji@1.9.0/src/Popipa/","//cdn.jsdelivr.net/gh/Sanksu/Waline_Bang_Dream_emoji@1.9.0/src/Afterglow/","//cdn.jsdelivr.net/gh/Sanksu/Waline_Bang_Dream_emoji@1.9.0/src/RAS/","//cdn.jsdelivr.net/gh/Sanksu/Waline_Bang_Dream_emoji@1.9.0/src/PastelPalettes/","//cdn.jsdelivr.net/gh/Sanksu/Waline_Bang_Dream_emoji@1.9.0/src/Mygo/","//cdn.jsdelivr.net/gh/Sanksu/Waline_Bang_Dream_emoji@1.9.0/src/AveMujica/"]}}],["$L5","$L6","$L7","$L8"],"$L9"]}],"isPartial":false,"staleTime":300,"varyParams":null,"buildId":"YUrdHd-7XWOa3s1FvnKcN"}
 5:["$","link","0",{"rel":"stylesheet","href":"/_next/static/chunks/20oyokh00jbk-.css","precedence":"next"}]
 6:["$","script","script-0",{"src":"/_next/static/chunks/3fpr0vtw_yy0n.js","async":true}]
 7:["$","script","script-1",{"src":"/_next/static/chunks/2yzq2biti_jvi.js","async":true}]
-8:["$","script","script-2",{"src":"/_next/static/chunks/32pw5oc2_la__.js","async":true}]
+8:["$","script","script-2",{"src":"/_next/static/chunks/2cf59cecdd6lr.js","async":true}]
 9:["$","$La",null,{"children":["$","$b",null,{"name":"Next.MetadataOutlet","children":"$@c"}]}]
 c:null
