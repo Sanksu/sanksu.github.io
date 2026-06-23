@@ -21,7 +21,7 @@ export function generateRss(): void {
   const posts = getAllPosts()
   const items = posts.map(post => {
     const [y, m, d] = post.date.split('-')
-    const link = `${SITE_URL}/posts/${y}/${m}/${d}/${post.slug}/`
+    const link = `${SITE_URL}/posts/${y}/${m}/${d}/${encodeURIComponent(post.slug)}/`
     const desc = stripMarkdown(post.content).replace(/\s+/g, ' ').trim().slice(0, 300)
     return `    <item>
       <title>${escapeXml(post.title)}</title>
@@ -50,3 +50,6 @@ ${items}
   fs.writeFileSync(outPath, xml, 'utf8')
   console.log(`RSS generated: ${outPath} (${posts.length} articles)`)
 }
+
+/** 作为脚本直接执行时生成 RSS */
+generateRss()

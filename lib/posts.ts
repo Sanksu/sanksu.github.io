@@ -73,13 +73,16 @@ export function getAllPosts(): Post[] {
     const { data, content } = parseFrontMatter(fileContents)
     const dateStr = normalizeDate(data.date)
 
+    const filenameSlug = slugFromFilename(filename)
+    const title = String(data.title || '')
+
     return {
-      title: String(data.title || ''),
+      title,
       date: dateStr,
       categories: Array.isArray(data.categories) ? data.categories : [],
       tags: Array.isArray(data.tags) ? data.tags : [],
       pinned: data.pinned === true || data.pinned === 'true',
-      slug: slugFromFilename(filename),
+      slug: filenameSlug || title || 'untitled',
       content,
     }
   })
@@ -183,11 +186,12 @@ export function getPostExcerpt(content: string, maxLen = 160): string {
 /**
  * 获取所有文章的路由参数
  * 用于 Next.js `generateStaticParams` 静态生成所有文章页面
+ * 对含非 ASCII 字符的 slug 做 URL 编码，确保与浏览器端 URL 一致
  * @returns 包含 year、month、day、slug 的路由参数数组
  */
 export function getAllPostSlugs(): PostSlug[] {
   return getAllPosts().map(post => {
     const [year, month, day] = post.date.split('-')
-    return { year, month, day, slug: post.slug }
+    return { year, month, day, slug: encodeURIComponent(post.slug) }
   })
 }

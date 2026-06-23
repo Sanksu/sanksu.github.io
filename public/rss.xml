@@ -5,22 +5,22 @@
     <link>https://sanksu.cn/</link>
     <description>Sanksu的个人博客</description>
     <language>zh-CN</language>
-    <lastBuildDate>Sun, 14 Jun 2026 09:04:42 GMT</lastBuildDate>
+    <lastBuildDate>Thu, 18 Jun 2026 07:24:22 GMT</lastBuildDate>
     <atom:link href="https://sanksu.cn/rss.xml" rel="self" type="application/rss+xml"/>
     <item>
-      <title>安装 Arch Linux 教程</title>
-      <link>https://sanksu.cn/posts/2026/06/05/README.zh-CN/</link>
-      <guid isPermaLink="true">https://sanksu.cn/posts/2026/06/05/README.zh-CN/</guid>
-      <pubDate>Fri, 05 Jun 2026 00:00:00 GMT</pubDate>
-      <description>目录 1. 安装 Arch Linux 教程(安装-arch-linux-教程) 2. 是否应该安装 Arch Linux(是否应该安装-arch-linux) 3. 免责声明（献祭、咒语、请勿起诉我，等等）(免责声明献祭咒语请勿起诉我等等) 4. Live USB(live-usb) 5. 安装前的准备(安装前的准备) - 配置镜像源以便下载软件(配置镜像源以便下载软件) - 配置 WiFi（&quot;可选&quot;）(配置-wifi可选) - 调试建议(调试建议) 6. 冻结！分区时间到！(冻结分区时间到) - 确保我们使用的是 (U)EFI(确保我们使用的是-uefi) - 找到主硬盘所在位置(找到主硬</description>
-      <category>硬件</category>
+      <title>将CSGO地图移植至CS2</title>
+      <link>https://sanksu.cn/posts/2026/06/18/将csgo地图移植至cs2/</link>
+      <guid isPermaLink="true">https://sanksu.cn/posts/2026/06/18/将csgo地图移植至cs2/</guid>
+      <pubDate>Thu, 18 Jun 2026 00:00:00 GMT</pubDate>
+      <description>将CSGO地图移植至CS2</description>
+      <category>游戏</category>
     </item>
     <item>
       <title>SlimeVR_BMI270</title>
       <link>https://sanksu.cn/posts/2024/06/06/SlimeVR-BMI270/</link>
       <guid isPermaLink="true">https://sanksu.cn/posts/2024/06/06/SlimeVR-BMI270/</guid>
       <pubDate>Thu, 06 Jun 2024 00:00:00 GMT</pubDate>
-      <description>SlimeVR_BMI270 - 立创开源平台(https://oshwhub.com/sanksu/slimevr_bmi270) !SlimeVR_Server.png(https://image.lceda.cn/oshwhub/f2e35224d06b4dde9bd27ad48a2b8369.png) 1. 什么是SlimeVR？ SlimeVR是一组开放的硬件传感器和开源软件，有助于在虚拟现实中实现全身跟踪（FBT）。 - 官方文档(https://docs.slimevr.dev/) - l0ud/SlimeVR-Tracker-ESP-BMI270分支(https://githu</description>
+      <description>SlimeVR_BMI270-立创开源平台(https://oshwhub.com/sanksu/slimevr_bmi270)!SlimeVR_Server.png(https://image.lceda.cn/oshwhub/f2e35224d06b4dde9bd27ad48a2b8369.png)1.什么是SlimeVR？SlimeVR是一组开放的硬件传感器和开源软件，有助于在虚拟现实中实现全身跟踪（FBT）。-官方文档(https://docs.slimevr.dev/)-l0ud/SlimeVR-Tracker-ESP-BMI270分支(https://github.com/l0ud</description>
       <category>硬件</category>
     </item>
   </channel>

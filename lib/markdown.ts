@@ -1,7 +1,7 @@
 import { Marked, type Tokens } from 'marked'
 import { markedHighlight } from 'marked-highlight'
 import hljs from 'highlight.js'
-import { escapeHtml } from './utils'
+import { escapeHtml, slugify } from './utils'
 
 /** 危险协议正则 - 阻止 XSS 攻击 */
 const DANGEROUS_SCHEMES = /^(javascript|data|vbscript):/i
@@ -24,16 +24,6 @@ function isSafeSrc(src: string): boolean {
   return !DANGEROUS_SCHEMES.test(src.trim())
 }
 
-/**
- * 生成标题的 URL 友好 slug
- * 移除 HTML 标签和 Markdown 格式标记后转为短横线连接的小写文本
- * @param text - 标题文本（可能含内联 HTML）
- * @returns URL 安全的 id 字符串
- */
-function slugify(text: string): string {
-  return text.replace(/<[^>]*>/g, '').replace(/[*_~`]/g, '').trim().replace(/\s+/g, '-').toLowerCase()
-}
-
 /** Marked 实例缓存（单例） */
 let markedInstance: Marked | null = null
 
@@ -53,24 +43,24 @@ function getMarked(): Marked {
        * 自定义图片渲染
        * - 校验 src 是否安全（防 XSS）
        * - GIF 图不加 lazy/async 以避免播放异常
-       * - 添加淡入过渡效果
+       * - 淡入效果由 CSS 动画实现，避免内联 onload
        */
       image(token: Tokens.Image) {
         const { href, text } = token
         if (!isSafeSrc(href)) return ''
         const isGif = href.toLowerCase().endsWith('.gif')
         const extraAttrs = isGif ? '' : ' loading="lazy" decoding="async"'
-        return `<span class="img-container${isGif ? ' img-container--gif' : ''}"><img src="${safeAttr(href)}" alt="${safeAttr(text)}"${extraAttrs} onload="this.style.opacity=1" style="opacity:0;transition:opacity .3s" /></span>`
+        return `<span class="img-container${isGif ? ' img-container--gif' : ''}"><img src="${safeAttr(href)}" alt="${safeAttr(text)}"${extraAttrs} /></span>`
       },
 
       /**
        * 自定义标题渲染
        * - 通过 `parser.parseInline` 解析内联 tokens（正确处理 **bold** 等格式）
-       * - 自动生成 slug 作为锚点 id
+       * - 基于原始 Markdown 标题文本生成 slug，确保与目录组件一致
        */
       heading(this: { parser: { parseInline(tokens: Tokens.Generic[]): string } }, token: Tokens.Heading) {
         const text = this.parser.parseInline(token.tokens)
-        const id = slugify(text)
+        const id = slugify(token.text)
         return `<h${token.depth} id="${id}">${text}</h${token.depth}>`
       },
     },

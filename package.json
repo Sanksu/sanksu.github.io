@@ -5,7 +5,8 @@
   "scripts": {
     "dev": "next dev",
     "build": "npx tsx ./lib/rss.ts && npx tsx ./lib/sitemap.ts && next build",
-    "start": "next start"
+    "start": "next start",
+    "new:post": "npx tsx scripts/create-post.ts"
   },
   "dependencies": {
     "@waline/client": "^3.15.2",

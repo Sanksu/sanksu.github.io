@@ -44,6 +44,8 @@ export default function PostContent({ post, postHtml, postPath, prevPost, nextPo
     if (!target) return
 
     let done = false
+    const headingRefs: HTMLElement[] = []
+
     const enhance = () => {
       if (done) return
       done = true
@@ -57,9 +59,10 @@ export default function PostContent({ post, postHtml, postPath, prevPost, nextPo
         wrap.appendChild(table)
       })
 
-      const headings = target.querySelectorAll('h1, h2')
+      const headings = target.querySelectorAll<HTMLElement>('h1, h2')
       headings.forEach(el => {
         el.addEventListener('click', handleHeadingClick)
+        headingRefs.push(el)
       })
     }
 
@@ -86,8 +89,7 @@ export default function PostContent({ post, postHtml, postPath, prevPost, nextPo
 
     return () => {
       observer.disconnect()
-      const headings = target.querySelectorAll('h1, h2')
-      headings.forEach(el => {
+      headingRefs.forEach(el => {
         el.removeEventListener('click', handleHeadingClick)
       })
     }

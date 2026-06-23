@@ -60,8 +60,8 @@ export default function AboutPage() {
               <div className="timeline__content">
                 <h3>{item.title}</h3>
                 <p>{item.desc}</p>
-                {(item.url || (item as { link?: string }).link) && (
-                  <a href={(item.url || (item as { link?: string }).link)} target="_blank" rel="noopener noreferrer" className="timeline__link">查看详情 &rarr;</a>
+                {(item.url || item.link) && (
+                  <a href={(item.url || item.link)} target="_blank" rel="noopener noreferrer" className="timeline__link">查看详情 &rarr;</a>
                 )}
               </div>
             </div>

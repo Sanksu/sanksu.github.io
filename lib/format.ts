@@ -15,10 +15,12 @@ export function formatDate(dateStr: string): string {
 
 /**
  * 生成文章 URL 路径
+ * 对 slug 路径段做 URL 编码，确保含非 ASCII 字符（如中文）的 slug
+ * 能在所有浏览器和 Next.js `output: 'export'` 模式下正常工作
  */
 export function postUrl(post: Post): string {
   const [year, month, day] = post.date.split('-')
-  return `/posts/${year}/${month}/${day}/${post.slug}`
+  return `/posts/${year}/${month}/${day}/${encodeURIComponent(post.slug)}`
 }
 
 /**

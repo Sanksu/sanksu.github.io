@@ -15,7 +15,8 @@ interface Props {
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { slug } = await params
-  const post = getPostBySlug(slug)
+  const decodedSlug = decodeURIComponent(slug)
+  const post = getPostBySlug(decodedSlug)
   if (!post) return { title: '文章未找到' }
 
   return {
@@ -39,8 +40,9 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 
 export default async function PostPage({ params }: Props) {
   const { year, month, day, slug } = await params
-  const post = getPostBySlug(slug)
-  const adjacent = getAdjacentPosts(slug)
+  const decodedSlug = decodeURIComponent(slug)
+  const post = getPostBySlug(decodedSlug)
+  const adjacent = getAdjacentPosts(decodedSlug)
   const postHtml = post ? markdownToHtml(post.content) : null
 
   return (

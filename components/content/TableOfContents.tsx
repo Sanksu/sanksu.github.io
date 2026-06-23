@@ -1,21 +1,13 @@
 'use client'
 
 import { useEffect, useState, useMemo } from 'react'
+import { slugify } from '@/lib/utils'
 
 /** 从 Markdown 提取的标题信息 */
 interface Heading {
   id: string
   text: string
   level: number
-}
-
-/**
- * 生成 URL 友好的 slug
- * @param text - 原始文本
- * @returns 短横线连接的小写字符串
- */
-function slugify(text: string): string {
-  return text.replace(/<[^>]*>/g, '').trim().replace(/\s+/g, '-').toLowerCase()
 }
 
 /**
@@ -47,7 +39,7 @@ function extractHeadings(markdown: string): Heading[] {
     const rawText = match[2].trim()
     if (rawText) {
       const cleanText = stripMarkdownFormatting(rawText)
-      result.push({ level, id: slugify(cleanText), text: cleanText })
+      result.push({ level, id: slugify(rawText), text: cleanText })
     }
   }
   return result

@@ -29,7 +29,7 @@ export function generateSitemap(): void {
     ...posts.map(post => {
       const [y, m, d] = post.date.split('-')
       return `  <url>
-    <loc>${escapeXml(SITE_URL)}/posts/${y}/${m}/${d}/${post.slug}/</loc>
+    <loc>${escapeXml(SITE_URL)}/posts/${y}/${m}/${d}/${encodeURIComponent(post.slug)}/</loc>
     <lastmod>${post.date}</lastmod>
     <priority>0.8</priority>
     <changefreq>monthly</changefreq>
@@ -46,3 +46,6 @@ ${items.join('\n')}
   fs.writeFileSync(path.join(process.cwd(), 'public', 'sitemap.xml'), sitemap)
   console.log(`Sitemap generated`)
 }
+
+/** 作为脚本直接执行时生成 Sitemap */
+generateSitemap()
