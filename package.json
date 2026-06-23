@@ -3,8 +3,8 @@
   "private": true,
   "version": "2.0.0",
   "scripts": {
-    "dev": "next dev",
-    "build": "npx tsx ./lib/rss.ts && npx tsx ./lib/sitemap.ts && next build",
+    "dev": "npx tsx ./scripts/generate-feeds.ts && next dev",
+    "build": "npx tsx ./scripts/generate-feeds.ts && next build",
     "start": "next start",
     "new:post": "npx tsx scripts/create-post.ts"
   },

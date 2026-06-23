@@ -46,6 +46,3 @@ ${items.join('\n')}
   fs.writeFileSync(path.join(process.cwd(), 'public', 'sitemap.xml'), sitemap)
   console.log(`Sitemap generated`)
 }
-
-/** 作为脚本直接执行时生成 Sitemap */
-generateSitemap()

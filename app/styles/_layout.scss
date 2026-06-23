@@ -95,8 +95,9 @@ body::after {
   cursor: pointer;
   opacity: 0.65;
   transition: opacity 0.2s, transform 0.2s;
+  -webkit-backdrop-filter: blur(8px);
   backdrop-filter: blur(8px);
-
+  
   &:hover {
     opacity: 1;
     transform: scale(1.08);

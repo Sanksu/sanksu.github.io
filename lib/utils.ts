@@ -3,7 +3,7 @@
  * 包含：字符串处理、日期格式化、转义函数、front-matter 解析等通用工具
  */
 
-import yaml from 'js-yaml'
+import { load } from 'js-yaml'
 
 /** 解析 front-matter 的返回类型 */
 export interface FrontMatterResult<T = Record<string, unknown>> {
@@ -43,7 +43,7 @@ export function parseFrontMatter<T = Record<string, unknown>>(fileContents: stri
   const content = fileContents.slice(endIndex + 4).replace(/^\r?\n/, '')
 
   try {
-    const data = yaml.load(yamlStr) as T
+    const data = load(yamlStr) as T
     return { data: data ?? {} as T, content }
   } catch {
     console.warn('Failed to parse YAML front-matter, falling back to empty data')

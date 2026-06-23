@@ -50,6 +50,3 @@ ${items}
   fs.writeFileSync(outPath, xml, 'utf8')
   console.log(`RSS generated: ${outPath} (${posts.length} articles)`)
 }
-
-/** 作为脚本直接执行时生成 RSS */
-generateRss()
