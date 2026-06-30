@@ -1,5 +1,5 @@
 1:"$Sreact.fragment"
-2:I[18351,["/_next/static/chunks/1-bsw2qh6d9d3.js","/_next/static/chunks/14mrh2-p_w84d.js","/_next/static/chunks/3fpr0vtw_yy0n.js","/_next/static/chunks/2yzq2biti_jvi.js","/_next/static/chunks/2cf59cecdd6lr.js"],"default"]
+2:I[18351,["/_next/static/chunks/1-bsw2qh6d9d3.js","/_next/static/chunks/14mrh2-p_w84d.js","/_next/static/chunks/3fpr0vtw_yy0n.js","/_next/static/chunks/2yzq2biti_jvi.js","/_next/static/chunks/0wg0bsek_s844.js"],"default"]
 a:I[97367,["/_next/static/chunks/1-bsw2qh6d9d3.js","/_next/static/chunks/14mrh2-p_w84d.js"],"OutletBoundary"]
 b:"$Sreact.suspense"
 :HL["/_next/static/chunks/20oyokh00jbk-.css","style"]
@@ -80,8 +80,8 @@ BMI270的i2c地址是0x68(当SDO脚接地)/0x69(当SDO脚拉高)，SlimeVR源码
 ### 6. **感谢**
 
 - 主要电路参考[SlimeVR_BNO085](https://oshwhub.com/myzhazha/slimevr)，感谢
-4:T1388,<h2 id="slimevrbmi270"><strong>SlimeVR_BMI270</strong></h2><ul>
-<li><a href="https://oshwhub.com/sanksu/slimevr_bmi270">立创开源平台</a><br><span class="img-container"><img src="https:&#x2F;&#x2F;image.lceda.cn&#x2F;oshwhub&#x2F;f2e35224d06b4dde9bd27ad48a2b8369.png" alt="SlimeVR_Server.png" loading="lazy" decoding="async" /></span></li>
+4:T1351,<h2 id="slimevrbmi270"><strong>SlimeVR_BMI270</strong></h2><ul>
+<li><a href="https://oshwhub.com/sanksu/slimevr_bmi270">立创开源平台</a><br><span class="img-container"><img src="https://image.lceda.cn/oshwhub/f2e35224d06b4dde9bd27ad48a2b8369.png" alt="SlimeVR_Server.png" loading="lazy" decoding="async" /></span></li>
 </ul>
 <h3 id="1.-什么是slimevr？"><strong>1. 什么是SlimeVR？</strong></h3><p>SlimeVR是一组开放的硬件传感器和开源软件，有助于在虚拟现实中实现全身跟踪（FBT）。</p>
 <ul>
@@ -89,7 +89,7 @@ BMI270的i2c地址是0x68(当SDO脚接地)/0x69(当SDO脚拉高)，SlimeVR源码
 <li><a href="https://github.com/l0ud/SlimeVR-Tracker-ESP-BMI270">l0ud/SlimeVR-Tracker-ESP-BMI270分支</a></li>
 </ul>
 <h3 id="2.-介绍"><strong>2. 介绍</strong></h3><p>本项目由 ESP-12F + IP5306-CK + BMI270 组成，CH340K实现自动下载，采用LDO降压，提供3.3V供电</p>
-<p><strong>官网对BMI270的介绍如下</strong>：BMI270 是一款相对较新的实验性 IMU，用于 DIY SlimeVR。 它的性能似乎明显优于 BMI160，同时价格实惠。<br>外壳使用Fusion360设计<span class="img-container img-container--gif"><img src="https:&#x2F;&#x2F;cdn.jsdelivr.net&#x2F;gh&#x2F;Sanksu&#x2F;SlimeVR_BMI270@main&#x2F;IMG&#x2F;Assembly.gif" alt="外壳" /></span></p>
+<p><strong>官网对BMI270的介绍如下</strong>：BMI270 是一款相对较新的实验性 IMU，用于 DIY SlimeVR。 它的性能似乎明显优于 BMI160，同时价格实惠。<br>外壳使用Fusion360设计<span class="img-container img-container--gif"><img src="https://cdn.jsdelivr.net/gh/Sanksu/SlimeVR_BMI270@main/IMG/Assembly.gif" alt="外壳" /></span></p>
 <h3 id="3.-固件"><strong>3. 固件</strong></h3><p>SlimeVR 固件的主分支尚不支持此BMI270，因此本项目使用<a href="https://github.com/l0ud/SlimeVR-Tracker-ESP-BMI270"><code>l0ud/SlimeVR-Tracker-ESP-BMI270</code></a>分支</p>
 <h4 id="3.1-构建-slimevr-固件">3.1 <strong>构建 SlimeVR 固件</strong></h4><ul>
 <li><p>安装<a href="https://cdn.sparkfun.com/assets/learn_tutorials/8/4/4/CH341SER.EXE">CH340驱动</a></p>
@@ -139,10 +139,10 @@ BMI270的i2c地址是0x68(当SDO脚接地)/0x69(当SDO脚拉高)，SlimeVR源码
 <h3 id="6.-感谢">6. <strong>感谢</strong></h3><ul>
 <li>主要电路参考<a href="https://oshwhub.com/myzhazha/slimevr">SlimeVR_BNO085</a>，感谢</li>
 </ul>
-0:{"rsc":["$","$1","c",{"children":[["$","$L2",null,{"post":{"title":"SlimeVR_BMI270","date":"2024-06-06","categories":["硬件"],"tags":["硬件"],"pinned":false,"slug":"SlimeVR-BMI270","content":"$3"},"postHtml":"$4","postPath":"/posts/2024/06/06/SlimeVR-BMI270","prevPost":null,"nextPost":null,"walineConfig":{"serverURL":"https://waline.sanksu.cn/","emoji":["//cdn.jsdelivr.net/gh/Sanksu/Waline_Bang_Dream_emoji@1.9.0/src/BangDream/","//cdn.jsdelivr.net/gh/Sanksu/Waline_Bang_Dream_emoji@1.9.0/src/Popipa/","//cdn.jsdelivr.net/gh/Sanksu/Waline_Bang_Dream_emoji@1.9.0/src/Afterglow/","//cdn.jsdelivr.net/gh/Sanksu/Waline_Bang_Dream_emoji@1.9.0/src/RAS/","//cdn.jsdelivr.net/gh/Sanksu/Waline_Bang_Dream_emoji@1.9.0/src/PastelPalettes/","//cdn.jsdelivr.net/gh/Sanksu/Waline_Bang_Dream_emoji@1.9.0/src/Mygo/","//cdn.jsdelivr.net/gh/Sanksu/Waline_Bang_Dream_emoji@1.9.0/src/AveMujica/"]}}],["$L5","$L6","$L7","$L8"],"$L9"]}],"isPartial":false,"staleTime":300,"varyParams":null,"buildId":"YUrdHd-7XWOa3s1FvnKcN"}
+0:{"rsc":["$","$1","c",{"children":[["$","$L2",null,{"post":{"title":"SlimeVR_BMI270","date":"2024-06-06","categories":["硬件"],"tags":["硬件"],"pinned":false,"slug":"SlimeVR-BMI270","content":"$3"},"postHtml":"$4","postPath":"/posts/2024/06/06/SlimeVR-BMI270","prevPost":null,"nextPost":null,"walineConfig":{"serverURL":"https://waline.sanksu.cn/","emoji":["//cdn.jsdelivr.net/gh/Sanksu/Waline_Bang_Dream_emoji@1.9.0/src/BangDream/","//cdn.jsdelivr.net/gh/Sanksu/Waline_Bang_Dream_emoji@1.9.0/src/Popipa/","//cdn.jsdelivr.net/gh/Sanksu/Waline_Bang_Dream_emoji@1.9.0/src/Afterglow/","//cdn.jsdelivr.net/gh/Sanksu/Waline_Bang_Dream_emoji@1.9.0/src/RAS/","//cdn.jsdelivr.net/gh/Sanksu/Waline_Bang_Dream_emoji@1.9.0/src/PastelPalettes/","//cdn.jsdelivr.net/gh/Sanksu/Waline_Bang_Dream_emoji@1.9.0/src/Mygo/","//cdn.jsdelivr.net/gh/Sanksu/Waline_Bang_Dream_emoji@1.9.0/src/AveMujica/"]}}],["$L5","$L6","$L7","$L8"],"$L9"]}],"isPartial":false,"staleTime":300,"varyParams":null,"buildId":"jIXQmZNvcJotXVHIQOIOs"}
 5:["$","link","0",{"rel":"stylesheet","href":"/_next/static/chunks/20oyokh00jbk-.css","precedence":"next"}]
 6:["$","script","script-0",{"src":"/_next/static/chunks/3fpr0vtw_yy0n.js","async":true}]
 7:["$","script","script-1",{"src":"/_next/static/chunks/2yzq2biti_jvi.js","async":true}]
-8:["$","script","script-2",{"src":"/_next/static/chunks/2cf59cecdd6lr.js","async":true}]
+8:["$","script","script-2",{"src":"/_next/static/chunks/0wg0bsek_s844.js","async":true}]
 9:["$","$La",null,{"children":["$","$b",null,{"name":"Next.MetadataOutlet","children":"$@c"}]}]
 c:null
