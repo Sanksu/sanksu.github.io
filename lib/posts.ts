@@ -1,6 +1,6 @@
 import fs from 'fs'
 import path from 'path'
-import { slugFromFilename, normalizeDate, stripMarkdown, parseFrontMatter } from './utils'
+import { slugFromFilename, normalizeDate, parseFrontMatter } from './utils'
 
 /**
  * 文章数据结构
@@ -60,7 +60,6 @@ let _allPostsCache: Post[] | null = null
 /**
  * 获取所有文章
  * 解析 `_posts/` 下所有 `.md` 文件，按「置顶优先 → 日期倒序」排列
- * 结果会被缓存，可通过 `clearPostsCache()` 清除
  * @returns 文章数组
  */
 export function getAllPosts(): Post[] {
@@ -93,11 +92,6 @@ export function getAllPosts(): Post[] {
   })
   _allPostsCache = posts
   return posts
-}
-
-/** 清除文章缓存（修改 `_posts/` 后调用） */
-export function clearPostsCache(): void {
-  _allPostsCache = null
 }
 
 /**
@@ -169,18 +163,6 @@ export function getAdjacentPosts(slug: string): { prev: Post | null; next: Post 
     prev: idx < posts.length - 1 ? posts[idx + 1] : null,
     next: idx > 0 ? posts[idx - 1] : null,
   }
-}
-
-/**
- * 生成文章摘要
- * 去除 Markdown 标记后截取指定长度
- * @param content - 文章 Markdown 原始内容
- * @param maxLen - 最大字符数，默认 160
- * @returns 纯文本摘要
- */
-export function getPostExcerpt(content: string, maxLen = 160): string {
-  const text = stripMarkdown(content).replace(/\s+/g, ' ').trim()
-  return text.length > maxLen ? text.slice(0, maxLen) + '...' : text
 }
 
 /**

@@ -2,6 +2,7 @@ import fs from 'fs'
 import path from 'path'
 import { getAllPosts } from './posts'
 import { escapeXml } from './utils'
+import { postUrl } from './format'
 import { SITE_URL } from './data'
 
 /**
@@ -27,9 +28,8 @@ export function generateSitemap(): void {
     <changefreq>${p.changefreq}</changefreq>
   </url>`),
     ...posts.map(post => {
-      const [y, m, d] = post.date.split('-')
       return `  <url>
-    <loc>${escapeXml(SITE_URL)}/posts/${y}/${m}/${d}/${encodeURIComponent(post.slug)}/</loc>
+    <loc>${escapeXml(SITE_URL)}${postUrl(post)}/</loc>
     <lastmod>${post.date}</lastmod>
     <priority>0.8</priority>
     <changefreq>monthly</changefreq>

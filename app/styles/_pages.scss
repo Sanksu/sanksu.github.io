@@ -67,6 +67,11 @@
   input {
     width: 100%; padding: 10px 14px; font-size: 1rem;
     border-radius: 4px; margin-bottom: 20px; background: rgba(255,255,255,0.03);
+    transition: border-color 0.3s, box-shadow 0.3s;
+    &:focus {
+      border-color: var(--ark-highlight);
+      box-shadow: 0 0 16px rgba(178,242,187,0.1);
+    }
   }
   h1 { font-size: 1.4rem; margin-bottom: 16px; color: var(--ark-accent); }
 }

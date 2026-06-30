@@ -143,9 +143,6 @@ export function escapeHtml(str: string): string {
     .replace(/"/g, '&quot;')
     .replace(/'/g, '&#039;')
     .replace(/`/g, '&#96;')
-    .replace(/\//g, '&#x2F;')
-    .replace(/\\/g, '&#x5C;')
-    .replace(/=/g, '&#x3D;')
 }
 
 /**

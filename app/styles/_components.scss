@@ -137,6 +137,14 @@ html:not(.dark) .post-nav__item:hover { background: rgba(0,0,0,0.02); }
 
   &--fade { opacity: 0; pointer-events: none; }
 
+  &::before {
+    content: '';
+    position: absolute; inset: 0;
+    background: radial-gradient(ellipse at 50% 50%, rgba(178,242,187,0.06) 0%, transparent 60%);
+    animation: loading-glow 4s ease-in-out infinite alternate;
+    pointer-events: none;
+  }
+
   &__grid {
     display: grid;
     grid-template-columns: repeat(3, 12px);
@@ -185,4 +193,10 @@ html:not(.dark) .post-nav__item:hover { background: rgba(0,0,0,0.02); }
   50%  { transform: rotateX(90deg) rotateY(90deg); }
   75%  { transform: rotateX(90deg) rotateY(0deg); }
   100% { transform: rotateX(0deg) rotateY(0deg); }
+}
+
+@keyframes loading-glow {
+  0%   { opacity: 0.6; }
+  50%  { opacity: 1; }
+  100% { opacity: 0.6; }
 }

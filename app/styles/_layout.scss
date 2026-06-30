@@ -66,6 +66,8 @@ body::after {
   font-size: 0.8rem;
   color: var(--ark-text-dim);
   flex-wrap: wrap;
+  border-top: 1px solid var(--ark-border);
+  margin-top: 20px;
 
   a {
     color: var(--ark-text-dim);

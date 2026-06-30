@@ -2,6 +2,7 @@ import fs from 'fs'
 import path from 'path'
 import { getAllPosts } from './posts'
 import { escapeXml, stripMarkdown } from './utils'
+import { postUrl } from './format'
 import { SITE_URL } from './data'
 
 /**
@@ -20,8 +21,7 @@ function formatRfc822(dateStr: string): string {
 export function generateRss(): void {
   const posts = getAllPosts()
   const items = posts.map(post => {
-    const [y, m, d] = post.date.split('-')
-    const link = `${SITE_URL}/posts/${y}/${m}/${d}/${encodeURIComponent(post.slug)}/`
+    const link = `${SITE_URL}${postUrl(post)}/`
     const desc = stripMarkdown(post.content).replace(/\s+/g, ' ').trim().slice(0, 300)
     return `    <item>
       <title>${escapeXml(post.title)}</title>
