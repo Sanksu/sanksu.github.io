@@ -28,15 +28,16 @@ export default function CodeBlockEnhance() {
   /** 为单个代码块添加包装器和工具栏 */
   const enhanceBlock = useCallback((block: HTMLElement) => {
     if (block.dataset.enhanced) return
-    block.dataset.enhanced = 'true'
 
     const pre = block.parentElement
     if (!pre?.parentElement || pre.closest('.code-block-wrapper')) return
 
+    block.dataset.enhanced = 'true'
+
     const wrapper = document.createElement('div')
     wrapper.className = 'code-block-wrapper'
 
-    const langMatch = block.className.match(/language-(\w+)/)
+    const langMatch = block.className.match(/language-([\w+-]+)/)
     const langLabel = document.createElement('span')
     langLabel.className = 'code-lang'
     langLabel.textContent = langMatch ? langMatch[1] : 'text'

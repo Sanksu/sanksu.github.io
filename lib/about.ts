@@ -41,12 +41,17 @@ export interface SkillCategory {
   skills: Skill[]
 }
 
+let _skillsCache: SkillCategory[] | null = null
+let _timelineCache: TimelineItem[] | null = null
+let _projectsCache: Project[] | null = null
+
 /**
  * 获取技能分类数据
  * @returns 从 `_data/skills.json` 读取的技能分类数组
  */
 export function getSkills(): SkillCategory[] {
-  return readJson<SkillCategory[]>('skills.json')
+  if (!_skillsCache) _skillsCache = readJson<SkillCategory[]>('skills.json')
+  return _skillsCache
 }
 
 /**
@@ -54,7 +59,8 @@ export function getSkills(): SkillCategory[] {
  * @returns 从 `_data/timeline.json` 读取的时间线条目数组
  */
 export function getTimeline(): TimelineItem[] {
-  return readJson<TimelineItem[]>('timeline.json')
+  if (!_timelineCache) _timelineCache = readJson<TimelineItem[]>('timeline.json')
+  return _timelineCache
 }
 
 /**
@@ -62,5 +68,6 @@ export function getTimeline(): TimelineItem[] {
  * @returns 从 `_data/projects.json` 读取的项目数组
  */
 export function getProjects(): Project[] {
-  return readJson<Project[]>('projects.json')
+  if (!_projectsCache) _projectsCache = readJson<Project[]>('projects.json')
+  return _projectsCache
 }

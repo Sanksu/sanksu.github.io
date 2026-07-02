@@ -15,12 +15,14 @@ interface Props {
   post: Post | null
   postHtml: string | null
   postPath: string
+  siteName: string
+  author: string
   prevPost: Post | null
   nextPost: Post | null
   walineConfig: { serverURL: string; emoji: string[] }
 }
 
-export default function PostContent({ post, postHtml, postPath, prevPost, nextPost, walineConfig }: Props) {
+export default function PostContent({ post, postHtml, postPath, siteName, author, prevPost, nextPost, walineConfig }: Props) {
   const ref = useScrollAnimation()
 
   const readingTime = useMemo(() => {
@@ -108,15 +110,18 @@ export default function PostContent({ post, postHtml, postPath, prevPost, nextPo
       <ReadingProgress />
       <div className="page-layout">
         <div className="page page-post">
-          <h1 className="title scroll-animate">{post.title}</h1>
+          <h1 className="title scroll-animate">
+            {post.title}
+            {post.draft && <span className="draft-badge">草稿</span>}
+          </h1>
           <div className="subtitle scroll-animate">
-            <span>Sanksu 于 {post.date} 发布</span>
+            <span>{author} 于 {post.date} 发布</span>
             <span> | 阅读时长: {readingTime} 分钟</span>
             <span> | 阅读量: <span className="waline-pageview-count" data-path={postPath} /></span>
           </div>
           <div
             className="post scroll-animate post-content"
-            dangerouslySetInnerHTML={{ __html: postHtml! }}
+            dangerouslySetInnerHTML={{ __html: postHtml ?? '' }}
             suppressHydrationWarning
           />
           <CodeBlockEnhance />

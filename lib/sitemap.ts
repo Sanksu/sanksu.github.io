@@ -1,9 +1,9 @@
 import fs from 'fs'
 import path from 'path'
-import { getAllPosts } from './posts'
+import { getPublishedPosts } from './posts'
 import { escapeXml } from './utils'
 import { postUrl } from './format'
-import { SITE_URL } from './data'
+import { getSiteUrl } from './metadata'
 
 /**
  * 生成 XML Sitemap 文件
@@ -11,14 +11,14 @@ import { SITE_URL } from './data'
  * 在 `next build` 前通过 `tsx` 执行，输出到 `public/sitemap.xml`
  */
 export function generateSitemap(): void {
-  const posts = getAllPosts()
+  const siteUrl = getSiteUrl()
+  const posts = getPublishedPosts()
   const staticPages = [
-    { loc: SITE_URL, priority: '1.0', changefreq: 'daily' },
-    { loc: `${SITE_URL}/categories/`, priority: '0.8', changefreq: 'weekly' },
-    { loc: `${SITE_URL}/tags/`, priority: '0.8', changefreq: 'weekly' },
-    { loc: `${SITE_URL}/search/`, priority: '0.6', changefreq: 'monthly' },
-    { loc: `${SITE_URL}/about/`, priority: '0.7', changefreq: 'monthly' },
-    { loc: `${SITE_URL}/links/`, priority: '0.6', changefreq: 'monthly' },
+    { loc: siteUrl, priority: '1.0', changefreq: 'daily' },
+    { loc: `${siteUrl}/categories/`, priority: '0.8', changefreq: 'weekly' },
+    { loc: `${siteUrl}/tags/`, priority: '0.8', changefreq: 'weekly' },
+    { loc: `${siteUrl}/about/`, priority: '0.7', changefreq: 'monthly' },
+    { loc: `${siteUrl}/links/`, priority: '0.6', changefreq: 'monthly' },
   ]
 
   const items = [
@@ -27,14 +27,12 @@ export function generateSitemap(): void {
     <priority>${p.priority}</priority>
     <changefreq>${p.changefreq}</changefreq>
   </url>`),
-    ...posts.map(post => {
-      return `  <url>
-    <loc>${escapeXml(SITE_URL)}${postUrl(post)}/</loc>
+    ...posts.map(post => `  <url>
+    <loc>${escapeXml(`${siteUrl}${postUrl(post)}/`)}</loc>
     <lastmod>${post.date}</lastmod>
     <priority>0.8</priority>
     <changefreq>monthly</changefreq>
-  </url>`
-    })
+  </url>`)
   ]
 
   const sitemap = `<?xml version="1.0" encoding="UTF-8"?>

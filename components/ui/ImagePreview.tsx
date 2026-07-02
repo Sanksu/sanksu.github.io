@@ -26,7 +26,7 @@ export default function ImagePreview() {
 
   return (
     <div className="image-preview-overlay" onClick={() => setPreviewSrc(null)}>
-      <img src={previewSrc} alt="preview" />
+      <img src={previewSrc} alt="preview" onClick={e => e.stopPropagation()} />
     </div>
   )
 }

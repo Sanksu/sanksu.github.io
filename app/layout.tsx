@@ -1,4 +1,5 @@
 import './globals.scss'
+import 'katex/dist/katex.min.css'
 import FloatingActions from '@/components/ui/FloatingActions'
 import LoadingScreen from '@/components/layout/LoadingScreen'
 import Header from '@/components/layout/Header'
@@ -16,7 +17,7 @@ export const viewport: Viewport = {
 
 export default function RootLayout({ children }: { children: ReactNode }) {
   return (
-    <html lang="zh-CN" suppressHydrationWarning data-scroll-behavior="smooth">
+    <html lang="zh-CN" suppressHydrationWarning>
       <head>
         <meta httpEquiv="content-language" content="zh-CN" />
         <meta httpEquiv="X-UA-Compatible" content="IE=edge,chrome=1" />

@@ -12,8 +12,13 @@ function getBlogStats() {
   const totalPosts = posts.length
   const totalCategories = new Set(posts.flatMap(p => p.categories)).size
   const totalTags = new Set(posts.flatMap(p => p.tags)).size
-  const totalChars = posts.reduce((sum, p) => sum + stripMarkdown(p.content).length, 0)
-  const totalReadingMin = posts.reduce((sum, p) => sum + Math.max(1, Math.ceil(stripMarkdown(p.content).length / 300)), 0)
+  let totalChars = 0
+  let totalReadingMin = 0
+  for (const p of posts) {
+    const len = stripMarkdown(p.content).length
+    totalChars += len
+    totalReadingMin += Math.max(1, Math.ceil(len / 300))
+  }
   const startDate = new Date('2020-04-01')
   const daysRunning = Math.floor((Date.now() - startDate.getTime()) / (1000 * 60 * 60 * 24))
 

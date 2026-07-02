@@ -34,11 +34,12 @@ export default function HomeContent({ postsByYear }: Props) {
                 <span className="date">{formatDate(post.date)}</span>
                 <div className="title">
                   <Link href={postUrl(post)} className="hover-underline">{post.title}</Link>
-                  <span className="pinned">置顶</span>
+                  {post.pinned && <span className="pinned">置顶</span>}
+                  {post.draft && <span className="draft-badge">草稿</span>}
                 </div>
                 <div className="categories">
                   {post.categories.map(cat => (
-                    <Link key={cat} href="/categories" className="hover-underline">{cat}</Link>
+                    <Link key={cat} href={`/categories#${encodeURIComponent(cat)}`} className="hover-underline">{cat}</Link>
                   ))}
                 </div>
               </li>
@@ -58,10 +59,11 @@ export default function HomeContent({ postsByYear }: Props) {
                   <span className="date">{formatDate(post.date)}</span>
                   <div className="title">
                     <Link href={postUrl(post)} className="hover-underline">{post.title}</Link>
+                    {post.draft && <span className="draft-badge">草稿</span>}
                   </div>
                   <div className="categories">
                     {post.categories.map(cat => (
-                      <Link key={cat} href="/categories" className="hover-underline">{cat}</Link>
+                      <Link key={cat} href={`/categories#${encodeURIComponent(cat)}`} className="hover-underline">{cat}</Link>
                     ))}
                   </div>
                 </li>

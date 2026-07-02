@@ -67,7 +67,7 @@ export default function SkillTree({ skillCategories }: Props) {
   }, [])
 
   /** 展开/收起技能树 */
-  const toggle = () => {
+  const toggle = useCallback(() => {
     if (closeTimer.current) clearTimeout(closeTimer.current)
     if (expanded) {
       setClosing(true)
@@ -79,10 +79,16 @@ export default function SkillTree({ skillCategories }: Props) {
     } else {
       setRendered(true)
       setClosing(false)
-      // rAF ensures the DOM is painted before animation starts
       requestAnimationFrame(() => setExpanded(true))
     }
-  }
+  }, [expanded])
+
+  // 清理定时器
+  useEffect(() => {
+    return () => {
+      if (closeTimer.current) clearTimeout(closeTimer.current)
+    }
+  }, [])
 
   return (
     <div className={`${styles.tree} ${expanded ? styles.expanded : ''}`}>

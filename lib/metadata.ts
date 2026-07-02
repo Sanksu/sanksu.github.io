@@ -106,6 +106,11 @@ export function getSiteName(): string {
   return getConfig().site.openGraph.siteName
 }
 
+export function getSiteAuthor(): string {
+  const authors = getConfig().site.authors
+  return authors[0]?.name ?? 'Unknown'
+}
+
 /**
  * 获取 Waline 评论配置（缓存单例）
  * @returns 包含 serverURL 和 emoji 列表的 Waline 配置对象

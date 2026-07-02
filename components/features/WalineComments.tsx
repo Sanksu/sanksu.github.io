@@ -25,7 +25,7 @@ export default function WalineComments({ serverURL, path, emoji }: Props) {
       serverURL,
       path,
       pageview: true,
-      dark: 'html[class="dark"]',
+      dark: 'html.dark',
       search: false,
     }
 

@@ -34,9 +34,11 @@ export function useTheme() {
         const next = !prev
         const d = document.documentElement
 
-        d.classList.remove('dark', 'theme-transitioning')
+        d.classList.remove('theme-transitioning')
         void d.offsetHeight // force reflow
-        d.className = [next ? 'dark' : '', 'theme-transitioning'].filter(Boolean).join(' ')
+        d.classList.add('theme-transitioning')
+        if (next) d.classList.add('dark')
+        else d.classList.remove('dark')
 
         localStorage.setItem('darkMode', String(next))
 

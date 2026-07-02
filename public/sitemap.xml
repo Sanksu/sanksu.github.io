@@ -16,11 +16,6 @@
     <changefreq>weekly</changefreq>
   </url>
   <url>
-    <loc>https://sanksu.cn/search/</loc>
-    <priority>0.6</priority>
-    <changefreq>monthly</changefreq>
-  </url>
-  <url>
     <loc>https://sanksu.cn/about/</loc>
     <priority>0.7</priority>
     <changefreq>monthly</changefreq>

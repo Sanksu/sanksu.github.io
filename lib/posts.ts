@@ -1,6 +1,6 @@
 import fs from 'fs'
 import path from 'path'
-import { slugFromFilename, normalizeDate, parseFrontMatter } from './utils'
+import { slugFromFilename, normalizeDate, parseFrontMatter, slugify } from './utils'
 
 /**
  * 文章数据结构
@@ -17,6 +17,8 @@ export interface Post {
   tags: string[]
   /** 是否置顶 */
   pinned: boolean
+  /** 是否为草稿（草稿不会出现在列表、RSS、sitemap 和生产构建中） */
+  draft: boolean
   /** URL 友好的标识符，从文件名提取 */
   slug: string
   /** Markdown 原始正文 */
@@ -81,7 +83,8 @@ export function getAllPosts(): Post[] {
       categories: Array.isArray(data.categories) ? data.categories : [],
       tags: Array.isArray(data.tags) ? data.tags : [],
       pinned: data.pinned === true || data.pinned === 'true',
-      slug: filenameSlug || title || 'untitled',
+      draft: data.draft === true || data.draft === 'true',
+      slug: filenameSlug || (title ? slugify(title) : 'untitled'),
       content,
     }
   })
@@ -95,11 +98,32 @@ export function getAllPosts(): Post[] {
 }
 
 /**
+ * 获取所有已发布文章（排除草稿）
+ * 用于 RSS、sitemap 等始终排除草稿的场景
+ * @returns 非草稿文章数组
+ */
+export function getPublishedPosts(): Post[] {
+  return getAllPosts().filter(p => !p.draft)
+}
+
+/**
+ * 获取页面可见文章
+ * dev 模式下包含草稿（便于预览），生产构建时排除草稿
+ * 用于首页列表、分类、标签、搜索等页面渲染
+ * @returns 当前环境可见的文章数组
+ */
+export function getVisiblePosts(): Post[] {
+  const all = getAllPosts()
+  return process.env.NODE_ENV === 'development' ? all : all.filter(p => !p.draft)
+}
+
+/**
  * 按年份分组文章
+ * dev 模式下包含草稿，生产环境仅已发布
  * @returns 以年份为键的文章分组对象
  */
 export function getPostsByYear(): PostsByYear {
-  const posts = getAllPosts()
+  const posts = getVisiblePosts()
   const sorted: PostsByYear = {}
   posts.forEach(post => {
     const year = post.date.split('-')[0]
@@ -111,10 +135,11 @@ export function getPostsByYear(): PostsByYear {
 
 /**
  * 按分类分组文章
+ * dev 模式下包含草稿，生产环境仅已发布
  * @returns 以分类名为键的文章分组对象
  */
 export function getCategories(): Record<string, Post[]> {
-  const posts = getAllPosts()
+  const posts = getVisiblePosts()
   const cats: Record<string, Post[]> = {}
   posts.forEach(post => {
     post.categories.forEach(cat => {
@@ -127,10 +152,11 @@ export function getCategories(): Record<string, Post[]> {
 
 /**
  * 按标签分组文章
+ * dev 模式下包含草稿，生产环境仅已发布
  * @returns 以标签名为键的文章分组对象
  */
 export function getTags(): Record<string, Post[]> {
-  const posts = getAllPosts()
+  const posts = getVisiblePosts()
   const tags: Record<string, Post[]> = {}
   posts.forEach(post => {
     post.tags.forEach(tag => {
@@ -142,7 +168,7 @@ export function getTags(): Record<string, Post[]> {
 }
 
 /**
- * 根据 slug 查找文章
+ * 根据 slug 查找文章（含草稿，供文章详情页在 dev 模式下预览草稿）
  * @param slug - 文章唯一标识
  * @returns 匹配的文章对象，未找到返回 `null`
  */
@@ -151,14 +177,15 @@ export function getPostBySlug(slug: string): Post | null {
 }
 
 /**
- * 获取相邻文章（上一篇 / 下一篇）
+ * 获取相邻文章（上一篇 / 下一篇，仅已发布）
  * 按日期倒序排列，上一篇 = 较旧的，下一篇 = 较新的
  * @param slug - 当前文章标识
  * @returns 包含 prev 和 next 文章的对象
  */
 export function getAdjacentPosts(slug: string): { prev: Post | null; next: Post | null } {
-  const posts = getAllPosts()
+  const posts = getVisiblePosts()
   const idx = posts.findIndex(p => p.slug === slug)
+  if (idx === -1) return { prev: null, next: null }
   return {
     prev: idx < posts.length - 1 ? posts[idx + 1] : null,
     next: idx > 0 ? posts[idx - 1] : null,
@@ -166,8 +193,10 @@ export function getAdjacentPosts(slug: string): { prev: Post | null; next: Post 
 }
 
 /**
- * 获取所有文章的路由参数
+ * 获取所有文章的路由参数（含草稿）
  * 用于 Next.js `generateStaticParams` 静态生成所有文章页面
+ * `output: 'export'` 要求所有可访问路由（含 dev 预览的草稿）必须在此列出
+ * 草稿不会出现在列表、RSS、sitemap、搜索中，但可通过 URL 直接访问预览
  * 对含非 ASCII 字符的 slug 做 URL 编码，确保与浏览器端 URL 一致
  * @returns 包含 year、month、day、slug 的路由参数数组
  */

@@ -53,16 +53,17 @@ export default function SearchContent({ allPosts }: Props) {
    * 在标题和正文中匹配关键词，生成高亮 HTML
    */
   const search = useCallback((key: string) => {
-    key = key.trim()
-    if (!key) { setResults([]); return }
+    const trimmed = key.trim()
+    if (!trimmed) { setResults([]); return }
 
-    const reg = new RegExp(escapeReg(key), 'gi')
-    const filtered = allPosts
-      .map(post => {
+    const escaped = escapeHtml(trimmed)
+    const highlightReg = new RegExp(escapeReg(trimmed), 'gi')
+
+    const filtered: SearchPost[] = allPosts
+      .map((post): SearchPost | null => {
         const content = stripHtml(post.content || '')
-        const match = reg.exec(content)
-        reg.lastIndex = 0
-        const titleMatch = reg.test(post.title || '')
+        const match = new RegExp(escapeReg(trimmed), 'gi').exec(content)
+        const titleMatch = new RegExp(escapeReg(trimmed), 'gi').test(post.title || '')
 
         if (!titleMatch && !match) return null
 
@@ -74,10 +75,6 @@ export default function SearchContent({ allPosts }: Props) {
           excerpt = content.substring(left, right) + '...'
         }
 
-        const escaped = escapeHtml(key)
-        const highlightReg = new RegExp(escapeReg(key), 'gi')
-
-        // 先转义全文为安全文本，再做关键词高亮替换（防 XSS）
         const safeTitle = escapeHtml(post.title || '')
         const safeExcerpt = escapeHtml(excerpt)
 
@@ -88,7 +85,7 @@ export default function SearchContent({ allPosts }: Props) {
           excerptHighlight: safeExcerpt ? safeExcerpt.replace(highlightReg, `<span class="hint">${escaped}</span>`) : '',
         }
       })
-      .filter(Boolean) as SearchPost[]
+      .filter((p): p is SearchPost => p !== null)
 
     setResults(filtered)
   }, [allPosts])
@@ -103,14 +100,15 @@ export default function SearchContent({ allPosts }: Props) {
         value={keyword}
         onChange={e => setKeyword(e.target.value)}
         placeholder="请在这里输入关键词^_^"
+        aria-label="搜索文章"
       />
       <h1><span>搜索结果</span></h1>
       <ul className="list-search">
         {results.map(r => (
           <li key={r.slug}>
             <Link href={postUrl(r)}>
-              <p className="title" dangerouslySetInnerHTML={{ __html: r.titleHighlight! }} />
-              <p className="content" dangerouslySetInnerHTML={{ __html: r.excerptHighlight! }} />
+              <p className="title" dangerouslySetInnerHTML={{ __html: r.titleHighlight ?? '' }} />
+              <p className="content" dangerouslySetInnerHTML={{ __html: r.excerptHighlight ?? '' }} />
             </Link>
           </li>
         ))}

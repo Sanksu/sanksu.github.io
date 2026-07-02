@@ -1,14 +1,6 @@
-'use client'
-
-import { useState, useEffect } from 'react'
-
 /** 全局底部组件 */
 export default function Footer() {
-  const [year, setYear] = useState(2020)
-
-  useEffect(() => {
-    setYear(new Date().getFullYear())
-  }, [])
+  const year = new Date().getFullYear()
 
   return (
     <footer className="footer">

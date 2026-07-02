@@ -1,8 +1,10 @@
 import PostContent from './PostContent'
 import { getPostBySlug, getAllPostSlugs, getAdjacentPosts } from '@/lib/posts'
 import { postUrl } from '@/lib/format'
-import { getSiteUrl, getSiteName, getWalineConfig } from '@/lib/metadata'
+import { getSiteUrl, getSiteName, getSiteAuthor, getWalineConfig } from '@/lib/metadata'
 import { markdownToHtml } from '@/lib/markdown'
+import { stripHtml } from '@/lib/utils'
+import { notFound } from 'next/navigation'
 import type { Metadata } from 'next'
 
 export async function generateStaticParams() {
@@ -24,7 +26,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     description: `${post.title}${post.categories.length ? ` · ${post.categories.join(', ')}` : ''}`,
     openGraph: {
       title: post.title,
-      description: post.content.replace(/[#*`\[\]]/g, '').replace(/\s+/g, ' ').trim().slice(0, 160),
+      description: stripHtml(post.content).slice(0, 160),
       url: `${getSiteUrl()}${postUrl(post)}`,
       siteName: getSiteName(),
       type: 'article',
@@ -39,17 +41,21 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 }
 
 export default async function PostPage({ params }: Props) {
-  const { year, month, day, slug } = await params
+  const { slug } = await params
   const decodedSlug = decodeURIComponent(slug)
   const post = getPostBySlug(decodedSlug)
+  if (!post) notFound()
+
   const adjacent = getAdjacentPosts(decodedSlug)
-  const postHtml = post ? markdownToHtml(post.content) : null
+  const postHtml = markdownToHtml(post.content)
 
   return (
     <PostContent
       post={post}
       postHtml={postHtml}
-      postPath={`/posts/${year}/${month}/${day}/${slug}`}
+      postPath={postUrl(post)}
+      siteName={getSiteName()}
+      author={getSiteAuthor()}
       prevPost={adjacent.prev}
       nextPost={adjacent.next}
       walineConfig={getWalineConfig()}

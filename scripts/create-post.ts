@@ -38,7 +38,7 @@ function parseList(input?: string): string[] {
  */
 function formatList(items: string[]): string {
   if (items.length === 0) return '[]'
-  return `[${items.join(', ')}]`
+  return `[${items.map(i => `"${i.replace(/"/g, '\\"')}"`).join(', ')}]`
 }
 
 /**
@@ -67,7 +67,7 @@ function main() {
   }
 
   const content = `---
-title: ${title}
+title: "${title.replace(/"/g, '\\"')}"
 date: ${date}
 categories: ${formatList(categories)}
 tags: ${formatList(tags)}

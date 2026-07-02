@@ -34,13 +34,14 @@ export function parseFrontMatter<T = Record<string, unknown>>(fileContents: stri
   }
 
   const startOffset = startMatch[0].length
-  const endIndex = fileContents.indexOf('\n---', startOffset)
-  if (endIndex === -1) {
+  const closeMatch = fileContents.slice(startOffset).match(/\r?\n---\s*\r?\n/)
+  if (!closeMatch) {
     return { data: {} as T, content: fileContents.slice(startOffset) }
   }
 
+  const endIndex = startOffset + closeMatch.index!
   const yamlStr = fileContents.slice(startOffset, endIndex)
-  const content = fileContents.slice(endIndex + 4).replace(/^\r?\n/, '')
+  const content = fileContents.slice(endIndex + closeMatch[0].length)
 
   try {
     const data = load(yamlStr) as T
@@ -71,7 +72,10 @@ export function normalizeDate(dateVal: unknown): string {
     const d = String(dateVal.getDate()).padStart(2, '0')
     return `${y}-${m}-${d}`
   }
-  return String(dateVal || '')
+  if (typeof dateVal === 'string' && /^\d{4}-\d{2}-\d{2}$/.test(dateVal)) {
+    return dateVal
+  }
+  throw new Error(`Invalid date value in front-matter: ${JSON.stringify(dateVal)}. Expected YYYY-MM-DD format.`)
 }
 
 /**
@@ -118,6 +122,7 @@ export function slugify(text: string): string {
     .trim()
     .replace(/\s+/g, '-')
     .toLowerCase()
+    .replace(/[^a-zA-Z0-9\u4e00-\u9fa5\-_]/g, '')
 }
 
 /**

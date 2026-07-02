@@ -12,10 +12,13 @@ export interface Link {
   avatar?: string
 }
 
+let _cache: Link[] | null = null
+
 /**
  * 获取友情链接列表
  * @returns 从 `_data/links.json` 读取的友链数组
  */
 export function getLinks(): Link[] {
-  return readJson<Link[]>('links.json')
+  if (!_cache) _cache = readJson<Link[]>('links.json')
+  return _cache
 }

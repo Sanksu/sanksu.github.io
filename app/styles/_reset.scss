@@ -48,7 +48,7 @@ input, select, textarea {
   -moz-appearance: none;
   appearance: none;
   border: 1px solid var(--ark-border);
-  background: rgba(255, 255, 255, 0.03);
+  background: var(--ark-bg);
   color: var(--ark-text);
   padding: 8px 12px;
 }

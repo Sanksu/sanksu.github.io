@@ -23,10 +23,8 @@
   pre {
     background: var(--ark-dark-blue); padding: 16px; border-radius: 6px;
     overflow-x: auto; margin: 12px 0; border: 1px solid var(--ark-border);
-    // 关键优化：代码块独立合成层 + GPU 加速
+    // 性能优化：隔离代码块重绘范围
     contain: layout style paint;
-    transform: translateZ(0);
-    will-change: auto;
     code { background: none; padding: 0; font-size: 0.85em; }
   }
 
@@ -81,12 +79,6 @@
 .reading-progress__bar {
   height: 100%; background: var(--ark-highlight);
   transition: width 0.15s ease-out; border-radius: 0 2px 2px 0;
-}
-
-.page-layout {
-  max-width: var(--content-max-width); margin: 0 auto; display: flex;
-  gap: 32px; padding: var(--pad-section-y) 0; flex: 1; width: 100%;
-  > .page { flex: 1; min-width: 0; }
 }
 
 .toc {
@@ -200,3 +192,43 @@ html:not(.dark) .post-nav__item:hover { background: rgba(0,0,0,0.02); }
   50%  { opacity: 1; }
   100% { opacity: 0.6; }
 }
+
+.image-preview-overlay {
+  position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+  background: rgba(0,0,0,0.85); z-index: 9999;
+  display: flex; align-items: center; justify-content: center; cursor: zoom-out;
+  img { max-width: 90vw; max-height: 90vh; border-radius: 4px; }
+}
+
+#waline { margin-top: 40px; max-width: var(--content-max-width); }
+
+/** Scroll Animation */
+.scroll-animate {
+  opacity: 0; transform: translateY(24px);
+  transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+
+  &.scroll-animated { opacity: 1; transform: translateY(0); }
+}
+
+.post-content.scroll-animate { opacity: 1; transform: none; }
+
+/* JS 失败或用户偏好减少动效时，内容仍可见 */
+@media (prefers-reduced-motion: reduce) {
+  .scroll-animate { opacity: 1; transform: none; transition: none; }
+}
+
+li.scroll-animate {
+  &:nth-child(1) { transition-delay: 0s; }
+  &:nth-child(2) { transition-delay: 0.05s; }
+  &:nth-child(3) { transition-delay: 0.1s; }
+  &:nth-child(4) { transition-delay: 0.15s; }
+  &:nth-child(5) { transition-delay: 0.2s; }
+  &:nth-child(6) { transition-delay: 0.25s; }
+  &:nth-child(7) { transition-delay: 0.3s; }
+  &:nth-child(8) { transition-delay: 0.35s; }
+  &:nth-child(9) { transition-delay: 0.4s; }
+  &:nth-child(10) { transition-delay: 0.45s; }
+}
+
+/** 性能隔离 */
+.tree { contain: layout style paint; }
