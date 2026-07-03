@@ -48,19 +48,6 @@ export default function SkillTree({ skillCategories }: Props) {
   // 打字机动画
   const typedText = useTypingEffect(activeSkill?.description ?? '')
 
-  // 预计算所有分支和叶子的延迟索引，确保渲染一致性
-  const delayIndices = useMemo(() => {
-    const indices: Map<string, number> = new Map()
-    let idx = 0
-    skillCategories.forEach(cat => {
-      indices.set(`branch-${cat.id}`, idx++)
-      cat.skills.forEach(skill => {
-        indices.set(`leaf-${skill.id}`, idx++)
-      })
-    })
-    return indices
-  }, [skillCategories])
-
   /** 处理叶子点击（移动端适配） */
   const handleLeafTap = useCallback((skillId: string) => {
     setTappedId(prev => (prev === skillId ? null : skillId))
@@ -103,9 +90,8 @@ export default function SkillTree({ skillCategories }: Props) {
           <div className={styles.left}>
             <div className={styles.trunk}>
               {skillCategories.map((cat) => {
-                const branchIdx = delayIndices.get(`branch-${cat.id}`) ?? 0
                 return (
-                  <div key={cat.id} className={styles.branch} style={{ ['--delay' as string]: branchIdx }}>
+                  <div key={cat.id} className={styles.branch}>
                     <div className={styles.branchHeader}>
                       <span className={styles.branchName}>{cat.name}</span>
                       <span className={styles.branchLine}>{'\u2500'.repeat(24)}</span>
@@ -114,12 +100,10 @@ export default function SkillTree({ skillCategories }: Props) {
                     <div>
                       {cat.skills.map((skill) => {
                         const isActive = activeId === skill.id
-                        const leafIdx = delayIndices.get(`leaf-${skill.id}`) ?? 0
                         return (
                           <div
                             key={skill.id}
                             className={`${styles.leaf} ${isActive ? styles.hovered : ''}`}
-                            style={{ ['--delay' as string]: leafIdx }}
                             onMouseEnter={() => setHoveredId(skill.id)}
                             onMouseLeave={() => setHoveredId(null)}
                             onClick={() => handleLeafTap(skill.id)}

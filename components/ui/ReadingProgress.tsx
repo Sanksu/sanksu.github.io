@@ -62,16 +62,16 @@ export default function ReadingProgress() {
   if (!mounted) return null
 
   return createPortal(
-    <div
-      className={`reading-progress ${visible ? 'reading-progress--visible' : ''}`}
-      role="progressbar"
-      aria-valuenow={Math.round(progress)}
-      aria-valuemin={0}
-      aria-valuemax={100}
-      aria-label="阅读进度"
-    >
-      <div className="reading-progress__bar" style={{ width: `${progress}%` }} />
-    </div>,
+    <>
+      <style>{`.reading-progress{--progress:${progress}%}`}</style>
+      <div
+        className={`reading-progress ${visible ? 'reading-progress--visible' : ''}`}
+        role="progressbar"
+        aria-label="阅读进度"
+      >
+        <div className="reading-progress__bar" />
+      </div>
+    </>,
     document.body
   )
 }

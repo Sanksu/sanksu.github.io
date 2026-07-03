@@ -77,7 +77,8 @@
 }
 
 .reading-progress__bar {
-  height: 100%; background: var(--ark-highlight);
+  height: 100%; width: var(--progress, 0%);
+  background: var(--ark-highlight);
   transition: width 0.15s ease-out; border-radius: 0 2px 2px 0;
 }
 

@@ -16,7 +16,7 @@
   .floating-actions { bottom: 48px; }
   .code-block-wrapper {
     border-radius: 6px;
-    > pre { border-radius: 0; overflow-x: auto; overflow-y: clip; -webkit-overflow-scrolling: touch; }
+    > pre { border-radius: 0; overflow-x: auto; overflow-y: clip; }
     .code-bar { opacity: 1; }
   }
 }

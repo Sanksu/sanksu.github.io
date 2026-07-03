@@ -124,7 +124,7 @@ html:not(.dark) .trunk::before {
 .leaf {
   position: relative; padding: 5px 0 5px 16px;
   cursor: pointer; transition: background 0.15s; border-radius: 4px; margin: 1px 0;
-  // 性能优化：隔离叶子节点的样式计算
+  // 性能隔离：隔离叶子节点的样式计算
   contain: style;
 
   &::before {
@@ -140,6 +140,12 @@ html:not(.dark) .trunk::before {
   }
 
   &:hover, &.hovered { background: rgba(178,242,187,0.06); }
+}
+
+// nth-child 延迟替代内联 --delay
+@for $i from 0 through 29 {
+  .branch:nth-child(#{$i + 1}) { --delay: #{$i}; }
+  .leaf:nth-child(#{$i + 1})   { --delay: #{$i}; }
 }
 
 html:not(.dark) .leaf:hover,
