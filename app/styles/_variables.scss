@@ -1,20 +1,31 @@
-// Highlight.js 代码高亮 CSS 变量（深色模式默认值）
-:root {
-  --ark-dark: #0d0d0d;
-  --ark-dark-blue: #1a1a1a;
-  --ark-gray: #333333;
-  --ark-medium-gray: #777777;
-  --ark-light-gray: #e0e0e0;
-  --ark-white: #f1f1f1;
-  --ark-primary: rgba(200, 200, 200, 0.8);
-  --ark-accent: rgba(220, 220, 220, 1);
-  --ark-highlight: #b2f2bb;
-  --ark-border: rgba(255, 255, 255, 0.12);
-  --ark-text: rgba(230, 230, 230, 0.9);
-  --ark-text-dim: rgba(180, 180, 180, 0.6);
-  --ark-bg: #0d0d0d;
+// ============================================
+// Design System: Sanksu Blog — OLED Dark + Blue Accent
+// Generated via ui-ux-pro-max
+// ============================================
 
-  // 代码高亮变量：深色模式（默认）
+:root {
+  // ---------- Colors: Dark Mode (OLED) ----------
+  --ark-dark: #000000;
+  --ark-dark-blue: #0a0a0a;
+  --ark-gray: #1a1a1a;
+  --ark-medium-gray: #525252;
+  --ark-light-gray: #a3a3a3;
+  --ark-white: #fafafa;
+  --ark-primary: rgba(200, 200, 200, 0.8);
+  --ark-accent: #e5e5e5;
+  --ark-highlight: #b2f2bb;
+  --ark-highlight-dim: rgba(178, 242, 187, 0.15);
+  --ark-border: rgba(255, 255, 255, 0.08);
+  --ark-text: #e5e5e5;
+  --ark-text-dim: #737373;
+  --ark-bg: #000000;
+
+  // ---------- Glow & Gradient Effects ----------
+  --ark-glow-highlight: 0 0 24px rgba(178, 242, 187, 0.15);
+  --ark-glow-card: 0 4px 24px rgba(0, 0, 0, 0.4);
+  --ark-gradient-accent: linear-gradient(135deg, #b2f2bb, #4ade80);
+
+  // ---------- Code Highlighting: Dark Mode ----------
   --hljs-base: #e6e6e6;
   --hljs-comment: #6a9955;
   --hljs-keyword: #c586c0;
@@ -24,31 +35,43 @@
   --hljs-tag: #569cd6;
   --hljs-deletion: #f48771;
 
+  // ---------- Typography ----------
   --font-hud: "Dosis", "Cascadia Code", Consolas, "Microsoft YaHei", "PingFang SC", sans-serif;
   --font-body: "Noto Serif SC", "Noto Sans SC", "Microsoft YaHei", serif;
+
+  // ---------- Transition ----------
   --transition-fast: 0.3s cubic-bezier(0.6, 0.05, 0.01, 0.9);
   --transition-medium: 0.5s cubic-bezier(0.6, 0.05, 0.01, 0.9);
+
+  // ---------- Layout ----------
   --content-max-width: 1000px;
   --pad-body-x: 14px;
   --pad-section-y: 20px;
 }
 
 html:not(.dark) {
-  --ark-dark: #ffffff;
+  // ---------- Colors: Light Mode ----------
+  --ark-dark: #fafafa;
   --ark-dark-blue: #f5f5f5;
-  --ark-gray: #e0e0e0;
-  --ark-medium-gray: #888888;
-  --ark-light-gray: #444444;
-  --ark-white: #1a1a1a;
+  --ark-gray: #e5e5e5;
+  --ark-medium-gray: #737373;
+  --ark-light-gray: #525252;
+  --ark-white: #171717;
   --ark-primary: rgba(60, 60, 60, 0.8);
-  --ark-accent: rgba(40, 40, 40, 1);
+  --ark-accent: #262626;
   --ark-highlight: #2b8a3e;
-  --ark-border: rgba(0, 0, 0, 0.12);
-  --ark-text: rgba(30, 30, 30, 0.9);
-  --ark-text-dim: rgba(80, 80, 80, 0.6);
-  --ark-bg: #f5f5f5;
+  --ark-highlight-dim: rgba(43, 138, 62, 0.1);
+  --ark-border: rgba(0, 0, 0, 0.08);
+  --ark-text: #171717;
+  --ark-text-dim: #525252;
+  --ark-bg: #fafafa;
 
-  // 代码高亮变量：浅色模式
+  // ---------- Glow & Gradient (Light Mode - Subtler) ----------
+  --ark-glow-highlight: 0 0 20px rgba(43, 138, 62, 0.1);
+  --ark-glow-card: 0 2px 16px rgba(0, 0, 0, 0.06);
+  --ark-gradient-accent: linear-gradient(135deg, #2b8a3e, #16a34a);
+
+  // ---------- Code Highlighting: Light Mode ----------
   --hljs-base: #24292e;
   --hljs-comment: #6a737d;
   --hljs-keyword: #d73a49;

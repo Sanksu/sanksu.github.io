@@ -33,6 +33,12 @@ html.dark body::after {
   display: block;
   width: 36px; height: 36px;
   background: url('/assets/img/logo_256x256.png') center/contain no-repeat;
+  border-radius: 50%;
+  transition: box-shadow var(--transition-fast);
+
+  &:hover {
+    box-shadow: var(--ark-glow-highlight);
+  }
 }
 
 .menu {
@@ -171,5 +177,6 @@ html.dark body::after {
 ::-webkit-scrollbar-thumb {
   background: var(--ark-medium-gray);
   border-radius: 2px;
+  transition: background 0.2s;
   &:hover { background: var(--ark-highlight); }
 }
