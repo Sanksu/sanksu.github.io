@@ -1,9 +1,13 @@
 # ============================================================
 # Auto-merge Dependabot PRs
 #
-# 当 dependabot[bot] 向 main 分支提交 PR 时：
-#   1. 自动 approve（赋予信任标签）
-#   2. 启用 auto-merge（PR 实际合并等待 CI 通过后执行）
+# 自动化处理 dependabot[bot] 提交到 main 的 PR：
+#   1. 自动 approve
+#   2. 启用 auto-merge（等待 CI 通过后合并）
+#
+# 触发方式：
+#   - pull_request_target: dependabot 提 PR 时自动触发
+#   - workflow_dispatch:   手动触发，可指定 PR 编号或处理全部
 #
 # 使用 pull_request_target 确保安全：PR 代码不会
 # 在 workflow 上下文中执行，避免注入风险。
@@ -16,6 +20,11 @@ on:
     types: [opened, reopened, synchronize]
     branches: [main]
   workflow_dispatch:
+    inputs:
+      pr-number:
+        description: 'PR number to process (leave empty to process all open dependabot PRs on main)'
+        required: false
+        type: number
 
 permissions:
   contents: write
@@ -23,25 +32,68 @@ permissions:
 
 jobs:
   auto-merge-dependabot:
-    if: github.actor == 'dependabot[bot]'
+    if: >
+      github.event_name == 'workflow_dispatch' ||
+      (github.event_name == 'pull_request_target' && github.actor == 'dependabot[bot]')
     runs-on: ubuntu-latest
+    env:
+      GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
     steps:
-      - name: Check PR author
+      # ---------------------------------------------------
+      # Step 1: 确定要处理的 PR 列表
+      # ---------------------------------------------------
+      - name: Determine target PRs
+        id: resolve
         run: |
-          echo "PR #${{ github.event.pull_request.number }} by ${{ github.actor }}"
-          echo "Title: ${{ github.event.pull_request.title }}"
+          if [ "${{ github.event_name }}" = "workflow_dispatch" ]; then
+            PR_NUMBER="${{ inputs.pr-number }}"
+            if [ -n "$PR_NUMBER" ]; then
+              echo "Manual trigger: processing PR #$PR_NUMBER"
+              echo "prs=$PR_NUMBER" >> "$GITHUB_OUTPUT"
+            else
+              echo "Manual trigger: processing all open dependabot PRs on main"
+              PRS=$(gh pr list --base main --state open \
+                --author "dependabot[bot]" \
+                --json number --jq '.[].number' | tr '\n' ' ')
+              echo "Found dependabot PRs: $PRS"
+              echo "prs=$(echo $PRS)" >> "$GITHUB_OUTPUT"
+            fi
+          else
+            echo "Auto trigger by ${{ github.actor }}"
+            echo "prs=${{ github.event.pull_request.number }}" >> "$GITHUB_OUTPUT"
+          fi
 
-      - name: Auto-approve dependabot PR
+      # ---------------------------------------------------
+      # Step 2: 逐个处理 PR
+      # ---------------------------------------------------
+      - name: Process each PR
         env:
-          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          PR_LIST: ${{ steps.resolve.outputs.prs }}
         run: |
-          gh pr review "${{ github.event.pull_request.number }}" --approve \
-            --body "Dependabot PR auto-approved. Merge will proceed after CI passes."
+          if [ -z "$PR_LIST" ]; then
+            echo "No PRs to process."
+            exit 0
+          fi
 
-      - name: Enable auto-merge
-        env:
-          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        run: |
-          gh pr merge "${{ github.event.pull_request.number }}" --auto --squash
-          echo "[OK] Auto-merge enabled for PR #${{ github.event.pull_request.number }}"
+          for PR in $PR_LIST; do
+            echo ""
+            echo "--- Processing PR #$PR ---"
+
+            # Approve
+            if gh pr review "$PR" --approve --body "Auto-approved. Merge will proceed after CI passes." 2>/dev/null; then
+              echo "  [OK] Approved PR #$PR"
+            else
+              echo "  [SKIP] Could not approve PR #$PR (already approved or not reviewable)"
+            fi
+
+            # Enable auto-merge
+            if gh pr merge "$PR" --auto --squash 2>/dev/null; then
+              echo "  [OK] Auto-merge enabled for PR #$PR"
+            else
+              echo "  [WARN] Could not enable auto-merge for PR #$PR"
+            fi
+          done
+
+          echo ""
+          echo "Done processing all PRs."
