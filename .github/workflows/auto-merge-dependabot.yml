@@ -103,13 +103,12 @@ jobs:
               echo "  [SKIP] Could not approve PR #$PR: $APPROVE_OUTPUT"
             fi
 
-            # Enable auto-merge (suppress notification email)
+            # Enable auto-merge via PATCH (suppress notification email)
             MERGE_OUTPUT=$(gh api \
-              -X PUT \
+              -X PATCH \
               -H "X-GitHub-Non-Notification: 1" \
-              "/repos/${{ github.repository }}/pulls/$PR/merge" \
-              -f merge_method="squash" \
-              -f auto_merge="true" 2>&1)
+              "/repos/${{ github.repository }}/pulls/$PR" \
+              -f "auto_merge[merge_method]=squash" 2>&1) || true
             MERGE_EXIT=$?
             if [ $MERGE_EXIT -eq 0 ]; then
               echo "  [OK] Auto-merge enabled for PR #$PR (no email sent)"
