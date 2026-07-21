@@ -224,7 +224,7 @@ jobs:
               '',
               '### PRs merged in this run',
               '',
-              ('${{ steps.merge.outputs.summary || "No PRs merged" }}').replace(/\\n/g, '\n'),
+              ('${{ steps.merge.outputs.summary || 'No PRs merged' }}').replace(/\\n/g, '\n'),
               '',
               'Check the [workflow logs](' + runUrl + ') for details.',
             ].join('\n');
