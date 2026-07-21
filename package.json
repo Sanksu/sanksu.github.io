@@ -12,7 +12,7 @@
     "@waline/client": "^3.15.2",
     "gif2asciiart": "^1.0.0",
     "highlight.js": "^11.11.1",
-    "js-yaml": "^5.2.0",
+    "js-yaml": "^5.2.1",
     "katex": "^0.18.1",
     "marked": "^18.0.7",
     "marked-highlight": "^2.2.4",
