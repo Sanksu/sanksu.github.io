@@ -1,5 +1,6 @@
 import './globals.scss'
 import 'katex/dist/katex.min.css'
+import AsciiBackground from '@/components/ui/AsciiBackground'
 import FloatingActions from '@/components/ui/FloatingActions'
 import LoadingScreen from '@/components/layout/LoadingScreen'
 import Header from '@/components/layout/Header'
@@ -36,6 +37,7 @@ export default function RootLayout({ children }: { children: ReactNode }) {
         ` }} />
       </head>
       <body>
+        <AsciiBackground />
         <LoadingScreen />
         <Header />
         {children}
