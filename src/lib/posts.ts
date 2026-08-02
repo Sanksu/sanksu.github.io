@@ -89,7 +89,7 @@ export async function getAdjacentPosts(slug: string): Promise<{ prev: Post | nul
 /** 生成文章 URL 路径 /posts/年/月/日/slug/ */
 export function postUrl(post: Post): string {
   const d = post.data.date
-  return `/posts/${d.getFullYear()}/${String(d.getMonth() + 1).padStart(2, '0')}/${String(d.getDate()).padStart(2, '0')}/${encodeURIComponent(slugFromFilename(post.id))}`
+  return `/posts/${d.getFullYear()}/${String(d.getMonth() + 1).padStart(2, '0')}/${String(d.getDate()).padStart(2, '0')}/${encodeURIComponent(slugFromFilename(post.id))}/`
 }
 
 /** 获取文章的日期键 YYYY-MM-DD */
