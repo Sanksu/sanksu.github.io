@@ -65,11 +65,11 @@ body::after {
 
 .ek-shell {
   display: grid;
-  grid-template-columns: var(--ek-rail-w) 1fr;
+  grid-template-columns: 1fr var(--ek-rail-w);
   grid-template-rows: auto 1fr auto;
   grid-template-areas:
     'topbar topbar'
-    'rail   main'
+    'main   rail'
     'dock   dock';
   min-height: 100vh;
 }/* --- Topbar（炭黑 dock）--- */
@@ -164,7 +164,7 @@ body::after {
 .ek-rail {
   grid-area: rail;
   background: var(--ek-paper-soft);
-  border-right: 1px solid var(--ek-line);
+  border-left: 1px solid var(--ek-line);
   padding: 1.5rem 0;
   display: flex;
   flex-direction: column;
@@ -1260,7 +1260,7 @@ body::after {
     overflow-x: auto;
     padding: 0.4rem 0.75rem;
     gap: 0.15rem;
-    border-right: none;
+    border-left: none;
     border-bottom: 1px solid var(--ek-line);
     z-index: 90;
     -webkit-overflow-scrolling: touch;
