@@ -59,7 +59,7 @@ function main() {
   const date = formatDate()
   const slug = slugify(title)
   const filename = `${date}-${slug}.md`
-  const filePath = path.join(process.cwd(), '_posts', filename)
+  const filePath = path.join(process.cwd(), 'src', 'content', 'posts', filename)
 
   if (fs.existsSync(filePath)) {
     console.error(`文件已存在: ${filePath}`)
@@ -71,7 +71,6 @@ title: "${title.replace(/"/g, '\\"')}"
 date: ${date}
 categories: ${formatList(categories)}
 tags: ${formatList(tags)}
-pinned: false
 ---
 
 ## ${title}

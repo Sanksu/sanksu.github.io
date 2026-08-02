@@ -12,10 +12,7 @@
     overlay.append(img)
     document.body.append(overlay)
 
-    let currentSrc: string | null = null
-
     function open(src: string) {
-      currentSrc = src
       img.src = src
       overlay.hidden = false
       document.body.style.overflow = 'hidden'
@@ -23,7 +20,7 @@
 
     function close() {
       overlay.hidden = true
-      currentSrc = null
+      img.src = ''
       document.body.style.overflow = ''
     }
 

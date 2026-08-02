@@ -21,6 +21,7 @@
     "shiki": "^1.24.2"
   },
   "devDependencies": {
+    "@astrojs/check": "^0.9.10",
     "@types/js-yaml": "^4.0.9",
     "@types/katex": "^0.16.8",
     "@types/node": "^22.10.0",

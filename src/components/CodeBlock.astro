@@ -54,7 +54,7 @@
             const code = el.querySelector('code')
             if (code) enhanceCodeBlocks()
           } else {
-            el.querySelectorAll?.('pre code')?.forEach(c => enhanceCodeBlocks())
+            el.querySelectorAll?.('pre code')?.forEach(() => enhanceCodeBlocks())
           }
         })
       })

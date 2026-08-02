@@ -14,7 +14,7 @@ const { serverURL, path } = Astro.props
 <script>
   // 原生 Waline 评论接入（不依赖 React）
   async function initWaline() {
-    const container = document.querySelector('.waline-container[data-server-url]')
+    const container = document.querySelector<HTMLDivElement>('.waline-container[data-server-url]')
     if (!container) return
 
     const serverURL = container.getAttribute('data-server-url') || ''
