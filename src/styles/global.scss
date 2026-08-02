@@ -560,6 +560,10 @@ html.dark .post-content pre {
   cursor: zoom-out;
 }
 
+.image-preview-overlay[hidden] {
+  display: none;
+}
+
 .image-preview-overlay img {
   max-width: 92vw;
   max-height: 92vh;
