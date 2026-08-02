@@ -955,61 +955,17 @@ body::after {
   box-shadow: none;
 }
 
-/* 昵称/邮箱/网址输入框（技术风微标签） */
-.ek-comments .wl-header {
-  gap: 0.75rem;
-  margin-bottom: 0.75rem;
-}
-
-.ek-comments .wl-header-item {
-  flex-direction: column;
-  gap: 0.3rem;
-}
-
-.ek-comments .wl-header-item label {
-  display: block;
-  font-family: var(--ek-font-mono);
-  font-size: 0.6rem;
-  font-weight: 600;
-  letter-spacing: 0.18em;
-  text-transform: uppercase;
-  color: var(--ek-muted);
-}
-
-.ek-comments .wl-header-item label::after {
-  content: ' ▸';
-  color: var(--ek-signal);
-}
-
+/* 输入框 */
 .ek-comments .wl-input {
   border: 1px solid var(--ek-line-strong);
   border-radius: var(--ek-radius);
-  background: var(--ek-paper-soft);
+  background: var(--ek-paper);
   color: var(--ek-ink);
-  font-family: var(--ek-font-mono);
-  font-size: 0.85rem;
-  letter-spacing: 0.03em;
-  padding: 0.45rem 0.65rem;
-  height: auto;
-  min-height: 34px;
-  transition: border-color var(--ek-motion-direct) var(--ek-ease), background var(--ek-motion-direct) var(--ek-ease), color var(--ek-motion-direct) var(--ek-ease);
-}
-
-.ek-comments .wl-input:hover {
-  border-color: var(--ek-signal);
 }
 
 .ek-comments .wl-input:focus {
   border-color: var(--ek-signal);
-  background: var(--ek-paper);
   box-shadow: none;
-}
-
-.ek-comments .wl-input::placeholder {
-  color: var(--ek-muted-soft);
-  font-family: var(--ek-font-cjk);
-  font-size: 0.8rem;
-  letter-spacing: 0;
 }
 
 /* 提交按钮 */
