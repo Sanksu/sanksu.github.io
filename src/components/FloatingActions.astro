@@ -1,7 +1,8 @@
 ---
 /**
- * 浮动操作：回到顶部 + 亮/暗主题切换（endfield 风格）
+ * 浮动操作：回到顶部（endfield 风格）
  * 原生 JS，客户端 hydrate
+ * 主题切换按钮已移至顶部导航栏
  */
 ---
 
@@ -12,34 +13,9 @@
       <polyline points="5 12 12 5 19 12" />
     </svg>
   </button>
-  <button class="ek-actions__btn" data-action="toggle-theme" title="切换主题" aria-label="切换主题">
-    <span data-theme-icon></span>
-  </button>
 </div>
 
 <script>
-  const root = document.documentElement
-
-  function currentDark(): boolean {
-    return root.classList.contains('dark')
-  }
-
-  function renderIcon(isDark: boolean) {
-    document.querySelectorAll('[data-theme-icon]').forEach(el => {
-      el.textContent = isDark ? '\u2600' : '\u263E'
-    })
-  }
-
-  function applyTheme(isDark: boolean) {
-    root.classList.toggle('dark', isDark)
-    localStorage.setItem('darkMode', String(isDark))
-    renderIcon(isDark)
-  }
-
-  document.querySelector('[data-action="toggle-theme"]')?.addEventListener('click', () => {
-    applyTheme(!currentDark())
-  })
-
   const toTop = document.querySelector('[data-action="to-top"]')
   function onScroll() {
     toTop?.classList.toggle('show', window.scrollY > 300)
@@ -47,6 +23,4 @@
   window.addEventListener('scroll', onScroll, { passive: true })
   onScroll()
   toTop?.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }))
-
-  renderIcon(currentDark())
 </script>
