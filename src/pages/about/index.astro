@@ -3,82 +3,98 @@ import BaseLayout from '../../layouts/BaseLayout.astro'
 import { timeline, projects } from '../../data/about'
 import { getVisiblePosts } from '../../lib/posts'
 import { stripMarkdown } from '../../lib/utils'
+import Reveal from '../../components/Reveal.astro'
 
 const posts = await getVisiblePosts()
 const totalPosts = posts.length
 const totalCategories = new Set(posts.flatMap(p => p.data.categories)).size
 const totalTags = new Set(posts.flatMap(p => p.data.tags)).size
-let totalChars = 0
-let totalReadingMin = 0
-for (const p of posts) {
-  const len = stripMarkdown(p.body).length
-  totalChars += len
-  totalReadingMin += Math.max(1, Math.ceil(len / 300))
-}
+const totalChars = posts.reduce((acc, p) => acc + stripMarkdown(p.body).length, 0)
+const totalReadingMin = posts.reduce((acc, p) => acc + Math.max(1, Math.ceil(stripMarkdown(p.body).length / 300)), 0)
 const startDate = new Date('2020-04-01')
 const daysRunning = Math.floor((Date.now() - startDate.getTime()) / (1000 * 60 * 60 * 24))
 
 const stats = [
-  [totalPosts, '文章'],
-  [totalChars.toLocaleString(), '总字数'],
-  [totalCategories, '分类'],
-  [totalTags, '标签'],
-  [totalReadingMin, '阅读分钟'],
-  [daysRunning, '建站天数'],
-] as const
+  [String(totalPosts), '文章 / POSTS'],
+  [totalChars.toLocaleString(), '总字数 / CHARS'],
+  [String(totalCategories), '分类 / CATS'],
+  [String(totalTags), '标签 / TAGS'],
+  [String(totalReadingMin), '阅读分钟 / MINS'],
+  [String(daysRunning), '建站天数 / DAYS'],
+]
 ---
+
 <BaseLayout title="关于 - Sanksu Blog" description="了解 Sanksu 的经历与项目">
-  <article class="page page-post">
-    <h1 class="title">关于我</h1>
-    <div class="post-content">
-      <blockquote><p>Hello</p></blockquote>
+  <div class="ek-stage">
+    <Reveal />
+    <article class="ek-post">
+      <h1 class="ek-post-head__title">关于 / OPERATOR</h1>
 
-      <h2>博客统计</h2>
-      <div class="stats-grid">
-        {stats.map(([value, label]) => (
-          <div class="stat-card">
-            <span class="stat-value">{value}</span>
-            <span class="stat-label">{label}</span>
-          </div>
-        ))}
+      <div class="ek-post-meta ek-reveal">
+        <span class="ek-post-meta__cell">
+          <span class="ek-post-meta__label">IDENTITY</span>
+          <span class="ek-post-meta__value">SANKSU</span>
+        </span>
+        <span class="ek-post-meta__cell">
+          <span class="ek-post-meta__label">STATION</span>
+          <span class="ek-post-meta__value">FIELD LOG / 01</span>
+        </span>
+        <span class="ek-post-meta__cell">
+          <span class="ek-post-meta__label">SECTOR</span>
+          <span class="ek-post-meta__value">TECH / HARDWARE</span>
+        </span>
       </div>
 
-      <h2>经历</h2>
-      <div class="timeline">
-        {timeline.map(item => (
-          <div class="timeline__item">
-            <span class="timeline__year">{item.year}</span>
-            <div class="timeline__content">
-              <h3>{item.title}</h3>
-              <p>{item.desc}</p>
-              {(item.url || item.link) && (
-                <a href={(item.url || item.link)} target="_blank" rel="noopener noreferrer" class="timeline__link">查看详情 &rarr;</a>
-              )}
+      <div class="ek-prose">
+        <blockquote><p>Hello</p></blockquote>
+
+        <h2>博客统计 / STATS</h2>
+        <div class="ek-stats">
+          {stats.map((s) => (
+            <div class="ek-stat ek-reveal">
+              <span class="ek-stat__value">{s[0]}</span>
+              <span class="ek-stat__label">{s[1]}</span>
             </div>
-          </div>
-        ))}
-      </div>
+          ))}
+        </div>
 
-      <h2>项目作品集</h2>
-      <div class="project-grid">
-        {projects.map(project => (
-          <a href={project.url} target="_blank" rel="noopener noreferrer" class="project-card">
-            <h3>{project.name}</h3>
-            <p>{project.desc}</p>
-            <div class="project-tags">
-              {project.tags.map(tag => (
-                <span class="project-tag">{tag}</span>
-              ))}
+        <h2>经历 / TIMELINE</h2>
+        <div class="ek-timeline">
+          {timeline.map(item => (
+            <div class="ek-timeline__item">
+              <span class="ek-timeline__year">{item.year}</span>
+              <div class="ek-timeline__content">
+                <h3>{item.title}</h3>
+                <p>{item.desc}</p>
+                {(item.url || item.link) && (
+                  <a href={(item.url || item.link)} target="_blank" rel="noopener noreferrer" class="ek-timeline__link">查看详情 &rarr;</a>
+                )}
+              </div>
             </div>
-          </a>
-        ))}
-      </div>
+          ))}
+        </div>
 
-      <h2>联系我</h2>
-      <ul>
-        <li>Email: <a href="mailto:sanksu@qq.com">sanksu@qq.com</a></li>
-        <li>GitHub: <a href="https://github.com/sanksu" target="_blank" rel="noopener noreferrer">Sanksu</a></li>
-      </ul>
-    </div>
-  </article>
+        <h2>项目作品集 / PROJECTS</h2>
+        <div class="ek-projects">
+          {projects.map(project => (
+            <a href={project.url} target="_blank" rel="noopener noreferrer" class="ek-project">
+              <h3>{project.name}</h3>
+              <p>{project.desc}</p>
+              <div class="ek-project__tags">
+                {project.tags.map(tag => (
+                  <span class="ek-project__tag">{tag}</span>
+                ))}
+              </div>
+            </a>
+          ))}
+        </div>
+
+        <h2>联系我 / CONTACT</h2>
+        <ul>
+          <li>Email: <a href="mailto:sanksu@qq.com">sanksu@qq.com</a></li>
+          <li>GitHub: <a href="https://github.com/sanksu" target="_blank" rel="noopener noreferrer">Sanksu</a></li>
+        </ul>
+      </div>
+    </article>
+  </div>
 </BaseLayout>

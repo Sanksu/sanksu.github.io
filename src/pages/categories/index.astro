@@ -2,29 +2,37 @@
 import BaseLayout from '../../layouts/BaseLayout.astro'
 import { getCategories, postUrl, postDateKey } from '../../lib/posts'
 import { formatDate } from '../../lib/utils'
+import Reveal from '../../components/Reveal.astro'
 
 const categories = await getCategories()
 const sorted = Object.entries(categories).sort((a, b) => a[0].localeCompare(b[0]))
 ---
 
 <BaseLayout title="分类 - Sanksu Blog" description="按分类浏览 Sanksu Blog 的所有文章">
-  <div class="page page-categories">
-    <div class="list-category">
-      <h2>所有分类</h2>
-      <div>
-        {sorted.map(([cat]) => (
-          <a href={`#${cat}`}>{cat}</a>
-        ))}
-      </div>
+  <div class="ek-stage">
+    <Reveal />
+    <div class="ek-section-title ek-reveal">
+      <span class="ek-section-title__index">02</span>
+      <span class="ek-section-title__text">分类 / CATEGORIES</span>
+      <span class="ek-section-title__meta">{sorted.length} 类</span>
     </div>
-    {sorted.map(([cat, posts]) => (
-      <section class="list-post">
-        <h2 id={cat}>{cat}<span class="tag-count">({posts.length})</span></h2>
-        <ul>
-          {posts.map(post => (
-            <li>
-              <span class="date">{formatDate(postDateKey(post))}</span>
-              <span class="title"><a href={postUrl(post)}>{post.data.title}</a></span>
+    <div class="ek-cloud ek-reveal">
+      {sorted.map(([cat]) => (
+        <a href={`#${cat}`}>{cat}</a>
+      ))}
+    </div>
+    {sorted.map(([cat, posts], i) => (
+      <section id={cat}>
+        <div class="ek-section-title ek-reveal">
+          <span class="ek-section-title__index">{String(i + 1).padStart(2, '0')}</span>
+          <span class="ek-section-title__text">{cat}</span>
+          <span class="ek-section-title__meta"><span class="ek-tag-count">({posts.length})</span></span>
+        </div>
+        <ul class="ek-list">
+          {posts.map((post, j) => (
+            <li class="ek-list__item ek-reveal" style={`transition-delay:${j * 60}ms`}>
+              <span class="ek-list__date">{formatDate(postDateKey(post))}</span>
+              <span class="ek-list__title"><a href={postUrl(post)}>{post.data.title}</a></span>
             </li>
           ))}
         </ul>

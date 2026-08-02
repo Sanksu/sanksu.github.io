@@ -11,17 +11,17 @@ const { prevPost, nextPost } = Astro.props
 
 {
   (prevPost || nextPost) && (
-    <nav class="post-nav" aria-label="文章导航">
+    <nav class="ek-postnav" aria-label="文章导航">
       {prevPost && (
-        <a href={postUrl(prevPost)} class="post-nav__item post-nav__prev">
-          <span class="post-nav__label">上一篇</span>
-          <span class="post-nav__title">{prevPost.data.title}</span>
+        <a href={postUrl(prevPost)} class="ek-postnav__item">
+          <span class="ek-postnav__label">上一篇 / PREV</span>
+          <span class="ek-postnav__title">{prevPost.data.title}</span>
         </a>
       )}
       {nextPost && (
-        <a href={postUrl(nextPost)} class="post-nav__item post-nav__next">
-          <span class="post-nav__label">下一篇</span>
-          <span class="post-nav__title">{nextPost.data.title}</span>
+        <a href={postUrl(nextPost)} class="ek-postnav__item ek-postnav__item--next">
+          <span class="ek-postnav__label">下一篇 / NEXT</span>
+          <span class="ek-postnav__title">{nextPost.data.title}</span>
         </a>
       )}
     </nav>

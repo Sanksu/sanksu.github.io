@@ -28,11 +28,11 @@ const headings = extractHeadings(content)
 
 {
   headings.length >= 2 && (
-    <nav class="toc" aria-label="目录">
-      <span class="toc__title">目录</span>
+    <nav class="ek-toc" aria-label="目录">
+      <span class="ek-toc__title">目录 / INDEX</span>
       <ul>
         {headings.map(h => (
-          <li class={`toc__item toc__item--${h.level}`}>
+          <li class={`ek-toc__item ek-toc__lvl${h.level}`}>
             <a href={`#${h.id}`}>{h.text}</a>
           </li>
         ))}
@@ -43,7 +43,7 @@ const headings = extractHeadings(content)
 
 <script>
   // 原生 TOC 高亮：IntersectionObserver 检测当前可见标题
-  const toc = document.querySelector('.toc')
+  const toc = document.querySelector('.ek-toc')
   if (toc) {
     const items = toc.querySelectorAll('li')
     const observer = new IntersectionObserver(

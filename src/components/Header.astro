@@ -1,39 +1,61 @@
 ---
 const NAV_LINKS = [
-  { href: '/', label: '首页' },
-  { href: '/categories/', label: '分类' },
-  { href: '/tags/', label: '标签' },
-  { href: '/search/', label: '搜索' },
-  { href: '/about/', label: '关于' },
+  { href: '/', label: '首页', en: 'INDEX', index: '01' },
+  { href: '/categories/', label: '分类', en: 'CATEGORIES', index: '02' },
+  { href: '/tags/', label: '标签', en: 'TAGS', index: '03' },
+  { href: '/search/', label: '搜索', en: 'SEARCH', index: '04' },
+  { href: '/about/', label: '关于', en: 'ABOUT', index: '05' },
 ] as const
 
 const { pathname } = Astro.url
 
-/** 判断当前导航项是否激活 */
 function isActive(href: string): boolean {
   if (href === '/') {
     return pathname === '/' || pathname === '/index/'
   }
   return pathname === href || pathname.startsWith(href)
 }
+
+const activeIndex = NAV_LINKS.find(l => isActive(l.href))?.index ?? '01'
 ---
 
-<header class="header">
-  <a href="/" class="logo" aria-label="首页">SANKSU BLOG</a>
-  <nav class="menu" aria-label="主导航">
-    {
-      NAV_LINKS.map((link) => {
-        const active = isActive(link.href)
-        return (
-          <a
-            href={link.href}
-            class:list={[active && 'active']}
-            aria-current={active ? 'page' : undefined}
-          >
-            {link.label}
-          </a>
-        )
-      })
-    }
-  </nav>
+<!-- 顶部炭黑 dock -->
+<header class="ek-topbar">
+  <div class="ek-topbar__brand">
+    <a href="/" class="ek-brand" aria-label="返回首页">
+      <span class="ek-brand__mark" aria-hidden="true"></span>
+      <span class="ek-brand__text">
+        <strong>SANKSU</strong>
+        <small>FIELD LOG</small>
+      </span>
+    </a>
+  </div>
+  <div class="ek-topbar__status">
+    <span class="ek-status-dot" aria-hidden="true"></span>
+    <span class="ek-status-text">SYS / ONLINE</span>
+    <span class="ek-version">v3.0.0</span>
+  </div>
+  <span class="ek-topbar__wedge" aria-hidden="true"></span>
 </header>
+
+<!-- 侧栏 pale rail -->
+<nav class="ek-rail" aria-label="主导航">
+  {NAV_LINKS.map((link) => {
+    const active = isActive(link.href)
+    return (
+      <a
+        href={link.href}
+        class:list={['ek-rail__item', { 'is-active': active }]}
+        aria-current={active ? 'page' : undefined}
+      >
+        <span class="ek-rail__index">{link.index}</span>
+        <span class="ek-rail__label">
+          <span class="ek-rail__label-cn">{link.label}</span>
+          <span class="ek-rail__label-en">{link.en}</span>
+        </span>
+        <span class="ek-rail__bar" aria-hidden="true"></span>
+      </a>
+    )
+  })}
+  <span class="ek-rail__foot">SYS-{activeIndex}</span>
+</nav>

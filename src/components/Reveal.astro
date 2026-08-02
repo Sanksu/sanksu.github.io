@@ -1,0 +1,36 @@
+---
+// 入场揭示：IntersectionObserver 为 .ek-reveal 元素添加 .ek-revealed
+---
+
+<script>
+  function initReveal() {
+    const elements = document.querySelectorAll('.ek-reveal')
+    if (!elements.length) return
+
+    const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches
+    if (reduced) {
+      elements.forEach(el => el.classList.add('ek-revealed'))
+      return
+    }
+
+    const observer = new IntersectionObserver(
+      entries => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('ek-revealed')
+            observer.unobserve(entry.target)
+          }
+        })
+      },
+      { threshold: 0.1 }
+    )
+
+    elements.forEach(el => observer.observe(el))
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initReveal)
+  } else {
+    initReveal()
+  }
+</script>

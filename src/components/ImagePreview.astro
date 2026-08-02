@@ -5,7 +5,7 @@
 <script>
   function initImagePreview() {
     const overlay = document.createElement('div')
-    overlay.className = 'image-preview-overlay'
+    overlay.className = 'ek-img-overlay'
     overlay.hidden = true
     const img = document.createElement('img')
     img.alt = ''
@@ -30,7 +30,7 @@
     })
 
     function bindImages() {
-      document.querySelectorAll('.post-content img').forEach(el => {
+      document.querySelectorAll('.ek-prose img').forEach(el => {
         const imgEl = el as HTMLImageElement
         if (imgEl.dataset.previewBound) return
         imgEl.dataset.previewBound = 'true'
@@ -43,7 +43,7 @@
 
     bindImages()
 
-    const target = document.querySelector('.post-content') || document.body
+    const target = document.querySelector('.ek-prose') || document.body
     const observer = new MutationObserver(() => bindImages())
     observer.observe(target, { childList: true, subtree: true })
   }

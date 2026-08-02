@@ -3,33 +3,39 @@ import BaseLayout from '../layouts/BaseLayout.astro'
 import { getPostsByYear, postUrl, postDateKey } from '../lib/posts'
 import { formatDate } from '../lib/utils'
 import { siteMetadata } from '../data/site'
+import Reveal from '../components/Reveal.astro'
 
 const postsByYear = await getPostsByYear()
+const years = Object.entries(postsByYear).sort((a, b) => Number(b[0]) - Number(a[0]))
 ---
 
 <BaseLayout title="首页 - Sanksu Blog" description={siteMetadata.site.description}>
-  <div class="page page-index">
-    {
-      Object.entries(postsByYear)
-        .sort((a, b) => Number(b[0]) - Number(a[0]))
-        .map(([year, posts]) => (
-          <section class="list-post">
-            <h2 id={year}>{year}</h2>
-            <ul>
-              {posts.map(post => (
-                <li>
-                  <span class="date">{formatDate(postDateKey(post))}</span>
-                  <span class="title"><a href={postUrl(post)}>{post.data.title}</a></span>
-                  <span class="categories">
-                    {post.data.categories.map(cat => (
-                      <a href={`/categories/#${encodeURIComponent(cat)}`}>{cat}</a>
-                    ))}
-                  </span>
-                </li>
-              ))}
-            </ul>
-          </section>
-        ))
-    }
+  <div class="ek-stage">
+    <Reveal />
+    {years.map(([year, posts], i) => (
+      <section class="ek-section" id={year}>
+        <div class="ek-section-title ek-reveal">
+          <span class="ek-section-title__index">{String(i + 1).padStart(2, '0')}</span>
+          <span class="ek-section-title__text">{year} / FIELD LOG</span>
+          <span class="ek-section-title__meta">REC-{year} · {posts.length} 篇</span>
+        </div>
+        <ul class="ek-list">
+          {posts.map((post, j) => (
+            <li class="ek-list__item ek-reveal" style={`transition-delay:${j * 60}ms`}>
+              <span class="ek-list__date">{formatDate(postDateKey(post))}</span>
+              <span class="ek-list__title">
+                <a href={postUrl(post)}>{post.data.title}</a>
+                {post.data.draft && <span class="ek-draft-badge">草稿</span>}
+              </span>
+              <span class="ek-list__cats">
+                {post.data.categories.map(cat => (
+                  <a class="ek-chip" href={`/categories/#${encodeURIComponent(cat)}`}>{cat}</a>
+                ))}
+              </span>
+            </li>
+          ))}
+        </ul>
+      </section>
+    ))}
   </div>
 </BaseLayout>

@@ -38,18 +38,44 @@ const postPath = postUrl(post)
 
 <BaseLayout title={title}>
   <ReadingProgress />
-  <div class="page-layout">
-    <article class="page page-post">
-      <h1 class="title">
+  <div class="ek-post-layout">
+    <article class="ek-post">
+      <h1 class="ek-post-head__title">
         {post.data.title}
-        {post.data.draft && <span class="draft-badge">草稿</span>}
+        {post.data.draft && <span class="ek-draft-badge">草稿</span>}
       </h1>
-      <div class="subtitle">
-        <span>{getSiteAuthor()} 于 {formatDate(postDateKey(post))} 发布</span>
-        <span> | 阅读时长: {readingTime} 分钟</span>
-        <span> | 阅读量: <Pageview serverURL={walineConfig.serverURL} path={postPath} /></span>
+
+      {/* 任务状态条 */}
+      <div class="ek-post-meta">
+        <span class="ek-post-meta__cell">
+          <span class="ek-post-meta__label">OPERATOR</span>
+          <span class="ek-post-meta__value">{getSiteAuthor()}</span>
+        </span>
+        <span class="ek-post-meta__cell">
+          <span class="ek-post-meta__label">DATE</span>
+          <span class="ek-post-meta__value">{formatDate(postDateKey(post))}</span>
+        </span>
+        <span class="ek-post-meta__cell">
+          <span class="ek-post-meta__label">READ</span>
+          <span class="ek-post-meta__value">{readingTime} MIN</span>
+        </span>
+        <span class="ek-post-meta__cell">
+          <span class="ek-post-meta__label">VIEWS</span>
+          <span class="ek-post-meta__value"><Pageview serverURL={walineConfig.serverURL} path={postPath} /></span>
+        </span>
+        {post.data.categories.length > 0 && (
+          <span class="ek-post-meta__cell">
+            <span class="ek-post-meta__label">CATEGORY</span>
+            <span class="ek-post-meta__value">
+              {post.data.categories.map(cat => (
+                <a class="ek-chip" href={`/categories/#${encodeURIComponent(cat)}`}>{cat}</a>
+              ))}
+            </span>
+          </span>
+        )}
       </div>
-      <div class="post-content">
+
+      <div class="ek-prose">
         <Content />
       </div>
       <CodeBlock />

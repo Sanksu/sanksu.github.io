@@ -3,15 +3,19 @@ import BaseLayout from '../../layouts/BaseLayout.astro'
 ---
 
 <BaseLayout title="搜索 - Sanksu Blog" description="搜索 Sanksu Blog 中的文章">
-  <div class="page page-search">
+  <div class="ek-stage">
+    <div class="ek-section-title ek-reveal">
+      <span class="ek-section-title__index">04</span>
+      <span class="ek-section-title__text">搜索 / SEARCH</span>
+    </div>
     <input
       id="search-input"
+      class="ek-search-input"
       type="text"
-      placeholder="请在这里输入关键词^_^"
+      placeholder="输入关键词检索 FIELD LOG"
       aria-label="搜索文章"
     />
-    <h1><span>搜索结果</span></h1>
-    <ul class="list-search" id="search-results"></ul>
+    <ul class="ek-search-list" id="search-results"></ul>
   </div>
 </BaseLayout>
 
@@ -74,7 +78,7 @@ import BaseLayout from '../../layouts/BaseLayout.astro'
       })
 
       if (matches.length === 0) {
-        results.innerHTML = '<li><p class="title">未找到相关结果</p></li>'
+        results.innerHTML = '<li><p class="ek-search-title">未找到相关结果</p></li>'
         return
       }
 
@@ -90,19 +94,19 @@ import BaseLayout from '../../layouts/BaseLayout.astro'
 
         let titleHtml = escapeHtml(entry.title)
         if (entry.title.toLowerCase().includes(trimmed.toLowerCase())) {
-          titleHtml = titleHtml.replace(highlightReg, `<span class="hint">${escaped}</span>`)
+          titleHtml = titleHtml.replace(highlightReg, `<span class="ek-search-hint">${escaped}</span>`)
         }
         let excerptHtml = escapeHtml(excerpt)
         if (excerptHtml) {
-          excerptHtml = excerptHtml.replace(highlightReg, `<span class="hint">${escaped}</span>`)
+          excerptHtml = excerptHtml.replace(highlightReg, `<span class="ek-search-hint">${escaped}</span>`)
         }
 
         const url = `/posts/${entry.date.replace(/-/g, '/')}/${encodeURIComponent(entry.slug)}/`
         return `
           <li>
             <a href="${url}">
-              <p class="title">${titleHtml}</p>
-              ${excerptHtml ? `<p class="content">${excerptHtml}</p>` : ''}
+              <p class="ek-search-title">${titleHtml}</p>
+              ${excerptHtml ? `<p class="ek-search-content">${excerptHtml}</p>` : ''}
             </a>
           </li>
         `
