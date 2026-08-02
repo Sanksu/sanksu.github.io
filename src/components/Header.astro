@@ -38,31 +38,33 @@ const activeIndex = NAV_LINKS.find(l => isActive(l.href))?.index ?? '01'
 </header>
 
 <!-- 侧栏 pale rail -->
-<nav class="ek-rail" aria-label="主导航">
-  {NAV_LINKS.map((link) => {
-    const active = isActive(link.href)
-    return (
-      <a
-        href={link.href}
-        class:list={['ek-rail__item', { 'is-active': active }]}
-        aria-current={active ? 'page' : undefined}
-      >
-        <span class="ek-rail__index">{link.index}</span>
-        <span class="ek-rail__label">
-          <span class="ek-rail__label-cn">{link.label}</span>
-          <span class="ek-rail__label-en">{link.en}</span>
-        </span>
-        <span class="ek-rail__bar" aria-hidden="true"></span>
-      </a>
-    )
-  })}
-  <span class="ek-rail__foot">
-    <span class="ek-rail__foot-code">SYS-{activeIndex}</span>
-    <button class="ek-rail__theme" data-action="toggle-theme" title="切换主题" aria-label="切换主题">
-      <span data-theme-icon></span>
-    </button>
-  </span>
-</nav>
+<div class="ek-rail-wrap">
+  <nav class="ek-rail" aria-label="主导航">
+    {NAV_LINKS.map((link) => {
+      const active = isActive(link.href)
+      return (
+        <a
+          href={link.href}
+          class:list={['ek-rail__item', { 'is-active': active }]}
+          aria-current={active ? 'page' : undefined}
+        >
+          <span class="ek-rail__index">{link.index}</span>
+          <span class="ek-rail__label">
+            <span class="ek-rail__label-cn">{link.label}</span>
+            <span class="ek-rail__label-en">{link.en}</span>
+          </span>
+          <span class="ek-rail__bar" aria-hidden="true"></span>
+        </a>
+      )
+    })}
+    <span class="ek-rail__foot">
+      <span class="ek-rail__foot-code">SYS-{activeIndex}</span>
+      <button class="ek-rail__theme" data-action="toggle-theme" title="切换主题" aria-label="切换主题">
+        <span data-theme-icon></span>
+      </button>
+    </span>
+  </nav>
+</div>
 
 <script>
   // 亮/暗主题切换（按钮位于导航栏 SYS 码旁）
