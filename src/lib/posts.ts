@@ -10,22 +10,20 @@ export interface PostsByYear {
 }
 
 /**
- * 获取所有已发布文章（排除草稿）
+ * 获取所有文章
  * 按日期倒序排列
  */
 export async function getPublishedPosts(): Promise<Post[]> {
-  const posts = await getCollection('posts', ({ data }) => !data.draft)
+  const posts = await getCollection('posts')
   return posts.sort((a, b) => b.data.date.getTime() - a.data.date.getTime())
 }
 
 /**
  * 获取页面可见文章
- * dev 模式下包含草稿（便于预览），生产构建时排除草稿
+ * 所有文章均为已发布状态
  */
 export async function getVisiblePosts(): Promise<Post[]> {
-  const all = await getCollection('posts')
-  const visible = import.meta.env.DEV ? all : all.filter(({ data }) => !data.draft)
-  return visible.sort((a, b) => b.data.date.getTime() - a.data.date.getTime())
+  return getPublishedPosts()
 }
 
 /** 按年份分组文章 */
@@ -66,14 +64,14 @@ export async function getTags(): Promise<Record<string, Post[]>> {
   return tags
 }
 
-/** 根据 slug 查找文章（含草稿，供文章详情页在 dev 下预览草稿） */
+/** 根据 slug 查找文章 */
 export async function getPostBySlug(slug: string): Promise<Post | null> {
   const posts = await getCollection('posts')
   return posts.find(p => slugFromFilename(p.id) === slug) ?? null
 }
 
 /**
- * 获取相邻文章（上一篇 / 下一篇，仅已发布）
+ * 获取相邻文章（上一篇 / 下一篇）
  * 按日期倒序，上一篇 = 较旧的，下一篇 = 较新的
  */
 export async function getAdjacentPosts(slug: string): Promise<{ prev: Post | null; next: Post | null }> {

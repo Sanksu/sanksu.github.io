@@ -16,8 +16,6 @@ const posts = defineCollection({
     categories: z.array(z.string()).default([]),
     /** 文章标签 */
     tags: z.array(z.string()).default([]),
-    /** 是否为草稿（草稿不进入列表/RSS/sitemap/搜索，但可在 dev 下直接访问预览） */
-    draft: z.boolean().default(false),
   }),
 })
 

@@ -25,7 +25,6 @@ const years = Object.entries(postsByYear).sort((a, b) => Number(b[0]) - Number(a
               <span class="ek-list__date">{formatDate(postDateKey(post))}</span>
               <span class="ek-list__title">
                 <a href={postUrl(post)}>{post.data.title}</a>
-                {post.data.draft && <span class="ek-draft-badge">草稿</span>}
               </span>
               <span class="ek-list__cats">
                 {post.data.categories.map(cat => (

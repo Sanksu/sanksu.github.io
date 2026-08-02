@@ -150,13 +150,6 @@ body::after {
   animation: ek-breathe var(--ek-motion-attention) ease-in-out infinite;
 }
 
-.ek-version {
-  padding: 0.1rem 0.5rem;
-  border: 1px solid var(--ek-paper);
-  opacity: 0.4;
-  font-size: 0.6rem;
-}
-
 .ek-topbar__wedge {
   display: none;
 }
@@ -470,18 +463,6 @@ body::after {
 .ek-chip:hover {
   color: var(--ek-ink);
   border-color: var(--ek-ink);
-}
-
-.ek-draft-badge {
-  font-family: var(--ek-font-mono);
-  font-size: 0.62rem;
-  letter-spacing: 0.1em;
-  color: var(--ek-signal-ink);
-  background: var(--ek-signal);
-  padding: 0.1rem 0.5rem;
-  margin-left: 0.5rem;
-  text-transform: uppercase;
-  vertical-align: middle;
 }
 
 /* 分类/标签云 */

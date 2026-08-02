@@ -62,9 +62,6 @@ function main() {
     const fileContents = fs.readFileSync(filePath, 'utf8')
     const { data, content } = parseFrontMatter(fileContents)
 
-    // 跳过草稿
-    if (data.draft === true || data.draft === 'true') continue
-
     const dateStr = data.date instanceof Date
       ? data.date.toISOString().slice(0, 10)
       : String(data.date || '')
