@@ -1247,15 +1247,17 @@ body::after {
 @media (max-width: 900px) {
   .ek-shell {
     grid-template-columns: 1fr;
+    grid-template-rows: auto auto 1fr auto;
     grid-template-areas:
       'topbar'
+      'rail'
       'main'
       'dock';
   }
 
   /* rail 转为紧凑顶部导航 */
   .ek-rail {
-    grid-area: auto;
+    grid-area: rail;
     position: sticky;
     top: var(--ek-topbar-h);
     height: auto;
