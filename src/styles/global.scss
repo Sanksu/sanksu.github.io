@@ -73,7 +73,6 @@ body::after {
     'dock   dock';
   min-height: 100vh;
 }
-
 /* --- Topbar（炭黑 dock）--- */
 .ek-topbar {
   grid-area: topbar;
@@ -173,7 +172,8 @@ body::after {
   gap: 0.25rem;
   position: sticky;
   top: var(--ek-topbar-h);
-  height: calc(100vh - var(--ek-topbar-h));
+  align-self: start;
+  max-height: calc(100vh - var(--ek-topbar-h));
   overflow-y: auto;
 }
 
