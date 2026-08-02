@@ -1,0 +1,70 @@
+---
+// 代码块增强：为 .post-content 中所有 pre code 添加语言标签与复制按钮
+---
+
+<script>
+  function enhanceCodeBlocks() {
+    document.querySelectorAll('.post-content pre code').forEach((code) => {
+      if ((code as HTMLElement).dataset.enhanced) return
+      ;(code as HTMLElement).dataset.enhanced = 'true'
+
+      const pre = code.parentElement
+      if (!pre?.parentElement || pre.closest('.code-block-wrapper')) return
+
+      const wrapper = document.createElement('div')
+      wrapper.className = 'code-block-wrapper'
+
+      const langMatch = (code.className || '').match(/language-([\w+-]+)/)
+      const langLabel = document.createElement('span')
+      langLabel.className = 'code-lang'
+      langLabel.textContent = langMatch ? langMatch[1] : 'text'
+
+      const btn = document.createElement('button')
+      btn.className = 'code-copy-btn'
+      btn.textContent = '复制'
+      btn.addEventListener('click', async () => {
+        try {
+          await navigator.clipboard.writeText(code.textContent || '')
+          btn.textContent = '已复制'
+        } catch {
+          btn.textContent = '复制失败'
+        }
+        setTimeout(() => { btn.textContent = '复制' }, 2000)
+      })
+
+      const bar = document.createElement('div')
+      bar.className = 'code-bar'
+      bar.append(btn)
+
+      pre.replaceWith(wrapper)
+      wrapper.append(langLabel, bar, pre)
+    })
+  }
+
+  function init() {
+    enhanceCodeBlocks()
+
+    const target = document.querySelector('.post-content') || document.body
+    const observer = new MutationObserver(mutations => {
+      mutations.forEach(m => {
+        m.addedNodes.forEach(node => {
+          if (node.nodeType !== 1) return
+          const el = node as HTMLElement
+          if (el.tagName === 'PRE') {
+            const code = el.querySelector('code')
+            if (code) enhanceCodeBlocks()
+          } else {
+            el.querySelectorAll?.('pre code')?.forEach(c => enhanceCodeBlocks())
+          }
+        })
+      })
+    })
+    observer.observe(target, { childList: true, subtree: true })
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', init)
+  } else {
+    init()
+  }
+</script>

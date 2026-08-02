@@ -1,0 +1,84 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro'
+import { timeline, projects } from '../../data/about'
+import { getVisiblePosts } from '../../lib/posts'
+import { stripMarkdown } from '../../lib/utils'
+
+const posts = await getVisiblePosts()
+const totalPosts = posts.length
+const totalCategories = new Set(posts.flatMap(p => p.data.categories)).size
+const totalTags = new Set(posts.flatMap(p => p.data.tags)).size
+let totalChars = 0
+let totalReadingMin = 0
+for (const p of posts) {
+  const len = stripMarkdown(p.body).length
+  totalChars += len
+  totalReadingMin += Math.max(1, Math.ceil(len / 300))
+}
+const startDate = new Date('2020-04-01')
+const daysRunning = Math.floor((Date.now() - startDate.getTime()) / (1000 * 60 * 60 * 24))
+
+const stats = [
+  [totalPosts, '文章'],
+  [totalChars.toLocaleString(), '总字数'],
+  [totalCategories, '分类'],
+  [totalTags, '标签'],
+  [totalReadingMin, '阅读分钟'],
+  [daysRunning, '建站天数'],
+] as const
+---
+<BaseLayout title="关于 - Sanksu Blog" description="了解 Sanksu 的经历与项目">
+  <article class="page page-post">
+    <h1 class="title">关于我</h1>
+    <div class="post-content">
+      <blockquote><p>Hello</p></blockquote>
+
+      <h2>博客统计</h2>
+      <div class="stats-grid">
+        {stats.map(([value, label]) => (
+          <div class="stat-card">
+            <span class="stat-value">{value}</span>
+            <span class="stat-label">{label}</span>
+          </div>
+        ))}
+      </div>
+
+      <h2>经历</h2>
+      <div class="timeline">
+        {timeline.map(item => (
+          <div class="timeline__item">
+            <span class="timeline__year">{item.year}</span>
+            <div class="timeline__content">
+              <h3>{item.title}</h3>
+              <p>{item.desc}</p>
+              {(item.url || item.link) && (
+                <a href={(item.url || item.link)} target="_blank" rel="noopener noreferrer" class="timeline__link">查看详情 &rarr;</a>
+              )}
+            </div>
+          </div>
+        ))}
+      </div>
+
+      <h2>项目作品集</h2>
+      <div class="project-grid">
+        {projects.map(project => (
+          <a href={project.url} target="_blank" rel="noopener noreferrer" class="project-card">
+            <h3>{project.name}</h3>
+            <p>{project.desc}</p>
+            <div class="project-tags">
+              {project.tags.map(tag => (
+                <span class="project-tag">{tag}</span>
+              ))}
+            </div>
+          </a>
+        ))}
+      </div>
+
+      <h2>联系我</h2>
+      <ul>
+        <li>Email: <a href="mailto:sanksu@qq.com">sanksu@qq.com</a></li>
+        <li>GitHub: <a href="https://github.com/sanksu" target="_blank" rel="noopener noreferrer">Sanksu</a></li>
+      </ul>
+    </div>
+  </article>
+</BaseLayout>

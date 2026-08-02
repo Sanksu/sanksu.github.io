@@ -1,0 +1,39 @@
+---
+const NAV_LINKS = [
+  { href: '/', label: '首页' },
+  { href: '/categories/', label: '分类' },
+  { href: '/tags/', label: '标签' },
+  { href: '/search/', label: '搜索' },
+  { href: '/about/', label: '关于' },
+] as const
+
+const { pathname } = Astro.url
+
+/** 判断当前导航项是否激活 */
+function isActive(href: string): boolean {
+  if (href === '/') {
+    return pathname === '/' || pathname === '/index/'
+  }
+  return pathname === href || pathname.startsWith(href)
+}
+---
+
+<header class="header">
+  <a href="/" class="logo" aria-label="首页">SANKSU BLOG</a>
+  <nav class="menu" aria-label="主导航">
+    {
+      NAV_LINKS.map((link) => {
+        const active = isActive(link.href)
+        return (
+          <a
+            href={link.href}
+            class:list={[active && 'active']}
+            aria-current={active ? 'page' : undefined}
+          >
+            {link.label}
+          </a>
+        )
+      })
+    }
+  </nav>
+</header>

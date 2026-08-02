@@ -1,0 +1,62 @@
+---
+import BaseLayout from '../../../layouts/BaseLayout.astro'
+import { getVisiblePosts, getAdjacentPosts, postUrl, postDateKey } from '../../../lib/posts'
+import { getSiteName, getSiteAuthor, walineConfig } from '../../../data/site'
+import { formatDate, getReadingTime, slugFromFilename } from '../../../lib/utils'
+import WalineComments from '../../../components/WalineComments.astro'
+import Pageview from '../../../components/Pageview.astro'
+import Toc from '../../../components/Toc.astro'
+import PostNav from '../../../components/PostNav.astro'
+import CodeBlock from '../../../components/CodeBlock.astro'
+import ImagePreview from '../../../components/ImagePreview.astro'
+import ReadingProgress from '../../../components/ReadingProgress.astro'
+
+export async function getStaticPaths() {
+  const posts = await getVisiblePosts()
+  return posts.map(post => {
+    const d = post.data.date
+    return {
+      params: {
+        slug: `${d.getFullYear()}/${String(d.getMonth() + 1).padStart(2, '0')}/${String(d.getDate()).padStart(2, '0')}/${slugFromFilename(post.id)}`,
+      },
+      props: { post },
+    }
+  })
+}
+
+interface Props {
+  post: Awaited<ReturnType<typeof getVisiblePosts>>[number]
+}
+
+const { post } = Astro.props
+const { Content } = await post.render()
+const readingTime = getReadingTime(post.body)
+const { prev, next } = await getAdjacentPosts(slugFromFilename(post.id))
+const title = `${post.data.title} - ${getSiteName()}`
+const postPath = postUrl(post)
+---
+
+<BaseLayout title={title}>
+  <ReadingProgress />
+  <div class="page-layout">
+    <article class="page page-post">
+      <h1 class="title">
+        {post.data.title}
+        {post.data.draft && <span class="draft-badge">草稿</span>}
+      </h1>
+      <div class="subtitle">
+        <span>{getSiteAuthor()} 于 {formatDate(postDateKey(post))} 发布</span>
+        <span> | 阅读时长: {readingTime} 分钟</span>
+        <span> | 阅读量: <Pageview serverURL={walineConfig.serverURL} path={postPath} /></span>
+      </div>
+      <div class="post-content">
+        <Content />
+      </div>
+      <CodeBlock />
+      <PostNav prevPost={prev} nextPost={next} />
+      <WalineComments serverURL={walineConfig.serverURL} path={postPath} />
+    </article>
+    <Toc content={post.body} />
+  </div>
+  <ImagePreview />
+</BaseLayout>

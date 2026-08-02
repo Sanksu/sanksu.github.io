@@ -1,0 +1,73 @@
+---
+import { slugify } from '../lib/utils'
+
+/** 从 Markdown 提取 h1~h4 标题（与渲染时的 rehype-slug 逻辑一致） */
+function extractHeadings(markdown: string): { level: number; id: string; text: string }[] {
+  const atxRegex = /^(#{1,4})\s+(.+)$/gm
+  const result: { level: number; id: string; text: string }[] = []
+  let match
+  while ((match = atxRegex.exec(markdown)) !== null) {
+    const level = match[1].length
+    const rawText = match[2].trim()
+    if (rawText) {
+      const cleanText = rawText
+        .replace(/\*\*(.+?)\*\*/g, '$1')
+        .replace(/__(.+?)__/g, '$1')
+        .replace(/\*(.+?)\*/g, '$1')
+        .replace(/_(.+?)_/g, '$1')
+        .replace(/~~(.+?)~~/g, '$1')
+      result.push({ level, id: slugify(rawText), text: cleanText })
+    }
+  }
+  return result
+}
+
+const { content } = Astro.props
+const headings = extractHeadings(content)
+---
+
+{
+  headings.length >= 2 && (
+    <nav class="toc" aria-label="目录">
+      <span class="toc__title">目录</span>
+      <ul>
+        {headings.map(h => (
+          <li class={`toc__item toc__item--${h.level}`}>
+            <a href={`#${h.id}`}>{h.text}</a>
+          </li>
+        ))}
+      </ul>
+    </nav>
+  )
+}
+
+<script>
+  // 原生 TOC 高亮：IntersectionObserver 检测当前可见标题
+  const toc = document.querySelector('.toc')
+  if (toc) {
+    const items = toc.querySelectorAll('li')
+    const observer = new IntersectionObserver(
+      entries => {
+        for (const e of entries) {
+          if (e.isIntersecting) {
+            items.forEach(li => {
+              const a = li.querySelector('a')
+              const active = a && a.getAttribute('href') === `#${e.target.id}`
+              li.classList.toggle('active', !!active)
+            })
+            break
+          }
+        }
+      },
+      { rootMargin: '-80px 0px -60% 0px' }
+    )
+
+    items.forEach(li => {
+      const a = li.querySelector('a')
+      if (!a) return
+      const id = (a.getAttribute('href') || '').slice(1)
+      const el = document.getElementById(id)
+      if (el) observer.observe(el)
+    })
+  }
+</script>

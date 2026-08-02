@@ -1,0 +1,26 @@
+---
+// 阅读进度条：页面顶部显示阅读进度
+---
+
+<div class="reading-progress" data-reading-progress></div>
+
+<script>
+  const bar = document.querySelector('[data-reading-progress]')
+  if (bar) {
+    function update() {
+      const doc = document.documentElement
+      const total = doc.scrollHeight - window.innerHeight
+      const progress = total > 0 ? (window.scrollY / total) * 100 : 0
+      ;(bar as HTMLElement).style.width = `${progress}%`
+    }
+    let raf = 0
+    window.addEventListener('scroll', () => {
+      if (raf) return
+      raf = requestAnimationFrame(() => {
+        update()
+        raf = 0
+      })
+    }, { passive: true })
+    update()
+  }
+</script>

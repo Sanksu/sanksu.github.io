@@ -1,0 +1,50 @@
+---
+interface Props {
+  serverURL: string
+  path: string
+}
+
+const { serverURL, path } = Astro.props
+---
+
+<div class="waline-comments">
+  <div class="waline-container" data-server-url={serverURL} data-path={path}></div>
+</div>
+
+<script>
+  // 原生 Waline 评论接入（不依赖 React）
+  async function initWaline() {
+    const container = document.querySelector('.waline-container[data-server-url]')
+    if (!container) return
+
+    const serverURL = container.getAttribute('data-server-url') || ''
+    const path = container.getAttribute('data-path') || ''
+
+    try {
+      const { init } = await import('@waline/client')
+      import('@waline/client/style').catch(() => {})
+
+      const waline = init({
+        el: container,
+        serverURL,
+        path,
+        pageview: true,
+        dark: 'html.dark',
+        search: false,
+      })
+
+      container.dataset.instance = 'true'
+      ;(window as any).__walineInstances = (window as any).__walineInstances || []
+      ;(window as any).__walineInstances.push(waline)
+    } catch (e) {
+      console.warn('Waline init failed:', e)
+    }
+  }
+
+  // 页面加载完成后初始化
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initWaline)
+  } else {
+    initWaline()
+  }
+</script>

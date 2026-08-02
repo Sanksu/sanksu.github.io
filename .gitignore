@@ -6,9 +6,13 @@ node_modules/
 out/
 dist/
 
+# Astro generated types
+.astro/
+
 # Generated feeds (regenerated on every build)
 public/rss.xml
 public/sitemap.xml
+public/search-index.json
 
 # TypeScript incremental build cache
 *.tsbuildinfo

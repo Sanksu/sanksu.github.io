@@ -1,0 +1,35 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro'
+import { getPostsByYear, postUrl, postDateKey } from '../lib/posts'
+import { formatDate } from '../lib/utils'
+import { siteMetadata } from '../data/site'
+
+const postsByYear = await getPostsByYear()
+---
+
+<BaseLayout title="首页 - Sanksu Blog" description={siteMetadata.site.description}>
+  <div class="page page-index">
+    {
+      Object.entries(postsByYear)
+        .sort((a, b) => Number(b[0]) - Number(a[0]))
+        .map(([year, posts]) => (
+          <section class="list-post">
+            <h2 id={year}>{year}</h2>
+            <ul>
+              {posts.map(post => (
+                <li>
+                  <span class="date">{formatDate(postDateKey(post))}</span>
+                  <span class="title"><a href={postUrl(post)}>{post.data.title}</a></span>
+                  <span class="categories">
+                    {post.data.categories.map(cat => (
+                      <a href={`/categories/#${encodeURIComponent(cat)}`}>{cat}</a>
+                    ))}
+                  </span>
+                </li>
+              ))}
+            </ul>
+          </section>
+        ))
+    }
+  </div>
+</BaseLayout>

@@ -1,0 +1,59 @@
+---
+// 图片点击预览：点击 post-content 中非 GIF 图片放大查看
+---
+
+<script>
+  function initImagePreview() {
+    const overlay = document.createElement('div')
+    overlay.className = 'image-preview-overlay'
+    overlay.hidden = true
+    const img = document.createElement('img')
+    img.alt = ''
+    overlay.append(img)
+    document.body.append(overlay)
+
+    let currentSrc: string | null = null
+
+    function open(src: string) {
+      currentSrc = src
+      img.src = src
+      overlay.hidden = false
+      document.body.style.overflow = 'hidden'
+    }
+
+    function close() {
+      overlay.hidden = true
+      currentSrc = null
+      document.body.style.overflow = ''
+    }
+
+    overlay.addEventListener('click', close)
+    document.addEventListener('keydown', e => {
+      if (e.key === 'Escape') close()
+    })
+
+    function bindImages() {
+      document.querySelectorAll('.post-content img').forEach(el => {
+        const imgEl = el as HTMLImageElement
+        if (imgEl.dataset.previewBound) return
+        imgEl.dataset.previewBound = 'true'
+        const src = imgEl.getAttribute('src') || ''
+        if (src.toLowerCase().endsWith('.gif')) return
+        imgEl.style.cursor = 'zoom-in'
+        imgEl.addEventListener('click', () => open(src))
+      })
+    }
+
+    bindImages()
+
+    const target = document.querySelector('.post-content') || document.body
+    const observer = new MutationObserver(() => bindImages())
+    observer.observe(target, { childList: true, subtree: true })
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initImagePreview)
+  } else {
+    initImagePreview()
+  }
+</script>

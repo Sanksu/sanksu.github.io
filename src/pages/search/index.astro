@@ -1,0 +1,118 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro'
+---
+
+<BaseLayout title="搜索 - Sanksu Blog" description="搜索 Sanksu Blog 中的文章">
+  <div class="page page-search">
+    <input
+      id="search-input"
+      type="text"
+      placeholder="请在这里输入关键词^_^"
+      aria-label="搜索文章"
+    />
+    <h1><span>搜索结果</span></h1>
+    <ul class="list-search" id="search-results"></ul>
+  </div>
+</BaseLayout>
+
+<script>
+  // 原生 JS 搜索：加载预生成的 search-index.json，本地过滤 + 高亮
+  interface IndexEntry {
+    slug: string
+    title: string
+    categories: string[]
+    tags: string[]
+    date: string
+    content: string
+  }
+
+  function escapeHtml(str: string): string {
+    return String(str || '')
+      .replace(/&/g, '&amp;')
+      .replace(/</g, '&lt;')
+      .replace(/>/g, '&gt;')
+      .replace(/"/g, '&quot;')
+      .replace(/'/g, '&#039;')
+  }
+
+  function escapeReg(str: string): string {
+    return str.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')
+  }
+
+  async function main() {
+    const input = document.getElementById('search-input') as HTMLInputElement
+    const results = document.getElementById('search-results') as HTMLUListElement
+    if (!input || !results) return
+
+    let index: IndexEntry[] = []
+    try {
+      const res = await fetch('/search-index.json')
+      index = await res.json()
+    } catch {
+      // 搜索索引加载失败时保持空结果
+    }
+
+    let debounceTimer: number | undefined
+    input.addEventListener('input', () => {
+      window.clearTimeout(debounceTimer)
+      debounceTimer = window.setTimeout(() => runSearch(input.value), 300)
+    })
+
+    function runSearch(keyword: string) {
+      const trimmed = keyword.trim()
+      if (!trimmed) {
+        results.innerHTML = ''
+        return
+      }
+
+      const escaped = escapeHtml(trimmed)
+      const highlightReg = new RegExp(escapeReg(trimmed), 'gi')
+
+      const matches = index.filter(entry => {
+        if (entry.title.toLowerCase().includes(trimmed.toLowerCase())) return true
+        return entry.content.toLowerCase().includes(trimmed.toLowerCase())
+      })
+
+      if (matches.length === 0) {
+        results.innerHTML = '<li><p class="title">未找到相关结果</p></li>'
+        return
+      }
+
+      results.innerHTML = matches.map(entry => {
+        const content = entry.content
+        const idx = content.toLowerCase().indexOf(trimmed.toLowerCase())
+        let excerpt = ''
+        if (idx !== -1) {
+          const left = Math.max(0, idx - 10)
+          const right = idx + 90
+          excerpt = content.substring(left, right) + '...'
+        }
+
+        let titleHtml = escapeHtml(entry.title)
+        if (entry.title.toLowerCase().includes(trimmed.toLowerCase())) {
+          titleHtml = titleHtml.replace(highlightReg, `<span class="hint">${escaped}</span>`)
+        }
+        let excerptHtml = escapeHtml(excerpt)
+        if (excerptHtml) {
+          excerptHtml = excerptHtml.replace(highlightReg, `<span class="hint">${escaped}</span>`)
+        }
+
+        const url = `/posts/${entry.date.replace(/-/g, '/')}/${encodeURIComponent(entry.slug)}/`
+        return `
+          <li>
+            <a href="${url}">
+              <p class="title">${titleHtml}</p>
+              ${excerptHtml ? `<p class="content">${excerptHtml}</p>` : ''}
+            </a>
+          </li>
+        `
+      }).join('')
+    }
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', main)
+  } else {
+    main()
+  }
+</script>

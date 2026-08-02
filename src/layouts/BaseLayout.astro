@@ -1,0 +1,68 @@
+---
+import Header from '../components/Header.astro'
+import Footer from '../components/Footer.astro'
+import FloatingActions from '../components/FloatingActions.astro'
+import 'katex/dist/katex.min.css'
+import '../styles/global.scss'
+import { siteMetadata } from '../data/site'
+
+interface Props {
+  title?: string
+  description?: string
+}
+
+const {
+  title = siteMetadata.site.title,
+  description = siteMetadata.site.description,
+} = Astro.props
+
+const site = siteMetadata.site
+---
+
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    <meta name="keywords" content={site.keywords.join(', ')} />
+    <meta name="author" content={site.authors.map(a => a.name).join(', ')} />
+    <link rel="icon" type="image/x-icon" href={site.icons.icon} />
+    <link rel="apple-touch-icon" href={site.icons.apple} />
+    <meta name="theme-color" content={site.other['theme-color']} />
+    <meta name="supported-color-schemes" content={site.other['supported-color-schemes']} />
+    <meta httpEquiv="content-language" content="zh-CN" />
+    <meta httpEquiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <link rel="alternate" type="application/rss+xml" title="Sanksu Blog RSS" href="/rss.xml" />
+    <meta property="og:site_name" content={site.openGraph.siteName} />
+    <meta property="og:locale" content={site.openGraph.locale} />
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={`${site.url}${Astro.url.pathname}`} />
+    <meta name="twitter:card" content={site.twitter.card} />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
+    <script is:inline>
+      {
+        `(function(){
+          var d=document.documentElement;
+          var f=localStorage.getItem('darkMode');
+          if(f==='true')d.classList.add('dark');
+          else if(f==='false')d.classList.remove('dark');
+          else if(window.matchMedia('(prefers-color-scheme:dark)').matches)d.classList.add('dark');
+        })();`
+      }
+    </script>
+    <slot name="head" />
+  </head>
+  <body>
+    <Header />
+    <main class="main">
+      <slot />
+    </main>
+    <Footer />
+    <FloatingActions />
+  </body>
+</html>

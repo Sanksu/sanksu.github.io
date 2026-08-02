@@ -1,0 +1,54 @@
+---
+/**
+ * 浮动操作按钮：回到顶部 + 亮/暗主题切换
+ * 使用原生 JS 实现，客户端 hydrate
+ */
+---
+
+<div class="floating-actions">
+  <button class="float-btn to-top" data-action="to-top" title="回到顶部" aria-label="回到顶部">
+    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <line x1="12" y1="19" x2="12" y2="5" />
+      <polyline points="5 12 12 5 19 12" />
+    </svg>
+  </button>
+  <button class="float-btn" data-action="toggle-theme" title="切换主题" aria-label="切换主题">
+    <span data-theme-icon></span>
+  </button>
+</div>
+
+<script>
+  const root = document.documentElement
+
+  function currentDark(): boolean {
+    return root.classList.contains('dark')
+  }
+
+  function renderIcon(isDark: boolean) {
+    document.querySelectorAll('[data-theme-icon]').forEach(el => {
+      el.textContent = isDark ? '\u2600' : '\u263E'
+    })
+  }
+
+  function applyTheme(isDark: boolean) {
+    root.classList.toggle('dark', isDark)
+    localStorage.setItem('darkMode', String(isDark))
+    renderIcon(isDark)
+  }
+
+  // 主题切换
+  document.querySelector('[data-action="toggle-theme"]')?.addEventListener('click', () => {
+    applyTheme(!currentDark())
+  })
+
+  // 回到顶部（滚动超过 300px 显示）
+  const toTop = document.querySelector('[data-action="to-top"]')
+  function onScroll() {
+    toTop?.classList.toggle('show', window.scrollY > 300)
+  }
+  window.addEventListener('scroll', onScroll, { passive: true })
+  onScroll()
+  toTop?.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }))
+
+  renderIcon(currentDark())
+</script>

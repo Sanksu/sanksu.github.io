@@ -1,0 +1,38 @@
+---
+interface Props {
+  serverURL: string
+  path: string
+}
+
+const { serverURL, path } = Astro.props
+---
+
+<span class="waline-pageview" data-server-url={serverURL} data-path={path}></span>
+
+<script>
+  // 原生 Waline 阅读量统计（请求 /article 接口）
+  function loadPageview() {
+    document.querySelectorAll('.waline-pageview[data-server-url]').forEach(async el => {
+      const serverURL = el.getAttribute('data-server-url') || ''
+      const path = el.getAttribute('data-path') || ''
+      if (!serverURL || !path) return
+
+      try {
+        const res = await fetch(`${serverURL}/article?path=${encodeURIComponent(path)}`, {
+          headers: { 'Accept': 'application/json' },
+        })
+        const data = await res.json()
+        const count = data?.data?.pageview ?? 0
+        el.textContent = String(count)
+      } catch {
+        el.textContent = '0'
+      }
+    })
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', loadPageview)
+  } else {
+    loadPageview()
+  }
+</script>

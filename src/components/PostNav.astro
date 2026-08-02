@@ -1,0 +1,29 @@
+---
+import { postUrl, type Post } from '../lib/posts'
+
+interface Props {
+  prevPost: Post | null
+  nextPost: Post | null
+}
+
+const { prevPost, nextPost } = Astro.props
+---
+
+{
+  (prevPost || nextPost) && (
+    <nav class="post-nav" aria-label="文章导航">
+      {prevPost && (
+        <a href={postUrl(prevPost)} class="post-nav__item post-nav__prev">
+          <span class="post-nav__label">上一篇</span>
+          <span class="post-nav__title">{prevPost.data.title}</span>
+        </a>
+      )}
+      {nextPost && (
+        <a href={postUrl(nextPost)} class="post-nav__item post-nav__next">
+          <span class="post-nav__label">下一篇</span>
+          <span class="post-nav__title">{nextPost.data.title}</span>
+        </a>
+      )}
+    </nav>
+  )
+}
