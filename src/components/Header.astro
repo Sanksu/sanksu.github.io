@@ -33,9 +33,6 @@ const activeIndex = NAV_LINKS.find(l => isActive(l.href))?.index ?? '01'
   <div class="ek-topbar__status">
     <span class="ek-status-dot" aria-hidden="true"></span>
     <span class="ek-status-text">SYS / ONLINE</span>
-    <button class="ek-topbar__theme" data-action="toggle-theme" title="切换主题" aria-label="切换主题">
-      <span data-theme-icon></span>
-    </button>
   </div>
   <span class="ek-topbar__wedge" aria-hidden="true"></span>
 </header>
@@ -68,7 +65,7 @@ const activeIndex = NAV_LINKS.find(l => isActive(l.href))?.index ?? '01'
 </nav>
 
 <script>
-  // 亮/暗主题切换（按钮位于顶部导航栏）
+  // 亮/暗主题切换（按钮位于导航栏 SYS 码旁）
   const root = document.documentElement
 
   function currentDark(): boolean {
