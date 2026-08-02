@@ -905,6 +905,137 @@ body::after {
   padding-top: 2rem;
 }
 
+/* ------------------------------------------------------------
+   Waline 评论主题适配（endfield）
+   覆盖 --waline-* CSS 变量对齐设计 token
+   ------------------------------------------------------------ */
+
+.ek-comments .waline-container {
+  --waline-theme-color: var(--ek-signal);
+  --waline-theme-color-second: var(--ek-signal);
+  --waline-theme-color-light: var(--ek-paper-soft);
+  --waline-text-color: var(--ek-ink);
+  --waline-active-color: var(--ek-ink);
+  --waline-bgcolor: var(--ek-paper);
+  --waline-bgcolor-light: var(--ek-paper-soft);
+  --waline-bgcolor-hover: var(--ek-paper-soft);
+  --waline-bgcolor-second: var(--ek-paper-soft);
+  --waline-bgcolor-third: var(--ek-paper-raised);
+  --waline-border-color: var(--ek-line-strong);
+  --waline-border-color-light: var(--ek-line);
+  --waline-disable-bgcolor: var(--ek-paper-soft);
+  --waline-disable-color: var(--ek-muted-soft);
+  --waline-code-bgcolor: var(--ek-code-bg);
+  --waline-avatar-radius: 2px;
+  --waline-font-size: 0.92rem;
+  --waline-info-bgcolor: var(--ek-paper-soft);
+}
+
+/* 评论面板 */
+.ek-comments .wl-panel,
+.ek-comments .wl-cards {
+  box-shadow: none;
+}
+
+.ek-comments .wl-panel {
+  border: 1px solid var(--ek-line-strong);
+  border-radius: var(--ek-radius);
+  background: var(--ek-paper);
+}
+
+.ek-comments .wl-editor {
+  border-radius: var(--ek-radius);
+  font-family: var(--ek-font-cjk);
+  background: var(--ek-paper);
+  border: 1px solid var(--ek-line-strong);
+}
+
+.ek-comments .wl-editor:focus {
+  border-color: var(--ek-signal);
+  box-shadow: none;
+}
+
+/* 输入框 */
+.ek-comments .wl-input {
+  border: 1px solid var(--ek-line-strong);
+  border-radius: var(--ek-radius);
+  background: var(--ek-paper);
+  color: var(--ek-ink);
+}
+
+.ek-comments .wl-input:focus {
+  border-color: var(--ek-signal);
+  box-shadow: none;
+}
+
+/* 提交按钮 */
+.ek-comments .wl-btn {
+  border-radius: var(--ek-radius);
+  font-family: var(--ek-font-tech);
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  border: none;
+}
+
+.ek-comments .wl-btn.primary {
+  background: var(--ek-signal);
+  color: var(--ek-signal-ink);
+}
+
+.ek-comments .wl-btn.primary:hover {
+  background: var(--ek-signal);
+  opacity: 0.85;
+}
+
+.ek-comments .wl-btn:not(.primary) {
+  color: var(--ek-ink);
+  border: 1px solid var(--ek-line-strong);
+}
+
+/* 评论卡片 */
+.ek-comments .wl-card-item {
+  border-bottom: 1px dashed var(--ek-line);
+  background: transparent;
+}
+
+.ek-comments .wl-card-item:last-child {
+  border-bottom: none;
+}
+
+.ek-comments .wl-card-item .wl-nick,
+.ek-comments .wl-card-item .wl-time {
+  font-family: var(--ek-font-mono);
+  font-size: 0.78rem;
+}
+
+/* 引用/回复 */
+.ek-comments .wl-quote {
+  border-left-color: var(--ek-signal);
+  background: var(--ek-paper-soft);
+}
+
+/* 计数徽章 */
+.ek-comments .wl-count .wl-num {
+  font-family: var(--ek-font-mono);
+}
+
+/* 排序/标签 */
+.ek-comments .wl-sort li.active {
+  border-bottom: 2px solid var(--ek-signal);
+}
+
+/* 空状态与加载 */
+.ek-comments .wl-empty,
+.ek-comments .wl-power {
+  color: var(--ek-muted);
+}
+
+/* 预览 */
+.ek-comments .wl-preview {
+  border-top: 1px solid var(--ek-line);
+  border-bottom: 1px solid var(--ek-line);
+}
+
 /* 阅读进度 */
 .ek-progress {
   position: fixed;
