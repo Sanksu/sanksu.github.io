@@ -1043,6 +1043,20 @@ body::after {
   outline: none;
 }
 
+.ek-search-results-title {
+  display: flex;
+  align-items: baseline;
+  gap: 0.5rem;
+  font-family: var(--ek-font-tech);
+  font-size: 0.85rem;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  color: var(--ek-ink);
+  border-bottom: 2px solid var(--ek-ink);
+  padding-bottom: 0.5rem;
+  margin-bottom: 0.75rem;
+}
+
 .ek-search-list {
   list-style: none;
 }
@@ -1138,14 +1152,7 @@ body::after {
 /* 个人简介卡片 */
 .ek-bio {
   margin: 1.5rem 0 2.5rem;
-  padding: 1.5rem;
-  border: 1px solid var(--ek-line);
-  border-radius: var(--ek-radius);
-  background: var(--ek-paper-soft);
-}
-
-.ek-bio__body {
-  min-width: 0;
+  padding: 1rem 1.25rem;
 }
 
 .ek-bio__tagline {
@@ -1153,21 +1160,11 @@ body::after {
   font-weight: 600;
   letter-spacing: 0.03em;
   color: var(--ek-ink);
-  margin: 0 0 0.5rem;
+  margin: 0 0 0.75rem;
 }
 
-.ek-bio__content {
-  font-size: 0.95rem;
-  color: var(--ek-ink);
-}
-
-.ek-bio__content p {
+.ek-bio p {
   margin: 0.4rem 0;
-}
-
-.ek-bio__content a {
-  text-decoration: underline;
-  text-underline-offset: 3px;
 }
 
 /* 社交链接 */
@@ -1208,12 +1205,48 @@ body::after {
 }
 
 /* 归档页 */
-.ek-archive-year {
-  margin-bottom: 2rem;
+/* GitHub 式贡献图面板：左侧年份选择 + 右侧图 */
+.ek-contrib-panel {
+  display: grid;
+  grid-template-columns: 56px 1fr;
+  gap: 1.25rem;
+  margin: 0 0 2rem;
 }
 
-.ek-archive-year .ek-section-title {
-  margin-bottom: 1rem;
+.ek-contrib-years {
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+  border-right: 1px solid var(--ek-line);
+  padding-right: 0.75rem;
+}
+
+.ek-contrib-year {
+  font-family: var(--ek-font-mono);
+  font-size: 0.78rem;
+  letter-spacing: 0.05em;
+  color: var(--ek-muted);
+  background: none;
+  border: none;
+  border-left: 2px solid transparent;
+  padding: 0.35rem 0.5rem;
+  cursor: pointer;
+  text-align: left;
+  transition: color var(--ek-motion-direct) var(--ek-ease), border-color var(--ek-motion-direct) var(--ek-ease);
+}
+
+.ek-contrib-year:hover {
+  color: var(--ek-ink);
+}
+
+.ek-contrib-year.is-active {
+  color: var(--ek-ink);
+  border-left-color: var(--ek-signal);
+  font-weight: 600;
+}
+
+.ek-contrib-view {
+  min-width: 0;
 }
 
 /* GitHub 式贡献图 */
@@ -1222,7 +1255,6 @@ body::after {
   gap: 3px;
   overflow-x: auto;
   padding-bottom: 0.5rem;
-  margin-bottom: 1rem;
 }
 
 .ek-contrib__col {

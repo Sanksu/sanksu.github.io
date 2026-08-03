@@ -88,29 +88,44 @@ function dateKey(d: Date): string {
       )}
     </div>
 
-    {/* GitHub 式贡献图：按年渲染周列 */}
-    {contribYears.map(cy => (
-      <section class="ek-archive-year ek-reveal">
-        <div class="ek-section-title">
-          <span class="ek-section-title__index">{String(cy.year)}</span>
-          <h2 class="ek-section-title__text">{cy.year}</h2>
-          <span class="ek-section-title__meta">{Array.from(postByDate.keys()).filter(k => k.startsWith(String(cy.year))).length} 篇</span>
-        </div>
-        <div class="ek-contrib" aria-label={`${cy.year} 年文章发布分布`}>
-          {cy.weeks.map((w, wi) => (
-            <div class="ek-contrib__col" key={wi}>
-              {w.map((cell, ci) => (
-                <span
-                  class={`ek-contrib__cell ek-contrib__cell--${cell.level}`}
-                  key={ci}
-                  title={cell.level > 0 ? `${dateKey(cell.date)}: ${cell.level} 篇` : ''}
-                />
-              ))}
-            </div>
-          ))}
-        </div>
-      </section>
-    ))}
+    {/* GitHub 式贡献图：左侧年份选择 + 右侧显示选中年份 */}
+    <section class="ek-contrib-panel ek-reveal">
+      <div class="ek-contrib-years" role="tablist" aria-label="选择年份">
+        {contribYears.map(cy => (
+          <button
+            type="button"
+            class:list={['ek-contrib-year', { 'is-active': cy.year === contribYears[0].year }]}
+            data-year={cy.year}
+            role="tab"
+            aria-selected={cy.year === contribYears[0].year}
+          >
+            {cy.year}
+          </button>
+        ))}
+      </div>
+      <div class="ek-contrib-view">
+        {contribYears.map((cy, i) => (
+          <div
+            class="ek-contrib"
+            data-year-panel={cy.year}
+            hidden={i !== 0}
+            aria-label={`${cy.year} 年文章发布分布`}
+          >
+            {cy.weeks.map((w, wi) => (
+              <div class="ek-contrib__col" key={wi}>
+                {w.map((cell, ci) => (
+                  <span
+                    class={`ek-contrib__cell ek-contrib__cell--${cell.level}`}
+                    key={ci}
+                    title={cell.level > 0 ? `${dateKey(cell.date)}: ${cell.level} 篇` : ''}
+                  />
+                ))}
+              </div>
+            ))}
+          </div>
+        ))}
+      </div>
+    </section>
 
     {/* 连续时间轴 */}
     <section class="ek-archive-list ek-reveal">
@@ -134,3 +149,22 @@ function dateKey(d: Date): string {
     </section>
   </div>
 </BaseLayout>
+
+<script>
+  // 贡献图年份切换
+  const yearBtns = document.querySelectorAll<HTMLButtonElement>('.ek-contrib-year')
+  const panels = document.querySelectorAll<HTMLElement>('.ek-contrib[data-year-panel]')
+
+  yearBtns.forEach(btn => {
+    btn.addEventListener('click', () => {
+      const year = btn.dataset.year
+      yearBtns.forEach(b => {
+        b.classList.toggle('is-active', b === btn)
+        b.setAttribute('aria-selected', String(b === btn))
+      })
+      panels.forEach(panel => {
+        panel.hidden = panel.dataset.yearPanel !== year
+      })
+    })
+  })
+</script>

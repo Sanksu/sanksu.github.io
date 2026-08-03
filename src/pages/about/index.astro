@@ -48,19 +48,15 @@ const stats = [
         </span>
       </div>
 
-      {bio && (
-        <div class="ek-bio ek-reveal">
-          <div class="ek-bio__body">
-            {bio.data.tagline && <p class="ek-bio__tagline">{bio.data.tagline}</p>}
-            <div class="ek-bio__content">
-              <Content />
-            </div>
-          </div>
-        </div>
-      )}
-
       <div class="ek-prose">
-        <blockquote><p>Hello</p></blockquote>
+        <blockquote class="ek-bio ek-reveal">
+          {bio && (
+            <>
+              {bio.data.tagline && <p class="ek-bio__tagline">{bio.data.tagline}</p>}
+              <Content />
+            </>
+          )}
+        </blockquote>
 
         <h2>博客统计 / STATS</h2>
         <div class="ek-stats">

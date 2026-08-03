@@ -14,6 +14,10 @@ import BaseLayout from '../../layouts/BaseLayout.astro'
       placeholder="输入关键词检索 FIELD LOG"
       aria-label="搜索文章"
     />
+    <div class="ek-search-results-title" id="search-results-title" hidden>
+      <span>搜索结果 / RESULTS</span>
+      <span class="ek-tag-count" id="search-count"></span>
+    </div>
     <ul class="ek-search-list" id="search-results"></ul>
   </div>
 </BaseLayout>
@@ -45,6 +49,8 @@ import BaseLayout from '../../layouts/BaseLayout.astro'
   async function main() {
     const input = document.getElementById('search-input') as HTMLInputElement
     const results = document.getElementById('search-results') as HTMLUListElement
+    const title = document.getElementById('search-results-title') as HTMLDivElement
+    const count = document.getElementById('search-count') as HTMLSpanElement
     if (!input || !results) return
 
     let index: IndexEntry[] = []
@@ -65,6 +71,7 @@ import BaseLayout from '../../layouts/BaseLayout.astro'
       const trimmed = keyword.trim()
       if (!trimmed) {
         results.innerHTML = ''
+        if (title) title.hidden = true
         return
       }
 
@@ -75,6 +82,9 @@ import BaseLayout from '../../layouts/BaseLayout.astro'
         if (entry.title.toLowerCase().includes(trimmed.toLowerCase())) return true
         return entry.content.toLowerCase().includes(trimmed.toLowerCase())
       })
+
+      if (title) title.hidden = false
+      if (count) count.textContent = `(${matches.length})`
 
       if (matches.length === 0) {
         results.innerHTML = '<li><p class="ek-search-title">未找到相关结果</p></li>'
