@@ -1,0 +1,136 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro'
+import { getVisiblePosts, postUrl, postDateKey } from '../../lib/posts'
+import { formatDate } from '../../lib/utils'
+import Reveal from '../../components/Reveal.astro'
+
+const posts = await getVisiblePosts()
+
+// 统计摘要
+const totalPosts = posts.length
+const firstDate = posts.length ? posts[posts.length - 1].data.date : null
+const lastDate = posts.length ? posts[0].data.date : null
+const years = posts.length ? new Set(posts.map(p => p.data.date.getFullYear())) : new Set()
+
+// 构建贡献图数据：key = YYYY-MM-DD，value = 当日文章数
+const postByDate = new Map<string, number>()
+for (const post of posts) {
+  const d = post.data.date
+  const key = `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}-${String(d.getDate()).padStart(2, '0')}`
+  postByDate.set(key, (postByDate.get(key) ?? 0) + 1)
+}
+
+// 贡献图年份范围（有文章发布的年份）
+const yearsSorted = Array.from(years).sort((a, b) => b - a)
+
+// 预计算贡献图周结构：每项 { year, weeks: { date, level }[][] }
+interface ContribCell { date: Date; level: number }
+interface ContribYear { year: number; weeks: ContribCell[][] }
+
+const contribYears: ContribYear[] = yearsSorted.map(year => {
+  const weeks: ContribCell[][] = []
+  const end = new Date(year, 11, 31)
+  const cur = new Date(year, 0, 1)
+  const firstDow = cur.getDay()
+  let week: ContribCell[] = []
+  // 填充第一周起始前的空白
+  for (let i = 0; i < firstDow; i++) {
+    week.push({ date: new Date(cur.getFullYear(), cur.getMonth(), cur.getDate() - firstDow + i), level: 0 })
+  }
+  while (cur <= end) {
+    const key = `${cur.getFullYear()}-${String(cur.getMonth() + 1).padStart(2, '0')}-${String(cur.getDate()).padStart(2, '0')}`
+    week.push({ date: new Date(cur), level: postByDate.get(key) ?? 0 })
+    if (week.length === 7) {
+      weeks.push(week)
+      week = []
+    }
+    cur.setDate(cur.getDate() + 1)
+  }
+  if (week.length > 0) weeks.push(week)
+  return { year, weeks }
+})
+
+/** 格式化日期为 YYYY-MM-DD */
+function dateKey(d: Date): string {
+  return `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}-${String(d.getDate()).padStart(2, '0')}`
+}
+---
+
+<BaseLayout title="归档 - Sanksu Blog" description="Sanksu Blog 的全部文章归档">
+  <div class="ek-stage">
+    <Reveal />
+    <div class="ek-section-title ek-reveal">
+      <h2 class="ek-section-title__text">归档 / ARCHIVE</h2>
+      <span class="ek-section-title__meta">{totalPosts} 篇 · {yearsSorted.length} 年</span>
+    </div>
+
+    {/* 统计摘要 */}
+    <div class="ek-stats ek-reveal">
+      <div class="ek-stat">
+        <span class="ek-stat__value">{totalPosts}</span>
+        <span class="ek-stat__label">文章 / POSTS</span>
+      </div>
+      <div class="ek-stat">
+        <span class="ek-stat__value">{yearsSorted.length}</span>
+        <span class="ek-stat__label">年份 / YEARS</span>
+      </div>
+      {firstDate && (
+        <div class="ek-stat">
+          <span class="ek-stat__value">{formatDate(firstDate.toISOString().slice(0, 10))}</span>
+          <span class="ek-stat__label">最早 / FIRST</span>
+        </div>
+      )}
+      {lastDate && (
+        <div class="ek-stat">
+          <span class="ek-stat__value">{formatDate(lastDate.toISOString().slice(0, 10))}</span>
+          <span class="ek-stat__label">最近 / LATEST</span>
+        </div>
+      )}
+    </div>
+
+    {/* GitHub 式贡献图：按年渲染周列 */}
+    {contribYears.map(cy => (
+      <section class="ek-archive-year ek-reveal">
+        <div class="ek-section-title">
+          <span class="ek-section-title__index">{String(cy.year)}</span>
+          <h2 class="ek-section-title__text">{cy.year}</h2>
+          <span class="ek-section-title__meta">{Array.from(postByDate.keys()).filter(k => k.startsWith(String(cy.year))).length} 篇</span>
+        </div>
+        <div class="ek-contrib" aria-label={`${cy.year} 年文章发布分布`}>
+          {cy.weeks.map((w, wi) => (
+            <div class="ek-contrib__col" key={wi}>
+              {w.map((cell, ci) => (
+                <span
+                  class={`ek-contrib__cell ek-contrib__cell--${cell.level}`}
+                  key={ci}
+                  title={cell.level > 0 ? `${dateKey(cell.date)}: ${cell.level} 篇` : ''}
+                />
+              ))}
+            </div>
+          ))}
+        </div>
+      </section>
+    ))}
+
+    {/* 连续时间轴 */}
+    <section class="ek-archive-list ek-reveal">
+      <div class="ek-section-title">
+        <span class="ek-section-title__index">ALL</span>
+        <h2 class="ek-section-title__text">全部文章 / ALL POSTS</h2>
+      </div>
+      <ul class="ek-list">
+        {posts.map((post, j) => (
+          <li class="ek-list__item ek-reveal" style={`transition-delay:${j * 60}ms`}>
+            <span class="ek-list__date">{formatDate(postDateKey(post))}</span>
+            <span class="ek-list__title"><a href={postUrl(post)}>{post.data.title}</a></span>
+            <span class="ek-list__cats">
+              {post.data.categories.map(cat => (
+                <a class="ek-chip" href={`/categories/#${encodeURIComponent(cat)}`}>{cat}</a>
+              ))}
+            </span>
+          </li>
+        ))}
+      </ul>
+    </section>
+  </div>
+</BaseLayout>
