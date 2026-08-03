@@ -19,7 +19,7 @@ export async function GET(context: APIContext) {
       link: `${siteUrl}${postUrl(post)}`,
       pubDate: post.data.date,
       categories: post.data.categories,
-      description: stripHtml(post.body).slice(0, 300),
+      description: stripHtml(post.body ?? '').slice(0, 300),
     })),
   })
 }

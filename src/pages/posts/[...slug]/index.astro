@@ -31,7 +31,7 @@ interface Props {
 
 const { post } = Astro.props
 const { Content } = await render(post)
-const readingTime = getReadingTime(post.body)
+const readingTime = getReadingTime(post.body ?? '')
 const { prev, next } = await getAdjacentPosts(slugFromFilename(post.id))
 const title = `${post.data.title} - ${getSiteName()}`
 const postPath = postUrl(post)

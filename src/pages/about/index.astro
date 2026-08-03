@@ -12,8 +12,8 @@ const { Content } = bio ? await render(bio) : { Content: () => null }
 const totalPosts = posts.length
 const totalCategories = new Set(posts.flatMap(p => p.data.categories)).size
 const totalTags = new Set(posts.flatMap(p => p.data.tags)).size
-const totalChars = posts.reduce((acc, p) => acc + stripMarkdown(p.body).length, 0)
-const totalReadingMin = posts.reduce((acc, p) => acc + Math.max(1, Math.ceil(stripMarkdown(p.body).length / 300)), 0)
+const totalChars = posts.reduce((acc, p) => acc + stripMarkdown(p.body ?? '').length, 0)
+const totalReadingMin = posts.reduce((acc, p) => acc + Math.max(1, Math.ceil(stripMarkdown(p.body ?? '').length / 300)), 0)
 const startDate = new Date('2020-04-01')
 const daysRunning = Math.floor((Date.now() - startDate.getTime()) / (1000 * 60 * 60 * 24))
 

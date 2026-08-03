@@ -29,7 +29,7 @@ export const GET: APIRoute = async () => {
       categories: post.data.categories,
       tags: post.data.tags,
       date: dateStr,
-      content: stripHtml(post.body),
+      content: stripHtml(post.body ?? ''),
     }
   })
 
