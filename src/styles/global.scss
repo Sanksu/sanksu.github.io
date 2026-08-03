@@ -80,7 +80,7 @@ body::after {
   grid-area: topbar;
   height: var(--ek-topbar-h);
   background: var(--ek-panel);
-  color: var(--ek-paper);
+  color: var(--ek-panel-text);
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -101,7 +101,7 @@ body::after {
   display: flex;
   align-items: center;
   gap: 0.75rem;
-  color: var(--ek-paper);
+  color: var(--ek-panel-text);
 }
 
 .ek-brand__mark {
@@ -129,7 +129,7 @@ body::after {
   font-family: var(--ek-font-mono);
   font-size: 0.6rem;
   letter-spacing: 0.22em;
-  color: var(--ek-paper);
+  color: var(--ek-panel-text);
   opacity: 0.6;
 }
 
@@ -140,7 +140,7 @@ body::after {
   font-family: var(--ek-font-mono);
   font-size: 0.7rem;
   letter-spacing: 0.12em;
-  color: var(--ek-paper);
+  color: var(--ek-panel-text);
   opacity: 0.8;
 }
 
@@ -293,7 +293,7 @@ body::after {
 .ek-dock {
   grid-area: dock;
   background: var(--ek-panel);
-  color: var(--ek-paper);
+  color: var(--ek-panel-text);
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -324,7 +324,7 @@ body::after {
 }
 
 .ek-dock__links a {
-  color: var(--ek-paper);
+  color: var(--ek-panel-text);
   opacity: 0.7;
   transition: opacity var(--ek-motion-direct) var(--ek-ease), color var(--ek-motion-direct) var(--ek-ease);
 }
