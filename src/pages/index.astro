@@ -16,7 +16,7 @@ const years = Object.entries(postsByYear).sort((a, b) => Number(b[0]) - Number(a
       <section class="ek-section" id={year}>
         <div class="ek-section-title ek-reveal">
           <span class="ek-section-title__index">{String(i + 1).padStart(2, '0')}</span>
-          <span class="ek-section-title__text">{year} / FIELD LOG</span>
+          <h2 class="ek-section-title__text">{year} / FIELD LOG</h2>
           <span class="ek-section-title__meta">REC-{year} · {posts.length} 篇</span>
         </div>
         <ul class="ek-list">
