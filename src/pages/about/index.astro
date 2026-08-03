@@ -1,11 +1,14 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro'
-import { timeline, projects } from '../../data/about'
+import { getCollection } from 'astro:content'
+import { timeline, projects, socials } from '../../data/about'
 import { getVisiblePosts } from '../../lib/posts'
 import { stripMarkdown } from '../../lib/utils'
 import Reveal from '../../components/Reveal.astro'
 
 const posts = await getVisiblePosts()
+const [bio] = await getCollection('about')
+const { Content } = bio ? await bio.render() : { Content: () => null }
 const totalPosts = posts.length
 const totalCategories = new Set(posts.flatMap(p => p.data.categories)).size
 const totalTags = new Set(posts.flatMap(p => p.data.tags)).size
@@ -44,6 +47,18 @@ const stats = [
           <span class="ek-post-meta__value">TECH / HARDWARE</span>
         </span>
       </div>
+
+      {bio && (
+        <div class="ek-bio ek-reveal">
+          <img class="ek-bio__avatar" src={bio.data.avatar} alt="Sanksu 头像" width="96" height="96" />
+          <div class="ek-bio__body">
+            {bio.data.tagline && <p class="ek-bio__tagline">{bio.data.tagline}</p>}
+            <div class="ek-bio__content">
+              <Content />
+            </div>
+          </div>
+        </div>
+      )}
 
       <div class="ek-prose">
         <blockquote><p>Hello</p></blockquote>
@@ -90,10 +105,19 @@ const stats = [
         </div>
 
         <h2>联系我 / CONTACT</h2>
-        <ul>
-          <li>Email: <a href="mailto:sanksu@qq.com">sanksu@qq.com</a></li>
-          <li>GitHub: <a href="https://github.com/sanksu" target="_blank" rel="noopener noreferrer">Sanksu</a></li>
-        </ul>
+        <div class="ek-socials">
+          {socials.map(s => (
+            <a
+              href={s.url}
+              target={s.platform === 'email' ? undefined : '_blank'}
+              rel={s.platform === 'email' ? undefined : 'noopener noreferrer'}
+              class="ek-social"
+            >
+              <span class="ek-social__label">{s.label}</span>
+              <span class="ek-social__url">{s.url.replace(/^mailto:|^https?:\/\//, '')}</span>
+            </a>
+          ))}
+        </div>
       </div>
     </article>
   </div>

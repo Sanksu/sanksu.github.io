@@ -21,4 +21,15 @@ const posts = defineCollection({
   }),
 })
 
-export const collections = { posts }
+/** 关于页简介集合 */
+const about = defineCollection({
+  type: 'content',
+  schema: z.object({
+    /** 头像图片路径 */
+    avatar: z.string(),
+    /** 一句话定位 */
+    tagline: z.string().default(''),
+  }),
+})
+
+export const collections = { posts, about }

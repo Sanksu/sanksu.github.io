@@ -47,3 +47,29 @@ export const projects: Project[] = [
     tags: ['硬件', 'ESP8266', 'BMI270', '开源'],
   },
 ]
+
+/** 社交链接 */
+export interface SocialLink {
+  platform: string
+  url: string
+  /** 显示名称 */
+  label: string
+}
+
+export const socials: SocialLink[] = [
+  {
+    platform: 'email',
+    url: 'mailto:sanksu@qq.com',
+    label: 'Email',
+  },
+  {
+    platform: 'github',
+    url: 'https://github.com/sanksu',
+    label: 'GitHub',
+  },
+  {
+    platform: 'bilibili',
+    url: 'https://space.bilibili.com/219597773',
+    label: 'Bilibili',
+  },
+]
