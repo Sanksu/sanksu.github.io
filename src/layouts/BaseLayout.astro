@@ -59,7 +59,16 @@ const site = siteMetadata.site
   </head>
   <body>
     <div class="ek-boot" id="ek-boot" aria-hidden="true">
-      <div class="ek-boot__mark" aria-hidden="true"></div>
+      <div class="ek-boot__grid" aria-hidden="true">
+        {Array.from({ length: 9 }, (_, i) => (
+          <div class="ek-boot__cube" key={i}>
+            <div class="ek-boot__cube-inner">
+              <div class="ek-boot__face ek-boot__face--front"></div>
+              <div class="ek-boot__face ek-boot__face--back"></div>
+            </div>
+          </div>
+        ))}
+      </div>
       <div class="ek-boot__text">SANKSU / FIELD LOG</div>
     </div>
     <script is:inline>

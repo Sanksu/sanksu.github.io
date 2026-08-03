@@ -1312,12 +1312,53 @@ body::after {
   transition: opacity 0.6s var(--ek-ease);
 }
 
-.ek-boot__mark {
-  width: 42px;
-  height: 42px;
+.ek-boot__grid {
+  display: grid;
+  grid-template-columns: repeat(3, 14px);
+  grid-template-rows: repeat(3, 14px);
+  gap: 6px;
+}
+
+.ek-boot__cube {
+  width: 14px;
+  height: 14px;
+  perspective: 40px;
+}
+
+.ek-boot__cube-inner {
+  width: 100%;
+  height: 100%;
+  position: relative;
+  transform-style: preserve-3d;
+  animation: ek-cube-flip 0.9s infinite ease-in-out both;
+}
+
+/* 交替延迟：从左上开始逐个传播 */
+.ek-boot__cube:nth-child(1) .ek-boot__cube-inner { animation-delay: 0s; }
+.ek-boot__cube:nth-child(2) .ek-boot__cube-inner { animation-delay: 0.1s; }
+.ek-boot__cube:nth-child(3) .ek-boot__cube-inner { animation-delay: 0.2s; }
+.ek-boot__cube:nth-child(4) .ek-boot__cube-inner { animation-delay: 0.3s; }
+.ek-boot__cube:nth-child(5) .ek-boot__cube-inner { animation-delay: 0.4s; }
+.ek-boot__cube:nth-child(6) .ek-boot__cube-inner { animation-delay: 0.5s; }
+.ek-boot__cube:nth-child(7) .ek-boot__cube-inner { animation-delay: 0.6s; }
+.ek-boot__cube:nth-child(8) .ek-boot__cube-inner { animation-delay: 0.7s; }
+.ek-boot__cube:nth-child(9) .ek-boot__cube-inner { animation-delay: 0.8s; }
+
+.ek-boot__face {
+  position: absolute;
+  inset: 0;
+  backface-visibility: hidden;
+}
+
+.ek-boot__face--front {
   background: var(--ek-signal);
-  clip-path: polygon(0 0, 100% 0, 100% 75%, 75% 100%, 0 100%);
-  animation: ek-boot-pulse var(--ek-motion-attention) ease-in-out infinite;
+  transform: rotateY(0deg);
+}
+
+.ek-boot__face--back {
+  background: transparent;
+  border: 1px solid var(--ek-signal);
+  transform: rotateY(180deg);
 }
 
 .ek-boot__text {
@@ -1329,9 +1370,12 @@ body::after {
   text-transform: uppercase;
 }
 
-@keyframes ek-boot-pulse {
-  0%, 100% { transform: scale(1); opacity: 1; }
-  50% { transform: scale(1.12); opacity: 0.6; }
+@keyframes ek-cube-flip {
+  0%   { transform: rotateX(0deg) rotateY(0deg); }
+  25%  { transform: rotateX(0deg) rotateY(90deg); }
+  50%  { transform: rotateX(90deg) rotateY(90deg); }
+  75%  { transform: rotateX(90deg) rotateY(0deg); }
+  100% { transform: rotateX(0deg) rotateY(0deg); }
 }
 
 @keyframes ek-breathe {
