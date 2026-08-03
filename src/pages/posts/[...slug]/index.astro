@@ -40,6 +40,11 @@ const postPath = postUrl(post)
   <ReadingProgress />
   <div class="ek-post-layout">
     <article class="ek-post">
+      {post.data.cover && (
+        <div class="ek-post-cover">
+          <img src={post.data.cover} alt={`${post.data.title} 封面`} loading="eager" />
+        </div>
+      )}
       <h1 class="ek-post-head__title">
         {post.data.title}
       </h1>

@@ -569,6 +569,19 @@ body::after {
   gap: 2.5rem;
 }
 
+.ek-post-cover {
+  margin: 0 0 1.5rem;
+}
+
+.ek-post-cover img {
+  width: 100%;
+  max-height: 360px;
+  object-fit: cover;
+  display: block;
+  border: 1px solid var(--ek-line);
+  background: var(--ek-paper-soft);
+}
+
 .ek-post-head__title {
   font-family: var(--ek-font-display);
   font-size: clamp(1.6rem, 3.5vw, 2.4rem);

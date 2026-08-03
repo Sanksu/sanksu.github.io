@@ -16,6 +16,8 @@ const posts = defineCollection({
     categories: z.array(z.string()).default([]),
     /** 文章标签 */
     tags: z.array(z.string()).default([]),
+    /** 文章封面图（外部 URL 或本地路径），可选 */
+    cover: z.string().optional(),
   }),
 })
 
