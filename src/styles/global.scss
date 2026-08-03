@@ -1262,6 +1262,53 @@ body::after {
    动效
    ------------------------------------------------------------ */
 
+/* 首屏加载动画（仅在页面初次加载时显示） */
+.ek-boot {
+  position: fixed;
+  inset: 0;
+  z-index: 999;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 1.25rem;
+  background: var(--ek-paper);
+  opacity: 0;
+  pointer-events: none;
+}
+
+.ek-boot--show {
+  opacity: 1;
+  transition: opacity 0.2s ease;
+}
+
+.ek-boot--hide {
+  opacity: 0;
+  transition: opacity 0.6s var(--ek-ease);
+}
+
+.ek-boot__mark {
+  width: 42px;
+  height: 42px;
+  background: var(--ek-signal);
+  clip-path: polygon(0 0, 100% 0, 100% 75%, 75% 100%, 0 100%);
+  animation: ek-boot-pulse var(--ek-motion-attention) ease-in-out infinite;
+}
+
+.ek-boot__text {
+  font-family: var(--ek-font-mono);
+  font-size: 0.72rem;
+  letter-spacing: 0.3em;
+  color: var(--ek-ink);
+  opacity: 0.7;
+  text-transform: uppercase;
+}
+
+@keyframes ek-boot-pulse {
+  0%, 100% { transform: scale(1); opacity: 1; }
+  50% { transform: scale(1.12); opacity: 0.6; }
+}
+
 @keyframes ek-breathe {
   0%, 100% { opacity: 1; }
   50% { opacity: 0.35; }

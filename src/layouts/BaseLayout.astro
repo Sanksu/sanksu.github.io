@@ -58,6 +58,31 @@ const site = siteMetadata.site
     <slot name="head" />
   </head>
   <body>
+    <div class="ek-boot" id="ek-boot" aria-hidden="true">
+      <div class="ek-boot__mark" aria-hidden="true"></div>
+      <div class="ek-boot__text">SANKSU / FIELD LOG</div>
+    </div>
+    <script is:inline>
+      (function(){
+        // 首屏加载动画：仅在会话首次页面加载（非路由切换/非刷新）时显示
+        var overlay = document.getElementById('ek-boot');
+        if (!overlay) return;
+        var seen = sessionStorage.getItem('ek_loaded');
+        if (seen) { overlay.remove(); return; }
+        sessionStorage.setItem('ek_loaded', '1');
+        overlay.classList.add('ek-boot--show');
+        var done = false;
+        function hide() {
+          if (done) return;
+          done = true;
+          overlay.classList.remove('ek-boot--show');
+          overlay.classList.add('ek-boot--hide');
+          setTimeout(function(){ if (overlay.parentNode) overlay.parentNode.removeChild(overlay); }, 700);
+        }
+        window.addEventListener('load', function(){ setTimeout(hide, 900); }, { once: true });
+        setTimeout(hide, 3000);
+      })();
+    </script>
     <div class="ek-shell">
       <Header />
       <main class="ek-main">
