@@ -1,12 +1,13 @@
 import { defineCollection, z } from 'astro:content'
+import { glob } from 'astro/loaders'
 
 /**
- * 文章内容集合
+ * 文章内容集合（Astro 7 Content Layer API）
  * 从 `src/content/posts/` 目录读取 Markdown/MDX 文章
  * 文件名格式：`YYYY-MM-DD-slug.md` 或 `.mdx`，slug 由文件名自动派生（去除日期前缀）
  */
 const posts = defineCollection({
-  type: 'content',
+  loader: glob({ pattern: '**/*.{md,mdx}', base: './src/content/posts' }),
   schema: z.object({
     /** 文章标题 */
     title: z.string(),
@@ -23,7 +24,7 @@ const posts = defineCollection({
 
 /** 关于页简介集合 */
 const about = defineCollection({
-  type: 'content',
+  loader: glob({ pattern: '**/*.{md,mdx}', base: './src/content/about' }),
   schema: z.object({
     /** 一句话定位 */
     tagline: z.string().default(''),

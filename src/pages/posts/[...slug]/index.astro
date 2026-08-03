@@ -1,5 +1,6 @@
 ---
 import BaseLayout from '../../../layouts/BaseLayout.astro'
+import { render } from 'astro:content'
 import { getVisiblePosts, getAdjacentPosts, postUrl, postDateKey } from '../../../lib/posts'
 import { getSiteName, getSiteAuthor, getSiteUrl, walineConfig } from '../../../data/site'
 import { formatDate, getReadingTime, slugFromFilename } from '../../../lib/utils'
@@ -29,7 +30,7 @@ interface Props {
 }
 
 const { post } = Astro.props
-const { Content } = await post.render()
+const { Content } = await render(post)
 const readingTime = getReadingTime(post.body)
 const { prev, next } = await getAdjacentPosts(slugFromFilename(post.id))
 const title = `${post.data.title} - ${getSiteName()}`

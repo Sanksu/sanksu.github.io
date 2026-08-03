@@ -1,6 +1,6 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro'
-import { getCollection } from 'astro:content'
+import { getCollection, render } from 'astro:content'
 import { timeline, projects, socials } from '../../data/about'
 import { getVisiblePosts } from '../../lib/posts'
 import { stripMarkdown } from '../../lib/utils'
@@ -8,7 +8,7 @@ import Reveal from '../../components/Reveal.astro'
 
 const posts = await getVisiblePosts()
 const [bio] = await getCollection('about')
-const { Content } = bio ? await bio.render() : { Content: () => null }
+const { Content } = bio ? await render(bio) : { Content: () => null }
 const totalPosts = posts.length
 const totalCategories = new Set(posts.flatMap(p => p.data.categories)).size
 const totalTags = new Set(posts.flatMap(p => p.data.tags)).size
