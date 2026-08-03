@@ -334,6 +334,31 @@ body::after {
   opacity: 1;
 }
 
+/* RSS 订阅按钮 */
+.ek-rss-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  font-family: var(--ek-font-mono);
+  font-size: 0.68rem;
+  letter-spacing: 0.12em;
+  border: 1px solid var(--ek-panel-text);
+  border-radius: var(--ek-radius);
+  padding: 0.25rem 0.6rem;
+  opacity: 0.9;
+}
+
+.ek-rss-btn:hover {
+  border-color: var(--ek-signal);
+  background: var(--ek-signal);
+  color: var(--ek-signal-ink);
+  opacity: 1;
+}
+
+.ek-rss-btn svg {
+  flex-shrink: 0;
+}
+
 /* ------------------------------------------------------------
    浮动操作
    ------------------------------------------------------------ */
