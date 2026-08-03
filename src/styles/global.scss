@@ -30,7 +30,7 @@
 
 html {
   scroll-behavior: smooth;
-  font-size: 17px;
+  font-size: 20.4px;
 }
 
 body {
@@ -1205,10 +1205,10 @@ body::after {
 }
 
 /* 归档页 */
-/* GitHub 式贡献图面板：左侧年份选择 + 右侧图 */
+/* GitHub 式贡献图面板：左侧图 + 右侧年份选择 */
 .ek-contrib-panel {
   display: grid;
-  grid-template-columns: 56px 1fr;
+  grid-template-columns: 1fr 56px;
   gap: 1.25rem;
   margin: 0 0 2rem;
 }
@@ -1217,8 +1217,8 @@ body::after {
   display: flex;
   flex-direction: column;
   gap: 0.35rem;
-  border-right: 1px solid var(--ek-line);
-  padding-right: 0.75rem;
+  border-left: 1px solid var(--ek-line);
+  padding-left: 0.75rem;
 }
 
 .ek-contrib-year {
@@ -1255,6 +1255,10 @@ body::after {
   gap: 3px;
   overflow-x: auto;
   padding-bottom: 0.5rem;
+}
+
+.ek-contrib[hidden] {
+  display: none;
 }
 
 .ek-contrib__col {

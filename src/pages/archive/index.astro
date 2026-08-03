@@ -88,21 +88,8 @@ function dateKey(d: Date): string {
       )}
     </div>
 
-    {/* GitHub 式贡献图：左侧年份选择 + 右侧显示选中年份 */}
+    {/* GitHub 式贡献图：左侧显示图 + 右侧年份选择 */}
     <section class="ek-contrib-panel ek-reveal">
-      <div class="ek-contrib-years" role="tablist" aria-label="选择年份">
-        {contribYears.map(cy => (
-          <button
-            type="button"
-            class:list={['ek-contrib-year', { 'is-active': cy.year === contribYears[0].year }]}
-            data-year={cy.year}
-            role="tab"
-            aria-selected={cy.year === contribYears[0].year}
-          >
-            {cy.year}
-          </button>
-        ))}
-      </div>
       <div class="ek-contrib-view">
         {contribYears.map((cy, i) => (
           <div
@@ -123,6 +110,19 @@ function dateKey(d: Date): string {
               </div>
             ))}
           </div>
+        ))}
+      </div>
+      <div class="ek-contrib-years" role="tablist" aria-label="选择年份">
+        {contribYears.map(cy => (
+          <button
+            type="button"
+            class:list={['ek-contrib-year', { 'is-active': cy.year === contribYears[0].year }]}
+            data-year={cy.year}
+            role="tab"
+            aria-selected={cy.year === contribYears[0].year}
+          >
+            {cy.year}
+          </button>
         ))}
       </div>
     </section>
