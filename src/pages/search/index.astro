@@ -11,16 +11,17 @@ import Reveal from '../../components/Reveal.astro'
     </div>
     <input
       id="search-input"
-      class="ek-search-input"
+      class="ek-search-input ek-reveal"
       type="text"
       placeholder="输入关键词检索 FIELD LOG"
       aria-label="搜索文章"
+      style="transition-delay: 60ms"
     />
-    <div class="ek-search-results-title" id="search-results-title" hidden>
+    <div class="ek-search-results-title ek-reveal" id="search-results-title" hidden style="transition-delay: 120ms">
       <span>搜索结果 / RESULTS</span>
       <span class="ek-tag-count" id="search-count"></span>
     </div>
-    <ul class="ek-search-list" id="search-results"></ul>
+    <ul class="ek-search-list ek-reveal" id="search-results" style="transition-delay: 180ms"></ul>
   </div>
 </BaseLayout>
 
@@ -114,7 +115,7 @@ import Reveal from '../../components/Reveal.astro'
 
         const url = `/posts/${entry.date.replace(/-/g, '/')}/${encodeURIComponent(entry.slug)}/`
         return `
-          <li>
+          <li class="ek-reveal">
             <a href="${url}">
               <p class="ek-search-title">${titleHtml}</p>
               ${excerptHtml ? `<p class="ek-search-content">${excerptHtml}</p>` : ''}
@@ -122,6 +123,14 @@ import Reveal from '../../components/Reveal.astro'
           </li>
         `
       }).join('')
+
+      // 结果项逐个淡入
+      requestAnimationFrame(() => {
+        results.querySelectorAll<HTMLElement>('.ek-reveal').forEach((el, idx) => {
+          el.style.transitionDelay = `${idx * 50}ms`
+          el.classList.add('ek-revealed')
+        })
+      })
     }
   }
 

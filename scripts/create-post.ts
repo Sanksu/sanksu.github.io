@@ -58,7 +58,7 @@ function main() {
   const tags = parseList(args[2])
   const date = formatDate()
   const slug = slugify(title)
-  const filename = `${date}-${slug}.md`
+  const filename = `${date}-${slug}.mdx`
   const filePath = path.join(process.cwd(), 'src', 'content', 'posts', filename)
 
   if (fs.existsSync(filePath)) {

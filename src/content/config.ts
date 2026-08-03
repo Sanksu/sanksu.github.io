@@ -2,8 +2,8 @@ import { defineCollection, z } from 'astro:content'
 
 /**
  * 文章内容集合
- * 从 `src/content/posts/` 目录读取 Markdown 文章
- * 文件名格式：`YYYY-MM-DD-slug.md`，slug 由文件名自动派生（去除日期前缀）
+ * 从 `src/content/posts/` 目录读取 Markdown/MDX 文章
+ * 文件名格式：`YYYY-MM-DD-slug.md` 或 `.mdx`，slug 由文件名自动派生（去除日期前缀）
  */
 const posts = defineCollection({
   type: 'content',

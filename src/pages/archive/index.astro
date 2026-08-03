@@ -10,7 +10,7 @@ const posts = await getVisiblePosts()
 const totalPosts = posts.length
 const firstDate = posts.length ? posts[posts.length - 1].data.date : null
 const lastDate = posts.length ? posts[0].data.date : null
-const years = posts.length ? new Set(posts.map(p => p.data.date.getFullYear())) : new Set()
+const years = posts.length ? new Set(posts.map(p => p.data.date.getFullYear())) : new Set<number>()
 
 // 构建贡献图数据：key = YYYY-MM-DD，value = 当日文章数
 const postByDate = new Map<string, number>()
@@ -27,7 +27,10 @@ const yearsSorted = Array.from(years).sort((a, b) => b - a)
 interface ContribCell { date: Date; level: number }
 interface ContribYear { year: number; weeks: ContribCell[][] }
 
-const contribYears: ContribYear[] = yearsSorted.map(year => {
+// 月份标签：每列顶部显示，仅当该列是该月第一列时显示月份简写（GitHub 风格）
+const MONTH_ABBR = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
+
+function buildContribYear(year: number, postByDate: Map<string, number>): { year: number; weeks: ContribCell[][]; monthLabels: (string | null)[] } {
   const weeks: ContribCell[][] = []
   const end = new Date(year, 11, 31)
   const cur = new Date(year, 0, 1)
@@ -47,8 +50,24 @@ const contribYears: ContribYear[] = yearsSorted.map(year => {
     cur.setDate(cur.getDate() + 1)
   }
   if (week.length > 0) weeks.push(week)
-  return { year, weeks }
-})
+
+  // 月份标签：每列取第一天，若月份变化则标记
+  const monthLabels: (string | null)[] = []
+  let lastMonth = -1
+  for (const w of weeks) {
+    const firstDay = w.find(c => c.date.getFullYear() === year) ?? w[0]
+    const m = firstDay.date.getMonth()
+    if (m !== lastMonth) {
+      monthLabels.push(MONTH_ABBR[m])
+      lastMonth = m
+    } else {
+      monthLabels.push(null)
+    }
+  }
+  return { year, weeks, monthLabels }
+}
+
+const contribYears = yearsSorted.map(year => buildContribYear(year, postByDate))
 
 /** 格式化日期为 YYYY-MM-DD */
 function dateKey(d: Date): string {
@@ -92,23 +111,35 @@ function dateKey(d: Date): string {
     <section class="ek-contrib-panel ek-reveal">
       <div class="ek-contrib-view">
         {contribYears.map((cy, i) => (
-          <div
-            class="ek-contrib"
-            data-year-panel={cy.year}
-            hidden={i !== 0}
-            aria-label={`${cy.year} 年文章发布分布`}
-          >
-            {cy.weeks.map((w, wi) => (
-              <div class="ek-contrib__col" key={wi}>
-                {w.map((cell, ci) => (
-                  <span
-                    class={`ek-contrib__cell ek-contrib__cell--${cell.level}`}
-                    key={ci}
-                    title={cell.level > 0 ? `${dateKey(cell.date)}: ${cell.level} 篇` : ''}
-                  />
+          <div class="ek-contrib" data-year-panel={cy.year} hidden={i !== 0} aria-label={`${cy.year} 年文章发布分布`}>
+            {/* 顶部月份行 */}
+            <div class="ek-contrib__months" aria-hidden="true">
+              <span class="ek-contrib__label-gutter"></span>
+              {cy.monthLabels.map((label) => (
+                <span class="ek-contrib__month">{label ?? ''}</span>
+              ))}
+            </div>
+            <div class="ek-contrib__body">
+              {/* 左侧星期标签 */}
+              <div class="ek-contrib__days" aria-hidden="true">
+                {['', 'Mon', '', 'Wed', '', 'Fri', ''].map((d) => (
+                  <span class="ek-contrib__day">{d}</span>
                 ))}
               </div>
-            ))}
+              {/* 图网格 */}
+              <div class="ek-contrib__grid">
+                {cy.weeks.map((w) => (
+                  <div class="ek-contrib__col">
+                    {w.map((cell) => (
+                      <span
+                        class={`ek-contrib__cell ek-contrib__cell--${cell.level}`}
+                        title={cell.level > 0 ? `${dateKey(cell.date)}: ${cell.level} 篇` : ''}
+                      />
+                    ))}
+                  </div>
+                ))}
+              </div>
+            </div>
           </div>
         ))}
       </div>

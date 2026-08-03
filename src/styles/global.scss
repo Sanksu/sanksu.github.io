@@ -30,7 +30,7 @@
 
 html {
   scroll-behavior: smooth;
-  font-size: 20.4px;
+  font-size: 18px;
 }
 
 body {
@@ -140,7 +140,7 @@ body::after {
 
 .ek-brand__text small {
   font-family: var(--ek-font-mono);
-  font-size: 0.6rem;
+  font-size: 11px;
   letter-spacing: 0.22em;
   color: var(--ek-panel-text);
   opacity: 0.6;
@@ -151,7 +151,7 @@ body::after {
   align-items: center;
   gap: 0.6rem;
   font-family: var(--ek-font-mono);
-  font-size: 0.7rem;
+  font-size: 13px;
   letter-spacing: 0.12em;
   color: var(--ek-panel-text);
   opacity: 0.8;
@@ -209,7 +209,7 @@ body::after {
 
 .ek-rail__index {
   font-family: var(--ek-font-mono);
-  font-size: 0.65rem;
+  font-size: 12px;
   letter-spacing: 0.08em;
   opacity: 0.85;
   min-width: 20px;
@@ -222,13 +222,13 @@ body::after {
 }
 
 .ek-rail__label-cn {
-  font-size: 0.92rem;
+  font-size: 17px;
   font-weight: 500;
 }
 
 .ek-rail__label-en {
   font-family: var(--ek-font-mono);
-  font-size: 0.55rem;
+  font-size: 10px;
   letter-spacing: 0.16em;
   opacity: 0.7;
   text-transform: uppercase;
@@ -268,7 +268,7 @@ body::after {
 
 .ek-rail__foot-code {
   font-family: var(--ek-font-mono);
-  font-size: 0.6rem;
+  font-size: 11px;
   letter-spacing: 0.14em;
   color: var(--ek-muted);
 }
@@ -284,7 +284,7 @@ body::after {
   background: var(--ek-paper);
   color: var(--ek-ink);
   cursor: pointer;
-  font-size: 0.85rem;
+  font-size: 15px;
   line-height: 1;
   transition: color var(--ek-motion-direct) var(--ek-ease), background var(--ek-motion-direct) var(--ek-ease), border-color var(--ek-motion-direct) var(--ek-ease);
 }
@@ -313,7 +313,7 @@ body::after {
   gap: 1rem;
   padding: 1rem clamp(1.5rem, 4vw, 3.5rem);
   flex-wrap: wrap;
-  font-size: 0.8rem;
+  font-size: 14px;
 }
 
 .ek-dock__section {
@@ -331,7 +331,7 @@ body::after {
 
 .ek-dock__sys {
   font-family: var(--ek-font-mono);
-  font-size: 0.62rem;
+  font-size: 11px;
   letter-spacing: 0.16em;
   opacity: 0.7;
 }
@@ -353,7 +353,7 @@ body::after {
   align-items: center;
   gap: 0.4rem;
   font-family: var(--ek-font-mono);
-  font-size: 0.68rem;
+  font-size: 12px;
   letter-spacing: 0.12em;
   border: 1px solid var(--ek-panel-text);
   border-radius: var(--ek-radius);
@@ -396,7 +396,7 @@ body::after {
   border: 1px solid var(--ek-line-strong);
   border-radius: var(--ek-radius);
   cursor: pointer;
-  font-size: 1.05rem;
+  font-size: 19px;
   transition: color var(--ek-motion-direct) var(--ek-ease), background var(--ek-motion-direct) var(--ek-ease), transform var(--ek-motion-direct) var(--ek-ease);
 }
 
@@ -438,7 +438,7 @@ body::after {
 
 .ek-section-title__index {
   font-family: var(--ek-font-display);
-  font-size: 2.2rem;
+  font-size: 40px;
   font-weight: 700;
   line-height: 1;
   color: var(--ek-ink);
@@ -446,7 +446,7 @@ body::after {
 }
 
 .ek-section-title__text {
-  font-size: 1.15rem;
+  font-size: 21px;
   font-weight: 600;
   letter-spacing: 0.04em;
 }
@@ -454,7 +454,7 @@ body::after {
 .ek-section-title__meta {
   margin-left: auto;
   font-family: var(--ek-font-mono);
-  font-size: 0.7rem;
+  font-size: 13px;
   letter-spacing: 0.12em;
   color: var(--ek-muted);
 }
@@ -498,7 +498,7 @@ body::after {
 
 .ek-list__date {
   font-family: var(--ek-font-mono);
-  font-size: 0.72rem;
+  font-size: 13px;
   letter-spacing: 0.06em;
   color: var(--ek-muted);
 }
@@ -525,7 +525,7 @@ body::after {
 
 .ek-chip {
   font-family: var(--ek-font-mono);
-  font-size: 0.62rem;
+  font-size: 11px;
   letter-spacing: 0.08em;
   color: var(--ek-muted);
   border: 1px solid var(--ek-line-strong);
@@ -550,7 +550,7 @@ body::after {
 
 .ek-cloud a {
   font-family: var(--ek-font-mono);
-  font-size: 0.75rem;
+  font-size: 14px;
   letter-spacing: 0.06em;
   color: var(--ek-ink);
   border: 1px solid var(--ek-line-strong);
@@ -567,7 +567,7 @@ body::after {
 
 .ek-tag-count {
   font-family: var(--ek-font-mono);
-  font-size: 0.62rem;
+  font-size: 11px;
   color: var(--ek-muted);
   margin-left: 0.35rem;
 }
@@ -625,14 +625,14 @@ body::after {
 
 .ek-post-meta__label {
   font-family: var(--ek-font-mono);
-  font-size: 0.58rem;
+  font-size: 10px;
   letter-spacing: 0.14em;
   text-transform: uppercase;
   color: var(--ek-muted);
 }
 
 .ek-post-meta__value {
-  font-size: 0.85rem;
+  font-size: 15px;
   font-weight: 500;
 }
 
@@ -643,7 +643,7 @@ body::after {
 }
 
 .ek-prose h2 {
-  font-size: 1.35rem;
+  font-size: 24px;
   font-weight: 600;
   margin: 2.5rem 0 1rem;
   padding-bottom: 0.5rem;
@@ -662,7 +662,7 @@ body::after {
 }
 
 .ek-prose h3 {
-  font-size: 1.12rem;
+  font-size: 20px;
   font-weight: 600;
   margin: 2rem 0 0.75rem;
 }
@@ -732,7 +732,7 @@ body::after {
   width: 100%;
   border-collapse: collapse;
   margin: 1.5rem 0;
-  font-size: 0.9rem;
+  font-size: 16px;
 }
 
 .ek-prose th,
@@ -768,7 +768,7 @@ body::after {
   padding: 1.1rem 1rem;
   overflow-x: auto;
   line-height: 1.65;
-  font-size: 0.85rem;
+  font-size: 15px;
   margin: 1.5rem 0;
 }
 
@@ -806,7 +806,7 @@ body::after {
   top: 0.5rem;
   left: 0.85rem;
   font-family: var(--ek-font-mono);
-  font-size: 0.6rem;
+  font-size: 11px;
   letter-spacing: 0.12em;
   color: var(--ek-code-text);
   opacity: 0.6;
@@ -816,7 +816,7 @@ body::after {
 
 .ek-copy-btn {
   font-family: var(--ek-font-mono);
-  font-size: 0.62rem;
+  font-size: 11px;
   letter-spacing: 0.08em;
   padding: 0.25rem 0.6rem;
   border: 1px solid var(--ek-code-text);
@@ -840,7 +840,7 @@ body::after {
   position: sticky;
   top: calc(var(--ek-topbar-h) + 1.5rem);
   align-self: start;
-  font-size: 0.82rem;
+  font-size: 15px;
   border-left: 1px solid var(--ek-line-strong);
   padding-left: 1.1rem;
   max-height: calc(100vh - var(--ek-topbar-h) - 3rem);
@@ -849,7 +849,7 @@ body::after {
 
 .ek-toc__title {
   font-family: var(--ek-font-mono);
-  font-size: 0.78rem;
+  font-size: 14px;
   letter-spacing: 0.18em;
   text-transform: uppercase;
   color: var(--ek-muted);
@@ -906,12 +906,12 @@ body::after {
 
 .ek-toc .ek-toc__lvl3 a {
   padding-left: 2rem;
-  font-size: 0.78rem;
+  font-size: 14px;
 }
 
 .ek-toc .ek-toc__lvl4 a {
   padding-left: 3rem;
-  font-size: 0.76rem;
+  font-size: 14px;
 }
 
 /* 上一篇/下一篇 */
@@ -946,14 +946,14 @@ body::after {
 
 .ek-postnav__label {
   font-family: var(--ek-font-mono);
-  font-size: 0.62rem;
+  font-size: 11px;
   letter-spacing: 0.14em;
   text-transform: uppercase;
   color: var(--ek-muted);
 }
 
 .ek-postnav__title {
-  font-size: 0.92rem;
+  font-size: 17px;
   font-weight: 500;
 }
 
@@ -1029,7 +1029,7 @@ body::after {
   width: 100%;
   padding: 0.9rem 1.1rem;
   font-family: var(--ek-font-mono);
-  font-size: 0.95rem;
+  font-size: 17px;
   border: 2px solid var(--ek-ink);
   border-radius: var(--ek-radius);
   background: var(--ek-paper-raised);
@@ -1048,7 +1048,7 @@ body::after {
   align-items: baseline;
   gap: 0.5rem;
   font-family: var(--ek-font-tech);
-  font-size: 0.85rem;
+  font-size: 15px;
   font-weight: 600;
   letter-spacing: 0.08em;
   color: var(--ek-ink);
@@ -1085,7 +1085,7 @@ body::after {
 
 .ek-search-list .ek-search-content {
   color: var(--ek-muted);
-  font-size: 0.85rem;
+  font-size: 15px;
   margin: 0.25rem 0 0;
 }
 
@@ -1137,7 +1137,7 @@ body::after {
 .ek-stat__value {
   display: block;
   font-family: var(--ek-font-display);
-  font-size: 1.7rem;
+  font-size: 31px;
   font-weight: 700;
   line-height: 1.1;
   letter-spacing: -0.02em;
@@ -1145,7 +1145,7 @@ body::after {
 
 .ek-stat__label {
   color: var(--ek-muted);
-  font-size: 0.78rem;
+  font-size: 14px;
   margin-top: 0.15rem;
 }
 
@@ -1195,12 +1195,12 @@ body::after {
 .ek-social__label {
   font-family: var(--ek-font-tech);
   font-weight: 600;
-  font-size: 0.9rem;
+  font-size: 16px;
 }
 
 .ek-social__url {
   font-family: var(--ek-font-mono);
-  font-size: 0.72rem;
+  font-size: 13px;
   color: var(--ek-muted);
 }
 
@@ -1223,7 +1223,7 @@ body::after {
 
 .ek-contrib-year {
   font-family: var(--ek-font-mono);
-  font-size: 0.78rem;
+  font-size: 14px;
   letter-spacing: 0.05em;
   color: var(--ek-muted);
   background: none;
@@ -1251,14 +1251,63 @@ body::after {
 
 /* GitHub 式贡献图 */
 .ek-contrib {
-  display: flex;
-  gap: 3px;
   overflow-x: auto;
   padding-bottom: 0.5rem;
 }
 
 .ek-contrib[hidden] {
   display: none;
+}
+
+/* 顶部月份行 */
+.ek-contrib__months {
+  display: flex;
+  gap: 3px;
+  margin-bottom: 4px;
+}
+
+.ek-contrib__label-gutter {
+  width: 28px;
+  flex-shrink: 0;
+  margin-right: 6px;
+}
+
+.ek-contrib__month {
+  font-size: 10px;
+  color: var(--ek-muted);
+  flex-shrink: 0;
+  width: 12px;
+  white-space: nowrap;
+  overflow: visible;
+}
+
+/* 主体：星期标签 + 网格 */
+.ek-contrib__body {
+  display: flex;
+  gap: 6px;
+}
+
+.ek-contrib__days {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  flex-shrink: 0;
+}
+
+.ek-contrib__day {
+  font-size: 10px;
+  color: var(--ek-muted);
+  width: 28px;
+  height: 12px;
+  line-height: 12px;
+  text-align: left;
+  padding-left: 1px;
+}
+
+.ek-contrib__grid {
+  display: flex;
+  gap: 3px;
+  overflow-x: auto;
 }
 
 .ek-contrib__col {
@@ -1326,26 +1375,26 @@ body::after {
 
 .ek-timeline__year {
   font-family: var(--ek-font-display);
-  font-size: 1.3rem;
+  font-size: 23px;
   font-weight: 700;
   letter-spacing: -0.02em;
 }
 
 .ek-timeline__content h3 {
-  font-size: 0.95rem;
+  font-size: 17px;
   font-weight: 600;
   margin: 0 0 0.2rem;
 }
 
 .ek-timeline__content p {
   color: var(--ek-muted);
-  font-size: 0.85rem;
+  font-size: 15px;
   margin: 0 0 0.3rem;
 }
 
 .ek-timeline__link {
   font-family: var(--ek-font-mono);
-  font-size: 0.7rem;
+  font-size: 13px;
   color: var(--ek-ink);
   text-decoration: underline;
   text-underline-offset: 3px;
@@ -1400,7 +1449,7 @@ body::after {
 
 .ek-project p {
   color: var(--ek-muted);
-  font-size: 0.85rem;
+  font-size: 15px;
   margin: 0;
 }
 
@@ -1413,7 +1462,7 @@ body::after {
 
 .ek-project__tag {
   font-family: var(--ek-font-mono);
-  font-size: 0.62rem;
+  font-size: 11px;
   letter-spacing: 0.06em;
   color: var(--ek-ink);
   border: 1px solid var(--ek-line-strong);
@@ -1459,7 +1508,7 @@ body::after {
 .ek-404__btn {
   display: inline-block;
   font-family: var(--ek-font-tech);
-  font-size: 0.85rem;
+  font-size: 15px;
   letter-spacing: 0.08em;
   color: var(--ek-signal-ink);
   background: var(--ek-signal);
@@ -1530,7 +1579,7 @@ body::after {
 
 .ek-boot__text {
   font-family: var(--ek-font-mono);
-  font-size: 0.72rem;
+  font-size: 13px;
   letter-spacing: 0.3em;
   color: var(--ek-ink);
   opacity: 0.85;
@@ -1603,11 +1652,11 @@ body::after {
   }
 
   .ek-rail__index {
-    font-size: 0.55rem;
+    font-size: 10px;
   }
 
   .ek-rail__label-cn {
-    font-size: 0.8rem;
+    font-size: 14px;
   }
 
   .ek-rail__label-en {
@@ -1644,7 +1693,7 @@ body::after {
   }
 
   .ek-rail__foot-code {
-    font-size: 0.55rem;
+    font-size: 10px;
   }
 
   .ek-post-layout {

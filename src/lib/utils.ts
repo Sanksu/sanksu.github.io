@@ -2,7 +2,7 @@
 
 /** 从文件名提取 slug（去掉日期前缀和 .md 后缀） */
 export function slugFromFilename(filename: string): string {
-  return filename.replace(/\.md$/, '').replace(/^\d{4}-\d{2}-\d{2}-?/, '')
+  return filename.replace(/\.mdx?$/, '').replace(/^\d{4}-\d{2}-\d{2}-?/, '')
 }
 
 /** 将 YYYY-MM-DD 格式的日期字符串格式化为 YYYY/MM/DD */
@@ -33,12 +33,21 @@ export function stripMarkdown(content: string): string {
     .replace(/\s+/g, '')
 }
 
-/** 去除 HTML 标签和 Markdown 标记，返回纯文本（保留空白） */
+/** 去除 HTML 标签和 Markdown 链接语法，返回纯文本（保留下划线，剥离星号等标记） */
 export function stripHtml(str: string): string {
   return str
     .replace(/<[^>]*>/g, '')
     .replace(/```[\s\S]*?```/g, '')
-    .replace(/[#*`[\]]/g, '')
+    // Markdown 链接 [text](url) → text
+    .replace(/!?\[([^\]]*)\]\([^)]*\)/g, '$1')
+    // 图片 !alt → alt
+    .replace(/!\[([^\]]*)\]/g, '$1')
+    // 加粗/斜体星号
+    .replace(/\*\*(.+?)\*\*/g, '$1')
+    .replace(/\*(.+?)\*/g, '$1')
+    .replace(/\*/g, '')
+    // 标题符 #
+    .replace(/#/g, '')
     .replace(/\s+/g, ' ')
     .trim()
 }
