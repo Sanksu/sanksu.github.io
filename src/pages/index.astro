@@ -31,6 +31,7 @@ const personSchema = JSON.stringify({
 <BaseLayout title="首页 - Sanksu Blog" description={siteMetadata.site.description}>
   <script slot="head" type="application/ld+json" set:html={websiteSchema} />
   <script slot="head" type="application/ld+json" set:html={personSchema} />
+  <h1 class="sr-only">Sanksu Blog</h1>
   <div class="ek-stage">
     <Reveal />
     {years.map(([year, posts], i) => (

@@ -15,6 +15,19 @@
   padding: 0;
 }
 
+/* 屏幕阅读器专用（视觉隐藏但可访问） */
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
 html {
   scroll-behavior: smooth;
   font-size: 17px;
@@ -181,7 +194,7 @@ body::after {
   align-items: center;
   gap: 0.75rem;
   padding: 0.6rem 1rem;
-  color: var(--ek-muted);
+  color: var(--ek-ink-soft);
   transition: color var(--ek-motion-direct) var(--ek-ease), background var(--ek-motion-direct) var(--ek-ease);
 }
 
@@ -198,7 +211,7 @@ body::after {
   font-family: var(--ek-font-mono);
   font-size: 0.65rem;
   letter-spacing: 0.08em;
-  opacity: 0.55;
+  opacity: 0.85;
   min-width: 20px;
 }
 
@@ -217,7 +230,7 @@ body::after {
   font-family: var(--ek-font-mono);
   font-size: 0.55rem;
   letter-spacing: 0.16em;
-  opacity: 0.5;
+  opacity: 0.7;
   text-transform: uppercase;
 }
 
@@ -257,7 +270,7 @@ body::after {
   font-family: var(--ek-font-mono);
   font-size: 0.6rem;
   letter-spacing: 0.14em;
-  color: var(--ek-muted-soft);
+  color: var(--ek-muted);
 }
 
 .ek-rail__theme {
@@ -320,7 +333,7 @@ body::after {
   font-family: var(--ek-font-mono);
   font-size: 0.62rem;
   letter-spacing: 0.16em;
-  opacity: 0.5;
+  opacity: 0.7;
 }
 
 .ek-dock__links a {
@@ -1496,7 +1509,7 @@ body::after {
   font-size: 0.72rem;
   letter-spacing: 0.3em;
   color: var(--ek-ink);
-  opacity: 0.7;
+  opacity: 0.85;
   text-transform: uppercase;
 }
 
