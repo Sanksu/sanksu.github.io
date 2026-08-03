@@ -1,7 +1,7 @@
 ---
 import BaseLayout from '../../../layouts/BaseLayout.astro'
 import { getVisiblePosts, getAdjacentPosts, postUrl, postDateKey } from '../../../lib/posts'
-import { getSiteName, getSiteAuthor, walineConfig } from '../../../data/site'
+import { getSiteName, getSiteAuthor, getSiteUrl, walineConfig } from '../../../data/site'
 import { formatDate, getReadingTime, slugFromFilename } from '../../../lib/utils'
 import WalineComments from '../../../components/WalineComments.astro'
 import Pageview from '../../../components/Pageview.astro'
@@ -34,9 +34,27 @@ const readingTime = getReadingTime(post.body)
 const { prev, next } = await getAdjacentPosts(slugFromFilename(post.id))
 const title = `${post.data.title} - ${getSiteName()}`
 const postPath = postUrl(post)
+
+const articleSchema = JSON.stringify({
+  '@context': 'https://schema.org',
+  '@type': 'Article',
+  headline: post.data.title,
+  datePublished: postDateKey(post),
+  author: {
+    '@type': 'Person',
+    name: getSiteAuthor(),
+  },
+  publisher: {
+    '@type': 'Organization',
+    name: getSiteName(),
+  },
+  mainEntityOfPage: `${getSiteUrl()}${postPath}`,
+  ...(post.data.categories.length > 0 ? { articleSection: post.data.categories[0] } : {}),
+})
 ---
 
 <BaseLayout title={title}>
+  <script slot="head" type="application/ld+json" set:html={articleSchema} />
   <ReadingProgress />
   <div class="ek-post-layout">
     <article class="ek-post">

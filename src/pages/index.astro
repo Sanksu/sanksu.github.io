@@ -7,9 +7,30 @@ import Reveal from '../components/Reveal.astro'
 
 const postsByYear = await getPostsByYear()
 const years = Object.entries(postsByYear).sort((a, b) => Number(b[0]) - Number(a[0]))
+
+const websiteSchema = JSON.stringify({
+  '@context': 'https://schema.org',
+  '@type': 'WebSite',
+  name: 'Sanksu Blog',
+  url: siteMetadata.site.url,
+  description: siteMetadata.site.description,
+})
+
+const personSchema = JSON.stringify({
+  '@context': 'https://schema.org',
+  '@type': 'Person',
+  name: 'Sanksu',
+  url: siteMetadata.site.url,
+  sameAs: [
+    'https://github.com/sanksu',
+    'https://space.bilibili.com/219597773',
+  ],
+})
 ---
 
 <BaseLayout title="首页 - Sanksu Blog" description={siteMetadata.site.description}>
+  <script slot="head" type="application/ld+json" set:html={websiteSchema} />
+  <script slot="head" type="application/ld+json" set:html={personSchema} />
   <div class="ek-stage">
     <Reveal />
     {years.map(([year, posts], i) => (
