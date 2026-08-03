@@ -25,8 +25,6 @@ const posts = defineCollection({
 const about = defineCollection({
   type: 'content',
   schema: z.object({
-    /** 头像图片路径 */
-    avatar: z.string(),
     /** 一句话定位 */
     tagline: z.string().default(''),
   }),

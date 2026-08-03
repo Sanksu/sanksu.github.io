@@ -1137,23 +1137,11 @@ body::after {
 
 /* 个人简介卡片 */
 .ek-bio {
-  display: flex;
-  gap: 1.5rem;
-  align-items: flex-start;
   margin: 1.5rem 0 2.5rem;
   padding: 1.5rem;
   border: 1px solid var(--ek-line);
   border-radius: var(--ek-radius);
   background: var(--ek-paper-soft);
-}
-
-.ek-bio__avatar {
-  width: 96px;
-  height: 96px;
-  flex-shrink: 0;
-  object-fit: cover;
-  border: 1px solid var(--ek-line-strong);
-  border-radius: var(--ek-radius);
 }
 
 .ek-bio__body {
