@@ -12,7 +12,8 @@ export async function GET(context: APIContext) {
     title: getSiteName(),
     description: 'Sanksu的个人博客',
     site: context.site ?? siteUrl,
-    customData: '<language>zh-cn</language>',
+    xmlns: { atom: 'http://www.w3.org/2005/Atom' },
+    customData: `<language>zh-cn</language><atom:link href="${siteUrl}/rss.xml" rel="self" type="application/rss+xml"/>`,
     items: posts.map(post => ({
       title: post.data.title,
       link: `${siteUrl}${postUrl(post)}`,

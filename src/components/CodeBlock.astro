@@ -23,8 +23,21 @@
       btn.className = 'ek-copy-btn'
       btn.textContent = '复制'
       btn.addEventListener('click', async () => {
+        const text = code.textContent || ''
         try {
-          await navigator.clipboard.writeText(code.textContent || '')
+          if (navigator.clipboard && window.isSecureContext) {
+            await navigator.clipboard.writeText(text)
+          } else {
+            // 降级方案：非安全上下文/旧浏览器
+            const ta = document.createElement('textarea')
+            ta.value = text
+            ta.style.position = 'fixed'
+            ta.style.opacity = '0'
+            document.body.appendChild(ta)
+            ta.select()
+            document.execCommand('copy')
+            document.body.removeChild(ta)
+          }
           btn.textContent = '已复制'
         } catch {
           btn.textContent = '复制失败'
