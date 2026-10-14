@@ -1,4 +1,6 @@
 ---
+import MorseMark from './MorseMark.astro'
+
 const NAV_LINKS = [
   { href: '/', label: '首页', en: 'INDEX', index: '01' },
   { href: '/categories/', label: '分类', en: 'CATEGORIES', index: '02' },
@@ -24,7 +26,7 @@ const activeIndex = NAV_LINKS.find(l => isActive(l.href))?.index ?? '01'
 <header class="ek-topbar">
   <div class="ek-topbar__brand">
     <a href="/" class="ek-brand" aria-label="返回首页">
-      <span class="ek-brand__mark" aria-hidden="true"></span>
+      <MorseMark class="ek-brand__mark" />
       <span class="ek-brand__text">
         <strong>SANKSU</strong>
         <small>FIELD LOG</small>

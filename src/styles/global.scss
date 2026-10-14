@@ -117,12 +117,13 @@ body::after {
   color: var(--ek-panel-text);
 }
 
+/* 品牌标记：摩斯电码 SANKSU 条（源自 CAD 图纸，viewBox 宽高比 9.351:1） */
 .ek-brand__mark {
-  width: 18px;
-  height: 18px;
-  background: var(--ek-signal);
-  clip-path: polygon(0 0, 100% 0, 100% 75%, 75% 100%, 0 100%);
+  width: 190px;
+  height: auto;
+  color: var(--ek-signal);
   flex-shrink: 0;
+  display: block;
 }
 
 .ek-brand__text {
@@ -1550,32 +1551,59 @@ body::after {
   transition: opacity 0.6s var(--ek-ease);
 }
 
-.ek-boot__grid {
-  display: grid;
-  grid-template-columns: repeat(3, 14px);
-  grid-template-rows: repeat(3, 14px);
-  gap: 6px;
+/* 加载动画：摩斯电码 SANKSU 逐字点亮（左→右），点完转整条轻微呼吸 */
+.ek-boot__mark {
+  width: 330px;
+  height: auto;
+  /* 用 ink 而非 signal：黄 #fffa00 压在米白 paper 上亮度对比只有 1.01:1（同屏文字是 15.7:1），
+     亮度落差≈0 时边缘只剩色相差，看上去就是发虚。ink 在两种主题下都对底 15.7:1，且与 __text 一致。 */
+  color: var(--ek-ink);
+  animation: ek-morse-breathe 1.8s ease-in-out 1.2s infinite;
 }
 
-/* 缺角正方形（右上切角，与品牌标一致） */
-.ek-boot__tile {
-  width: 14px;
-  height: 14px;
-  background: var(--ek-signal);
-  clip-path: polygon(0 0, 100% 0, 100% 75%, 75% 100%, 0 100%);
-  animation: ek-tile-pulse 0.9s infinite ease-in-out both;
+/* 每个胶囊淡入；transform-box 让百分比/缩放以自身盒为基准 */
+.ek-boot__mark path {
+  transform-box: fill-box;
+  transform-origin: bottom center;
+  animation: ek-morse-key 0.3s var(--ek-ease) both;
 }
 
-/* 交替延迟：从左上开始逐个传播 */
-.ek-boot__tile:nth-child(1) { animation-delay: 0s; }
-.ek-boot__tile:nth-child(2) { animation-delay: 0.1s; }
-.ek-boot__tile:nth-child(3) { animation-delay: 0.2s; }
-.ek-boot__tile:nth-child(4) { animation-delay: 0.3s; }
-.ek-boot__tile:nth-child(5) { animation-delay: 0.4s; }
-.ek-boot__tile:nth-child(6) { animation-delay: 0.5s; }
-.ek-boot__tile:nth-child(7) { animation-delay: 0.6s; }
-.ek-boot__tile:nth-child(8) { animation-delay: 0.7s; }
-.ek-boot__tile:nth-child(9) { animation-delay: 0.8s; }
+/*
+ * 播完就把动画摘掉：只要 CSS 动画还挂在 path 上（即使已结束、computed 值相同），
+ * Chromium 就会把每条 path 留在按动画起点尺寸栅格化的合成层里，不再重新栅格化 ——
+ * 实测 AA 过渡像素 16.5% → 25.8%，肉眼即“糊”。由 BaseLayout 的 animationend 加此类。
+ */
+.ek-boot__mark.is-keyed path {
+  animation: none;
+}
+
+/* 55ms 一档：16 个胶囊 ≈ 0.83s 走完，与加载结束后的 0.9s 淡出对齐 */
+.ek-boot__mark path:nth-child(1) { animation-delay: 0s; }
+.ek-boot__mark path:nth-child(2) { animation-delay: 0.055s; }
+.ek-boot__mark path:nth-child(3) { animation-delay: 0.11s; }
+.ek-boot__mark path:nth-child(4) { animation-delay: 0.165s; }
+.ek-boot__mark path:nth-child(5) { animation-delay: 0.22s; }
+.ek-boot__mark path:nth-child(6) { animation-delay: 0.275s; }
+.ek-boot__mark path:nth-child(7) { animation-delay: 0.33s; }
+.ek-boot__mark path:nth-child(8) { animation-delay: 0.385s; }
+.ek-boot__mark path:nth-child(9) { animation-delay: 0.44s; }
+.ek-boot__mark path:nth-child(10) { animation-delay: 0.495s; }
+.ek-boot__mark path:nth-child(11) { animation-delay: 0.55s; }
+.ek-boot__mark path:nth-child(12) { animation-delay: 0.605s; }
+.ek-boot__mark path:nth-child(13) { animation-delay: 0.66s; }
+.ek-boot__mark path:nth-child(14) { animation-delay: 0.715s; }
+.ek-boot__mark path:nth-child(15) { animation-delay: 0.77s; }
+.ek-boot__mark path:nth-child(16) { animation-delay: 0.825s; }
+
+@keyframes ek-morse-key {
+  from { opacity: 0; transform: scaleY(0.35); }
+  to { opacity: 1; transform: none; }
+}
+
+@keyframes ek-morse-breathe {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.9; }
+}
 
 .ek-boot__text {
   font-family: var(--ek-font-mono);
@@ -1584,11 +1612,6 @@ body::after {
   color: var(--ek-ink);
   opacity: 0.85;
   text-transform: uppercase;
-}
-
-@keyframes ek-tile-pulse {
-  0%, 100% { transform: scale(1); opacity: 1; }
-  50% { transform: scale(0.75); opacity: 0.35; }
 }
 
 @keyframes ek-breathe {
@@ -1724,6 +1747,11 @@ body::after {
     display: none;
   }
 
+  /* 顶栏窄屏余量告急（320px 下只剩 ~29px），品牌标记同步收窄 */
+  .ek-brand__mark {
+    width: 130px;
+  }
+
   .ek-list__item {
     grid-template-columns: 1fr;
     gap: 0.4rem;
@@ -1755,6 +1783,11 @@ body::after {
   *, *::before, *::after {
     transition-duration: 0.01ms !important;
     animation-duration: 0.01ms !important;
+  }
+
+  /* 加载屏的逐个点亮同样属于动效，去掉延迟让标记一次性出现 */
+  .ek-boot__mark path {
+    animation-delay: 0s !important;
   }
 
   .ek-reveal {

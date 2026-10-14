@@ -2,6 +2,7 @@
 import Header from '../components/Header.astro'
 import Footer from '../components/Footer.astro'
 import FloatingActions from '../components/FloatingActions.astro'
+import MorseMark from '../components/MorseMark.astro'
 import 'katex/dist/katex.min.css'
 import '../styles/global.scss'
 import { siteMetadata } from '../data/site'
@@ -57,11 +58,7 @@ const site = siteMetadata.site
   </head>
   <body>
     <div class="ek-boot" id="ek-boot" aria-hidden="true">
-      <div class="ek-boot__grid" aria-hidden="true">
-        {Array.from({ length: 9 }, (_, i) => (
-          <div class="ek-boot__tile"></div>
-        ))}
-      </div>
+      <MorseMark class="ek-boot__mark" />
       <div class="ek-boot__text">SANKSU / FIELD LOG</div>
     </div>
     <script is:inline>
@@ -73,6 +70,15 @@ const site = siteMetadata.site
         if (seen) { overlay.remove(); return; }
         sessionStorage.setItem('ek_loaded', '1');
         overlay.classList.add('ek-boot--show');
+        // 逐条点亮播完即摘掉动画：CSS 动画留在 path 上会让标记停在低分辨率合成层里发糊
+        var mark = overlay.querySelector('.ek-boot__mark');
+        if (mark) {
+          mark.addEventListener('animationend', function (e) {
+            if (e.animationName === 'ek-morse-key' && e.target === mark.lastElementChild) {
+              mark.classList.add('is-keyed');
+            }
+          });
+        }
         var done = false;
         function hide() {
           if (done) return;
