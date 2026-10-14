@@ -117,12 +117,13 @@ body::after {
   color: var(--ek-panel-text);
 }
 
+/* 品牌标记：摩斯电码 SANKSU 条（源自 CAD 图纸，viewBox 宽高比 9.351:1） */
 .ek-brand__mark {
-  width: 18px;
-  height: 18px;
-  background: var(--ek-signal);
-  clip-path: polygon(0 0, 100% 0, 100% 75%, 75% 100%, 0 100%);
+  width: 190px;
+  height: auto;
+  color: var(--ek-signal);
   flex-shrink: 0;
+  display: block;
 }
 
 .ek-brand__text {
@@ -310,9 +311,12 @@ body::after {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  gap: 1rem;
+  /* 折行时（约 640–1120px）行间距要小于列间距，否则两行像两块无关内容 */
+  gap: 0.6rem 1rem;
   padding: 1rem clamp(1.5rem, 4vw, 3.5rem);
   flex-wrap: wrap;
+  /* dock 两主题下都是深色面板，分隔色由 panel-text 派生而非 --ek-line */
+  border-top: 1px solid rgba(242, 242, 240, 0.16);
   font-size: 14px;
 }
 
@@ -320,6 +324,7 @@ body::after {
   display: flex;
   align-items: center;
   gap: 1rem;
+  min-width: 0;
   font-family: var(--ek-font-tech);
   letter-spacing: 0.04em;
 }
@@ -336,6 +341,14 @@ body::after {
   opacity: 0.7;
 }
 
+/* 链接行必须可折行：备案链接增多后，min-content 会把 dock 撑破视口 */
+.ek-dock__links {
+  flex-wrap: wrap;
+  row-gap: 0.35rem;
+  /* 折到独立一行时贴右，与宽屏单行、顶栏保持同一条右轴线 */
+  margin-left: auto;
+}
+
 .ek-dock__links a {
   color: var(--ek-panel-text);
   opacity: 0.7;
@@ -347,6 +360,42 @@ body::after {
   opacity: 1;
 }
 
+/* 站点链接与 RSS 按钮统一到 mono/12px/0.12em，主次只由边框区分 */
+.ek-dock__links > a {
+  font-family: var(--ek-font-mono);
+  font-size: 12px;
+  letter-spacing: 0.12em;
+}
+
+/* 备案信息：法定附属信息，压到次级层级，靠分隔线同站点链接区分 */
+.ek-dock__beian {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.3rem 0.85rem;
+  padding-left: 0.9rem;
+  /* dock 两种主题下均为深色面板，故用 panel-text 派生的分隔色而非 --ek-line-strong */
+  border-left: 1px solid rgba(242, 242, 240, 0.22);
+  font-size: 12.5px;
+  letter-spacing: 0.02em;
+  font-variant-numeric: tabular-nums;
+}
+
+.ek-dock__beian a {
+  white-space: nowrap;
+  opacity: 0.65;
+}
+
+.ek-dock__beian a:hover {
+  opacity: 1;
+}
+
+/* 公安备案官方国徽图标（公安部下载中心「备案编号图标.png」原样） */
+.ek-dock__beian-icon {
+  vertical-align: -2px;
+  margin-right: 0.25rem;
+}
+
 /* RSS 订阅按钮 */
 .ek-rss-btn {
   display: inline-flex;
@@ -355,10 +404,10 @@ body::after {
   font-family: var(--ek-font-mono);
   font-size: 12px;
   letter-spacing: 0.12em;
-  border: 1px solid var(--ek-panel-text);
+  /* 满亮描边会盖过整条 dock 的层级，降到与链接文字同档 */
+  border: 1px solid rgba(242, 242, 240, 0.28);
   border-radius: var(--ek-radius);
   padding: 0.25rem 0.6rem;
-  opacity: 0.9;
 }
 
 .ek-rss-btn:hover {
@@ -392,7 +441,8 @@ body::after {
   align-items: center;
   justify-content: center;
   background: var(--ek-panel);
-  color: var(--ek-paper);
+  /* 底色是深色面板（两主题皆然），图标须用 panel-text；--ek-paper 在深色模式会翻成黑，对比度只剩 1.05:1 */
+  color: var(--ek-panel-text);
   border: 1px solid var(--ek-line-strong);
   border-radius: var(--ek-radius);
   cursor: pointer;
@@ -1550,32 +1600,59 @@ body::after {
   transition: opacity 0.6s var(--ek-ease);
 }
 
-.ek-boot__grid {
-  display: grid;
-  grid-template-columns: repeat(3, 14px);
-  grid-template-rows: repeat(3, 14px);
-  gap: 6px;
+/* 加载动画：摩斯电码 SANKSU 逐字点亮（左→右），点完转整条轻微呼吸 */
+.ek-boot__mark {
+  width: 330px;
+  height: auto;
+  /* 用 ink 而非 signal：黄 #fffa00 压在米白 paper 上亮度对比只有 1.01:1（同屏文字是 15.7:1），
+     亮度落差≈0 时边缘只剩色相差，看上去就是发虚。ink 在两种主题下都对底 15.7:1，且与 __text 一致。 */
+  color: var(--ek-ink);
+  animation: ek-morse-breathe 1.8s ease-in-out 1.2s infinite;
 }
 
-/* 缺角正方形（右上切角，与品牌标一致） */
-.ek-boot__tile {
-  width: 14px;
-  height: 14px;
-  background: var(--ek-signal);
-  clip-path: polygon(0 0, 100% 0, 100% 75%, 75% 100%, 0 100%);
-  animation: ek-tile-pulse 0.9s infinite ease-in-out both;
+/* 每个胶囊淡入；transform-box 让百分比/缩放以自身盒为基准 */
+.ek-boot__mark path {
+  transform-box: fill-box;
+  transform-origin: bottom center;
+  animation: ek-morse-key 0.3s var(--ek-ease) both;
 }
 
-/* 交替延迟：从左上开始逐个传播 */
-.ek-boot__tile:nth-child(1) { animation-delay: 0s; }
-.ek-boot__tile:nth-child(2) { animation-delay: 0.1s; }
-.ek-boot__tile:nth-child(3) { animation-delay: 0.2s; }
-.ek-boot__tile:nth-child(4) { animation-delay: 0.3s; }
-.ek-boot__tile:nth-child(5) { animation-delay: 0.4s; }
-.ek-boot__tile:nth-child(6) { animation-delay: 0.5s; }
-.ek-boot__tile:nth-child(7) { animation-delay: 0.6s; }
-.ek-boot__tile:nth-child(8) { animation-delay: 0.7s; }
-.ek-boot__tile:nth-child(9) { animation-delay: 0.8s; }
+/*
+ * 播完就把动画摘掉：只要 CSS 动画还挂在 path 上（即使已结束、computed 值相同），
+ * Chromium 就会把每条 path 留在按动画起点尺寸栅格化的合成层里，不再重新栅格化 ——
+ * 实测 AA 过渡像素 16.5% → 25.8%，肉眼即“糊”。由 BaseLayout 的 animationend 加此类。
+ */
+.ek-boot__mark.is-keyed path {
+  animation: none;
+}
+
+/* 55ms 一档：16 个胶囊 ≈ 0.83s 走完，与加载结束后的 0.9s 淡出对齐 */
+.ek-boot__mark path:nth-child(1) { animation-delay: 0s; }
+.ek-boot__mark path:nth-child(2) { animation-delay: 0.055s; }
+.ek-boot__mark path:nth-child(3) { animation-delay: 0.11s; }
+.ek-boot__mark path:nth-child(4) { animation-delay: 0.165s; }
+.ek-boot__mark path:nth-child(5) { animation-delay: 0.22s; }
+.ek-boot__mark path:nth-child(6) { animation-delay: 0.275s; }
+.ek-boot__mark path:nth-child(7) { animation-delay: 0.33s; }
+.ek-boot__mark path:nth-child(8) { animation-delay: 0.385s; }
+.ek-boot__mark path:nth-child(9) { animation-delay: 0.44s; }
+.ek-boot__mark path:nth-child(10) { animation-delay: 0.495s; }
+.ek-boot__mark path:nth-child(11) { animation-delay: 0.55s; }
+.ek-boot__mark path:nth-child(12) { animation-delay: 0.605s; }
+.ek-boot__mark path:nth-child(13) { animation-delay: 0.66s; }
+.ek-boot__mark path:nth-child(14) { animation-delay: 0.715s; }
+.ek-boot__mark path:nth-child(15) { animation-delay: 0.77s; }
+.ek-boot__mark path:nth-child(16) { animation-delay: 0.825s; }
+
+@keyframes ek-morse-key {
+  from { opacity: 0; transform: scaleY(0.35); }
+  to { opacity: 1; transform: none; }
+}
+
+@keyframes ek-morse-breathe {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.9; }
+}
 
 .ek-boot__text {
   font-family: var(--ek-font-mono);
@@ -1584,11 +1661,6 @@ body::after {
   color: var(--ek-ink);
   opacity: 0.85;
   text-transform: uppercase;
-}
-
-@keyframes ek-tile-pulse {
-  0%, 100% { transform: scale(1); opacity: 1; }
-  50% { transform: scale(0.75); opacity: 0.35; }
 }
 
 @keyframes ek-breathe {
@@ -1724,6 +1796,31 @@ body::after {
     display: none;
   }
 
+  /* 顶栏窄屏余量告急（320px 下只剩 ~29px），品牌标记同步收窄 */
+  .ek-brand__mark {
+    width: 130px;
+  }
+
+  /* 窄屏 dock 多行，取消右贴与行首分隔线，统一左对齐 */
+  .ek-dock__links {
+    margin-left: 0;
+  }
+
+  .ek-dock__beian {
+    padding-left: 0;
+    border-left: none;
+    font-size: 11.5px;
+  }
+
+  /* 窄屏标语独占一行：品牌块须允许折行，否则各段只会被压瘦、文字被拦腰拆开 */
+  .ek-dock__section {
+    flex-wrap: wrap;
+  }
+
+  .ek-dock__sys {
+    flex-basis: 100%;
+  }
+
   .ek-list__item {
     grid-template-columns: 1fr;
     gap: 0.4rem;
@@ -1755,6 +1852,11 @@ body::after {
   *, *::before, *::after {
     transition-duration: 0.01ms !important;
     animation-duration: 0.01ms !important;
+  }
+
+  /* 加载屏的逐个点亮同样属于动效，去掉延迟让标记一次性出现 */
+  .ek-boot__mark path {
+    animation-delay: 0s !important;
   }
 
   .ek-reveal {
