@@ -23,7 +23,7 @@
     "shiki": "^4.4.3"
   },
   "devDependencies": {
-    "@astrojs/check": "^0.9.10",
+    "@astrojs/check": "^0.9.12",
     "@types/node": "^26.6.3",
     "playwright": "^1.63.0",
     "sass": "^1.105.0",
