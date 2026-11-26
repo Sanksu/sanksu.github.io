@@ -8,7 +8,8 @@
     "build": "astro build",
     "check": "astro check",
     "preview": "astro preview",
-    "new:post": "tsx scripts/create-post.ts"
+    "new:post": "tsx scripts/create-post.ts",
+    "postinstall": "node scripts/patch-waline.mjs"
   },
   "dependencies": {
     "@astrojs/markdown-remark": "^7.2.2",
@@ -17,6 +18,7 @@
     "@astrojs/sitemap": "^3.7.4",
     "@waline/client": "^3.15.2",
     "astro": "^7.4.4",
+    "dompurify": "^3.5.0",
     "katex": "^0.18.9",
     "rehype-katex": "^7.0.1",
     "remark-math": "^6.0.0",
